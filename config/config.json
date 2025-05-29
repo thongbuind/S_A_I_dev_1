@@ -1,10 +1,10 @@
 {
-    "vocab_size": 68,
-    "max_seq_len": 64,
+    "vocab_size": 72,
+    "max_seq_len": 128,
     "d_model": 64,
     "num_heads": 4,
     "num_layers": 4,
-    "ff_dim": 256, 
+    "ff_dim": 256,
     "dropout": 0.2,
-    "epochs": 500
+    "epochs": 1000
 }

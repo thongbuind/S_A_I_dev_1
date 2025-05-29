@@ -2,7 +2,7 @@ import tensorflow as tf
 from keras import layers, models
 
 class Model(models.Model):
-    def __init__(self, vocab_size, max_len=64, d_model=64, num_heads=2, num_layers=2, ff_dim=128, dropout=0.1, **kwargs):
+    def __init__(self, vocab_size, max_len, d_model, num_heads, num_layers, ff_dim, dropout, **kwargs):
         super().__init__(**kwargs)
         self.vocab_size = vocab_size
         self.max_len = max_len

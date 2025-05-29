@@ -1,6 +1,9 @@
 import pandas as pd
 from pathlib import Path
 from vncorenlp import VnCoreNLP
+import json
+import csv
+from pathlib import Path
 
 # Khởi tạo VnCoreNLP
 VNCORENLP_PATH = "/Users/thongbui.nd/vncorenlp/VnCoreNLP/VnCoreNLP-1.1.1.jar"
@@ -39,6 +42,25 @@ sorted_vocab = special_tokens + sorted(vocab)  # Đặc biệt ở đầu, từ 
 # Gán index cho từ vựng
 word_to_id = {word: idx for idx, word in enumerate(sorted_vocab)}
 
+infor = {}
+infor_dir = current_file.parent.parent.parent / "config" / "infor.json"
+with open(infor_dir, "r", encoding="utf-8") as f:
+    infor = json.load(f)
+
+# Mở rộng từ điển với tên từ infor
+for word in infor["nametoken"].split():
+    if word not in word_to_id:
+        word_to_id[word] = len(word_to_id)
+for word in infor["agetoken"].split():
+    if word not in word_to_id:
+        word_to_id[word] = len(word_to_id)
+for word in infor["birthdaytoken"].split():
+    if word not in word_to_id:
+        word_to_id[word] = len(word_to_id)
+for word in infor["creatornametoken"].split():
+    if word not in word_to_id:
+        word_to_id[word] = len(word_to_id)
+
 # Thư mục chứa file createvocab.py
 current_file = Path(__file__).resolve()
 data_dir = current_file.parent.parent
@@ -50,3 +72,21 @@ with open(vocab_path, "w", encoding="utf-8") as f:
         f.write(f"{word}\t{idx}\n")
 
 print("✅ Đã tách từ, thêm token đặc biệt và lưu vào vocab.txt từ cả hai file thành công!")
+
+# Lấy đường dẫn tuyệt đối đến file vocab.txt dựa trên vị trí file hiện tại
+current_file = Path(__file__).resolve()
+config_dir = current_file.parent.parent.parent / "config" / "config.json"
+
+# Đọc config.json
+with open(config_dir, "r", encoding="utf-8") as f:
+    config = json.load(f)
+
+# Cập nhật vocab_size
+vocab_size = len(word_to_id)
+config["vocab_size"] = vocab_size
+
+# Ghi lại file config.json
+with open(config_dir, "w", encoding="utf-8") as f:
+    json.dump(config, f, ensure_ascii=False, indent=4)
+
+print(f"✅ Đã cập nhật 'vocab_size' = {vocab_size} vào config.json")

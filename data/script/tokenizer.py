@@ -13,11 +13,6 @@ with open(config_dir, 'r') as f:
     config = json.load(f)
 max_seq_len = config['max_seq_len']
 
-infor = {}
-infor_dir = current_file.parent.parent.parent / "config" / "infor.json"
-with open(infor_dir, "r", encoding="utf-8") as f:
-    infor = json.load(f)
-
 # Đọc vocab
 vocab = {}
 vocab_path = current_file.parent.parent / "vocab.txt"
@@ -26,22 +21,7 @@ with open(vocab_path, "r", encoding="utf-8") as f:
         word, idx = line.strip().split('\t')
         vocab[word] = int(idx)
 
-# Mở rộng từ điển với tên từ infor
-for word in infor["nametoken"].split():
-    if word not in vocab:
-        vocab[word] = len(vocab)
-for word in infor["agetoken"].split():
-    if word not in vocab:
-        vocab[word] = len(vocab)
-for word in infor["birthdaytoken"].split():
-    if word not in vocab:
-        vocab[word] = len(vocab)
-for word in infor["creatornametoken"].split():
-    if word not in vocab:
-        vocab[word] = len(vocab)
-
 idx2word = {i: w for w, i in vocab.items()}
-vocab_size = len(vocab)
 
 VNCORENLP_PATH = "/Users/thongbui.nd/vncorenlp/VnCoreNLP/VnCoreNLP-1.1.1.jar"
 annotator = VnCoreNLP(VNCORENLP_PATH, annotators="wseg", max_heap_size='-Xmx2g')

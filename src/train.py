@@ -5,7 +5,6 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 from data.processed.data_tokenized import pre_train_X, pre_train_Y, fine_tune_X, fine_tune_Y
-from data.script.tokenizer import vocab_size
 
 current_file = Path(__file__).resolve()
 
@@ -13,6 +12,7 @@ config_dir = current_file.parent.parent / "config" / "config.json"
 with open(config_dir, 'r') as f:
     config = json.load(f)
 
+vocab_size = config['vocab_size']
 max_seq_len = config['max_seq_len']
 d_model = config['d_model']
 num_heads = config['num_heads']
