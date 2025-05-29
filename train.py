@@ -5,6 +5,16 @@ from vncorenlp import VnCoreNLP
 from model import Model
 import csv
 
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+max_seq_len=config['max_seq_len']
+d_model=config['d_model']
+num_heads=config['num_heads']
+num_layers=config['num_layers']
+ff_dim=config['ff_dim']
+dropout=config['dropout']
+
 infor = {}
 with open("infor.json", "r", encoding="utf-8") as f:
     infor = json.load(f)
@@ -38,7 +48,7 @@ def tokenize(sentence):
 
 def detokenize(tokens, infor=None):
     """Chuyển token số về câu văn bản, thay thế token đặc biệt nếu cần"""
-    special_tokens = {0, 1, 2, 3, 4}  # PAD, UNK, BOS, EOS, SEP
+    special_tokens = {0, 1, 2, 3, 4, 5, 6}  # PAD, UNK, BOS, EOS, SEP
 
     words = []
     for t in tokens:
@@ -86,10 +96,9 @@ def prepare_pretrain_data(data):
         X.append(inp_ids)
         Y.append(out_ids)
     # FIX: Sử dụng max_len cố định
-    max_len = 32  # Hoặc giá trị bạn muốn
-    X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_len, padding='post')
-    Y = tf.keras.preprocessing.sequence.pad_sequences(Y, maxlen=max_len, padding='post')
-    return X, Y, max_len
+    X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_seq_len, padding='post')
+    Y = tf.keras.preprocessing.sequence.pad_sequences(Y, maxlen=max_seq_len, padding='post')
+    return X, Y, max_seq_len
 
 def prepare_finetune_data(data):
     X, Y = [], []
@@ -104,16 +113,14 @@ def prepare_finetune_data(data):
         X.append(inp)
         Y.append(tgt)
     
-    # FIX: Sử dụng max_len cố định giống pretrain
-    max_len = 32  # Cùng giá trị với pretrain
-    X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_len, padding='post')
-    Y = tf.keras.preprocessing.sequence.pad_sequences(Y, maxlen=max_len, padding='post')
-    return X, Y, max_len
+    X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_seq_len, padding='post')
+    Y = tf.keras.preprocessing.sequence.pad_sequences(Y, maxlen=max_seq_len, padding='post')
+    return X, Y, max_seq_len
 
 # ===========================
 # 4. Huấn luyện
 # ===========================
-model = Model(vocab_size)
+model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
 # --- Pre-train ---
@@ -155,7 +162,7 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
     for step in range(max_new_tokens):
         # Pad sequence để fit model
         padded_input = tf.keras.preprocessing.sequence.pad_sequences(
-            [current_sequence], maxlen=MAX_LEN, padding='post'
+            [current_sequence], maxlen=max_seq_len, padding='post'
         )
         
         # Predict next token
@@ -184,7 +191,7 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
         current_sequence.append(next_token)
         
         # Tránh sequence quá dài
-        if len(current_sequence) >= MAX_LEN:
+        if len(current_sequence) >= max_seq_len:
             break
     
     # Trích xuất phần response (sau [SEP])

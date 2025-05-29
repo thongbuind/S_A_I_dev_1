@@ -16,7 +16,7 @@ class Model(models.Model):
         self.pos_embedding = layers.Embedding(input_dim=max_len, output_dim=d_model)
 
         self.decoder_blocks = [
-            TransformerDecoderBlock(d_model, num_heads, ff_dim, dropout)
+            DecoderBlock(d_model, num_heads, ff_dim, dropout)
             for _ in range(num_layers)
         ]
         self.dropout_layer = layers.Dropout(dropout)
@@ -35,7 +35,7 @@ class Model(models.Model):
         return self.final_layer(x)
 
 
-class TransformerDecoderBlock(tf.keras.layers.Layer):
+class DecoderBlock(layers.Layer):
     def __init__(self, d_model, num_heads, ff_dim, dropout):
         super().__init__()
         self.mha = layers.MultiHeadAttention(num_heads=num_heads, key_dim=d_model)
