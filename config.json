@@ -1,9 +1,0 @@
-{
-    "max_seq_len": 64,
-    "d_model": 64,
-    "num_heads": 4,
-    "num_layers": 4,
-    "ff_dim": 256, 
-    "dropout": 0.2,
-    "epochs": 500
-}

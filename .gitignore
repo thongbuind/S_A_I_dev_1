@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.keras
+
+# VSCode / IDE
+.vscode/
+
+# macOS
+.DS_Store
+
+# Cache
+*.tmp
