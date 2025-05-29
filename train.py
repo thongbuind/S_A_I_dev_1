@@ -8,12 +8,13 @@ import csv
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-max_seq_len=config['max_seq_len']
-d_model=config['d_model']
-num_heads=config['num_heads']
-num_layers=config['num_layers']
-ff_dim=config['ff_dim']
-dropout=config['dropout']
+max_seq_len = config['max_seq_len']
+d_model = config['d_model']
+num_heads = config['num_heads']
+num_layers = config['num_layers']
+ff_dim = config['ff_dim']
+dropout = config['dropout']
+epochs = config['epochs']
 
 infor = {}
 with open("infor.json", "r", encoding="utf-8") as f:
@@ -29,7 +30,13 @@ with open("vocab.txt", "r", encoding="utf-8") as f:
 for word in infor["nametoken"].split():
     if word not in vocab:
         vocab[word] = len(vocab)
-for word in infor["roletoken"].split():
+for word in infor["agetoken"].split():
+    if word not in vocab:
+        vocab[word] = len(vocab)
+for word in infor["birthdaytoken"].split():
+    if word not in vocab:
+        vocab[word] = len(vocab)
+for word in infor["creatornametoken"].split():
     if word not in vocab:
         vocab[word] = len(vocab)
 
@@ -128,7 +135,7 @@ print("=== Bắt đầu pre-train ===")
 pretrain_data = load_pretrain_dataset("pre_train.csv")
 train_X, train_Y, MAX_LEN = prepare_pretrain_data(pretrain_data)  # FIX: Lưu MAX_LEN
 
-for epoch in range(1000):
+for epoch in range(epochs):
     loss = model.train_on_batch(train_X, train_Y)
     if epoch % 100 == 0:
         print(f"[Pretrain] Epoch {epoch}, Loss: {loss:.4f}")
@@ -138,12 +145,12 @@ model.save_weights("pretrain.weights.h5")
 # --- Fine-tune ---
 print("\n=== Bắt đầu fine-tune ===")
 fine_tune_data = load_finetune_dataset("fine_tune.csv")
-train_X, train_Y, _ = prepare_finetune_data(fine_tune_data)  # FIX: Không cần lưu max_len
+train_X, train_Y, _ = prepare_finetune_data(fine_tune_data)
 
 model.load_weights("pretrain.weights.h5")
-for epoch in range(1000):
+for epoch in range(epochs):
     loss = model.train_on_batch(train_X, train_Y)
-    if epoch % 50 == 0:
+    if epoch % 100 == 0:
         print(f"[Finetune] Epoch {epoch}, Loss: {loss:.4f}")
 
 model.save_weights("finetune.weights.h5")
@@ -176,8 +183,8 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
             next_token1 = np.argmax(next_token_probs1)
             
             # Cách 2: lấy ở vị trí cuối cùng (có thể là padding)
-            next_token_probs2 = preds[0, -1, :]
-            next_token2 = np.argmax(next_token_probs2)
+            # next_token_probs2 = preds[0, -1, :]
+            # next_token2 = np.argmax(next_token_probs2)
             
             # Sử dụng method 1 trước
             next_token = next_token1
@@ -204,7 +211,8 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
 # 6. Kiểm Tra Mô Hình
 # ===========================
 print("Thử nghiệm chào hỏi:", generate_response("chào"))
-print("bạn tên gì:", generate_response("bạn tên gì"))
-print("bạn tên là gì:", generate_response("bạn tên là gì"))
-print("vai trò của bạn:", generate_response("vai trò của bạn"))
-print("bạn mấy tuổi:", generate_response("bạn mấy tuổi"))
+print("Thử nghiệm hỏi tên:", generate_response("bạn tên gì"))
+print("Thử nghiệm hỏi tuổi:", generate_response("bạn mấy tuổi"))
+print("Thử nghiệm hỏi ngày sinh:", generate_response("bạn sinh ngày mấy"))
+print("Thử nghiệm hỏi tên của người tạo ra:", generate_response("ai tạo ra bạn"))
+print("Thử nghiệm yêu cầu giới thiệu:", generate_response("hãy tự giới thiệu bản thân"))
