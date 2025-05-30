@@ -1,17 +1,24 @@
 import tensorflow as tf
 import numpy as np
 from keras import models
+import json
 import sys
 from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
-from data.script.tokenizer import tokenize, detokenize, infor, vocab, max_seq_len
+from data.script.tokenizer import tokenize, detokenize, vocab, max_seq_len
 
 # Lấy đường dẫn tuyệt đối đến file vocab.txt dựa trên vị trí file hiện tại
 current_file = Path(__file__).resolve()
 
 model_path = project_root / "model" / "s_a_i.keras"
 model = models.load_model(model_path)
+
+infor = {}
+infor_dir = current_file.parent.parent / "config" / "infor.json"
+with open(infor_dir, "r", encoding="utf-8") as f:
+    infor = json.load(f)
+
 
 # ============================
 # Hàm Tạo Phản Hồi Cá Nhân Hóa
@@ -69,7 +76,7 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
 # Kiểm Tra Mô Hình
 # ================
 print("Thử nghiệm chào hỏi:", generate_response("chào"))
-print("Thử nghiệm hỏi tên:", generate_response("bạn tên gì"))
+print("Thử nghiệm hỏi tên:", generate_response("hiện nay bạn tên gì"))
 print("Thử nghiệm hỏi tuổi:", generate_response("bạn mấy tuổi"))
 print("Thử nghiệm hỏi ngày sinh:", generate_response("bạn sinh ngày mấy"))
 print("Thử nghiệm hỏi tên của người tạo ra:", generate_response("ai tạo ra bạn"))
