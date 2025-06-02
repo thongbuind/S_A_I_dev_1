@@ -82,4 +82,4 @@ print("Thử nghiệm hỏi ngày sinh:", generate_response("bạn sinh ngày m�
 print("Thử nghiệm hỏi tên của người tạo ra:", generate_response("ai tạo ra bạn"))
 print("Thử nghiệm yêu cầu giới thiệu:", generate_response("hãy tự giới thiệu bản thân"))
 
-print("Thử nghiệm 5 trừ 4 bằng:", generate_response("5 trừ 4 bằng"))
+print("Thử nghiệm max verstappen:", generate_response("max verstappen redbull f1"))
