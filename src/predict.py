@@ -75,11 +75,14 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
 # ================
 # Kiểm Tra Mô Hình
 # ================
-print("Thử nghiệm chào hỏi:", generate_response("chào"))
-print("Thử nghiệm hỏi tên:", generate_response("hiện nay bạn tên gì"))
-print("Thử nghiệm hỏi tuổi:", generate_response("bạn mấy tuổi"))
-print("Thử nghiệm hỏi ngày sinh:", generate_response("bạn sinh ngày mấy"))
-print("Thử nghiệm hỏi tên của người tạo ra:", generate_response("ai tạo ra bạn"))
-print("Thử nghiệm yêu cầu giới thiệu:", generate_response("hãy tự giới thiệu bản thân"))
+print("Req: chào. \nRes: ", generate_response("chào"))
+print("Req: bạn tên là gì. \nRes: ", generate_response("bạn tên là gì"))
+print("Req: bạn mấy tuổi. \nRes: ", generate_response("bạn mấy tuổi"))
+print("Req: bạn sinh ngày mấy. \nRes: ", generate_response("bạn sinh ngày mấy"))
+print("Req: người tạo ra bạn tên là gì. \nRes: ", generate_response("người tạo ra bạn tên là gì"))
+print("Req: hãy tự giới thiệu. \nRes: ", generate_response("hãy tự giới thiệu"))
 
-print("Thử nghiệm max verstappen:", generate_response("max verstappen redbull f1"))
+print("Req: vì sao max verstappen có kết quả tệ tại miami. \nRes: ", generate_response("vì sao max verstappen có kết quả tệ tại miami"))
+print("Req: hiện nay redbull tin tưởng ai. \nRes: ", generate_response("hiện nay redbull tin tưởng ai"))
+print("Req: tôi đi vào cuối tuần. \nRes: ", generate_response("tôi đi vào cuối tuần"))
+print("Req: chiến tranh. \nRes: ", generate_response("chiến tranh"))
