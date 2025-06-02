@@ -1,5 +1,5 @@
 import json
-import np
+import numpy as np
 from model import Model
 import sys
 from pathlib import Path
@@ -28,35 +28,35 @@ epochs = config['epochs']
 model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
-# print("=== Bắt đầu pre-train ===")
-# for epoch in range(epochs):
-#     loss = model.train_on_batch(pre_train_X, pre_train_Y)
-#     if epoch % 100 == 0:
-#         print(f"[Pretrain] Epoch {epoch}, Loss: {loss:.4f}")
+print("=== Bắt đầu pre-train ===")
+for epoch in range(epochs):
+    loss = model.train_on_batch(pre_train_X, pre_train_Y)
+    if epoch % 100 == 0:
+        print(f"[Pretrain] Epoch {epoch}, Loss: {loss:.4f}")
 
-# ----------- Pretrain Stage 2 (Load từ .npz) -----------
-print("\n=== Bắt đầu pre-train stage 2 ===")
+# # ----------- Pretrain Stage 2 (Load từ number_data.npz) -----------
+# print("\n=== Bắt đầu pre-train stage 2 ===")
 
-# Đường dẫn file .npz bạn muốn load (bạn thay đổi tên file nếu cần)
-npz_path = project_root / "data" / "processed" / "train_data.npz"
+# # Đường dẫn file .npz bạn muốn load (bạn thay đổi tên file nếu cần)
+# npz_path = project_root / "data" / "processed" / "number_data.npz"
 
-# Load data
-data = np.load(npz_path)
-pre_train_2_X = data['train_X']
-pre_train_2_Y = data['train_Y']
+# # Load data
+# data = np.load(npz_path)
+# pre_train_2_X = data['train_X']
+# pre_train_2_Y = data['train_Y']
 
-# Huấn luyện
-model.fit(
-    pre_train_2_X, pre_train_2_Y,
-    batch_size=32,
-    epochs=300
-)
+# # Huấn luyện
+# model.fit(
+#     pre_train_2_X, pre_train_2_Y,
+#     batch_size=32,
+#     epochs=300
+# )
 
-# print("\n=== Bắt đầu fine-tune ===")
-# for epoch in range(epochs):
-#     loss = model.train_on_batch(fine_tune_X, fine_tune_Y)
-#     if epoch % 100 == 0:
-#         print(f"[Finetune] Epoch {epoch}, Loss: {loss:.4f}")
+print("\n=== Bắt đầu fine-tune ===")
+for epoch in range(epochs):
+    loss = model.train_on_batch(fine_tune_X, fine_tune_Y)
+    if epoch % 100 == 0:
+        print(f"[Finetune] Epoch {epoch}, Loss: {loss:.4f}")
 
 model_folder = project_root / "model"
 model_folder.mkdir(parents=True, exist_ok=True)
