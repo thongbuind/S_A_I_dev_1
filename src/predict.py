@@ -82,7 +82,7 @@ print("Req: bạn sinh ngày mấy. \nRes: ", generate_response("bạn sinh ngà
 print("Req: người tạo ra bạn tên là gì. \nRes: ", generate_response("người tạo ra bạn tên là gì"))
 print("Req: hãy tự giới thiệu. \nRes: ", generate_response("hãy tự giới thiệu"))
 
-print("Req: vì sao max verstappen có kết quả tệ tại miami. \nRes: ", generate_response("vì sao max verstappen có kết quả tệ tại miami"))
+print("Req: max verstappen có kết quả tệ tại miami. \nRes: ", generate_response("max verstappen có kết quả tệ tại miami"))
 print("Req: hiện nay redbull tin tưởng ai. \nRes: ", generate_response("hiện nay redbull tin tưởng ai"))
 print("Req: tôi đi vào cuối tuần. \nRes: ", generate_response("tôi đi vào cuối tuần"))
 print("Req: chiến tranh. \nRes: ", generate_response("chiến tranh"))

@@ -28,11 +28,16 @@ epochs = config['epochs']
 model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
-print("=== Bắt đầu pre-train ===")
 for epoch in range(epochs):
     loss = model.train_on_batch(combined_X, combined_Y)
-    if epoch % 100 == 0:
-        print(f"[Pretrain] Epoch {epoch}, Loss: {loss:.4f}")
+    if epoch == 0:
+        print("╔════════════════════════════════════════════════════╗")
+        print("║                 BẮT ĐẦU PRE-TRAIN                  ║")
+        print("╠════════════════════════════════════════════════════╣")
+    if epoch % 100 == 0 or epoch == epochs - 1:
+        print(f"║  [Pretrain] Epoch: {epoch:4d}, Loss: {loss:.4f}              ║")
+    if epoch == epochs - 1:
+        print("╚════════════════════════════════════════════════════╝")
 
 model_folder = project_root / "model"
 model_folder.mkdir(parents=True, exist_ok=True)

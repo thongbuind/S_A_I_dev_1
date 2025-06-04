@@ -31,6 +31,7 @@ texts = texts1 + texts2  # Kết hợp danh sách câu từ cả hai file
 vocab = set()
 
 for sentence in texts:
+    sentence = sentence.lower()
     result = annotator.tokenize(sentence)
     for word_list in result:
         vocab.update(word_list)
