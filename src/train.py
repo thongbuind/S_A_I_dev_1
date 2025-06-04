@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
-from data.processed.data_tokenized import pre_train_X, pre_train_Y, fine_tune_X, fine_tune_Y
+from data.processed.data_tokenized import combined_X, combined_Y
 
 current_file = Path(__file__).resolve()
 
@@ -30,33 +30,9 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
 print("=== Bắt đầu pre-train ===")
 for epoch in range(epochs):
-    loss = model.train_on_batch(pre_train_X, pre_train_Y)
+    loss = model.train_on_batch(combined_X, combined_Y)
     if epoch % 100 == 0:
         print(f"[Pretrain] Epoch {epoch}, Loss: {loss:.4f}")
-
-# # ----------- Pretrain Stage 2 (Load từ number_data.npz) -----------
-# print("\n=== Bắt đầu pre-train stage 2 ===")
-
-# # Đường dẫn file .npz bạn muốn load (bạn thay đổi tên file nếu cần)
-# npz_path = project_root / "data" / "processed" / "number_data.npz"
-
-# # Load data
-# data = np.load(npz_path)
-# pre_train_2_X = data['train_X']
-# pre_train_2_Y = data['train_Y']
-
-# # Huấn luyện
-# model.fit(
-#     pre_train_2_X, pre_train_2_Y,
-#     batch_size=32,
-#     epochs=300
-# )
-
-print("\n=== Bắt đầu fine-tune ===")
-for epoch in range(epochs):
-    loss = model.train_on_batch(fine_tune_X, fine_tune_Y)
-    if epoch % 100 == 0:
-        print(f"[Finetune] Epoch {epoch}, Loss: {loss:.4f}")
 
 model_folder = project_root / "model"
 model_folder.mkdir(parents=True, exist_ok=True)
