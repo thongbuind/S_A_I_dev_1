@@ -64,7 +64,7 @@ def load_finetune_dataset(file_path):
         for row in reader:
             if len(row) >= 2:
                 dataset.append((row[0].strip(), row[1].strip()))
-    return dataset
+    return dataset * 10
 
 def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7):
     """
