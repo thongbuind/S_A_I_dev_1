@@ -48,13 +48,12 @@ def detokenize(tokens, infor=None):
     return " ".join(words)
 
 def load_pretrain_dataset(file_path):
-    """Tải dữ liệu pre-train từ CSV 1 cột: mỗi dòng là một câu"""
     dataset = []
     with open(file_path, "r", encoding="utf-8") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if len(row) >= 1:
-                dataset.append(row[0].strip())
+        json_data = json.load(f)
+        for entry in json_data:
+            if "content" in entry and isinstance(entry["content"], list):
+                dataset.extend([c.strip() for c in entry["content"] if isinstance(c, str) and c.strip()])
     return dataset
 
 def load_finetune_dataset(file_path):
@@ -117,7 +116,7 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
 
 # Tải và chuẩn bị dữ liệu
 raw_dir = current_file.parent.parent / "raw"
-pretrain_data = load_pretrain_dataset(raw_dir / "pre_train.csv")
+pretrain_data = load_pretrain_dataset(raw_dir / "pre_train.json")
 finetune_data = load_finetune_dataset(raw_dir / "fine_tune.csv")
 combined_X, combined_Y = prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7)
 
