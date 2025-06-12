@@ -1,8 +1,8 @@
-# *Build and train a Language Model (LM) from scratch use Transformer architecture*
+# *Build a Pre-trained Language Model (LM) from scratch with Transformer architecture*
 
 ---
 
-# I. Problem
+# I. Problem and issue
 
 1. Mô hình đang gặp tình trạng **Catastrophic Forgetting**, hiện đang tìm hiểu cách giải quyết.
 
@@ -26,13 +26,13 @@
 
 ---
 
-# II. Detail
+# II. Introduction
 
 ## 1. **Data**
 
 ### a, Pre-train data:
 
-Crawl từ wikipedia theo các chủ đề, tách thành từng câu một. Chỉ lấy những câu có độ dài `5 < x < 100`. Dùng VNCoreNLP để tách token, tạo ra vocab.txt. Duyệt qua vocab, nếu từ nào có tần suất xuất hiện dưới 10 lần thì xoá khỏi vocab.txt. Duyệt lại data, câu nào có chứa từ đã bị xoá thì xoá câu đó luôn. Mục đích là vì mô hình còn nhỏ, nên sẽ ưu tiên huấn luyện những từ ngữ thông dụng nhất.
+*Crawl từ wikipedia theo các chủ đề, tách thành từng câu một. Chỉ lấy những câu có độ dài `5 < x < 100`. Dùng VNCoreNLP để tách token, tạo ra vocab.txt. Duyệt qua vocab, nếu từ nào có tần suất xuất hiện dưới 10 lần thì xoá khỏi vocab.txt. Duyệt lại data, câu nào có chứa từ đã bị xoá thì xoá câu đó luôn. Mục đích là vì mô hình còn nhỏ, nên sẽ ưu tiên huấn luyện những từ ngữ thông dụng nhất.*
 
 - **Lịch sử:** Chú trọng vào lịch sử Việt Nam qua các thời kì và các nhân vật nổi tiếng.
 
@@ -104,6 +104,14 @@ return self.final_layer(x)
 **Target:** tôi + đang + học + [SEP] + tôi + đang + học + [EOS]
 
 *(Như đã nói ở trên, chuẩn bị data như thế này chưa ổn)*
+
+**Các vấn đề hiện tại:**
+
+- **Mô hình quá phụ thuộc vào vị trí từ (position bias):** Nguyên nhân là vì dùng absolute positional encoding (sin-cos) hoặc data chưa được xáo trộn đủ. Giải pháp: Dùng relative positional encoding.
+
+- **Mô hình học vẹt (memorization):** Ví dụ req là "Đinh Tiên Hoàng" thì res sẽ là "đinh bộ lĩnh lên_ngôi hoàng_đế" (lấy luôn một câu trong data). Tin vui là mô hình đã hiểu được Đinh Tiên Hoàng là Đinh Bộ Lĩnh (maybe :))) Nhưng haizzz, vấn đề là mô hình học vẹt 100%.
+
+- Trong 1 diễn biến khác, nếu req là "việt nam" thì res sẽ là "việt_nam được yêu thích của người việt_nam là cà_phê được yêu thích của người việt_nam , đặc_biệt là giới sinh_viên và người việt_nam , đặc_biệt là giới sinh_viên và người lao_động". Ngược lại với bên trên, lần này tin vui là mô hình không copy nguyên câu từ data mà cố gắng sinh câu mới, cho thấy khả năng generalization sơ khai, nhưng nhược điểm nhỏ là ngữ nghĩa lủng củng (cái này thì có thể khắc phục được bằng cách mở rộng data). 
 
 **Evaluation:**
 - **Loss:** `sparse_categorical_crossentropy`
