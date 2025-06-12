@@ -109,9 +109,15 @@ return self.final_layer(x)
 
 - **Mô hình quá phụ thuộc vào vị trí từ (position bias):** Nguyên nhân là vì dùng absolute positional encoding (sin-cos) hoặc data chưa được xáo trộn đủ. Giải pháp: Dùng relative positional encoding.
 
-- **Mô hình học vẹt (memorization):** Ví dụ req là "Đinh Tiên Hoàng" thì res sẽ là "đinh bộ lĩnh lên_ngôi hoàng_đế" (lấy luôn một câu trong data). Tin vui là mô hình đã hiểu được Đinh Tiên Hoàng là Đinh Bộ Lĩnh (maybe :))) Nhưng haizzz, vấn đề là mô hình học vẹt 100%.
+- Ví dụ: Trong dataset có nhiều câu liên quan đến bánh mì, nhưng từ "bánh mì" chỉ xuất hiện ở giữa câu, không xuất hiện ở đầu câu. Nếu req là "bánh mì" thì res sẽ là "sự khác_biệt về văn_hoá giữa hai miền có_lẽ bắt_nguồn từ cuộc nam tiến này" (một câu **không hề liên quan**, lấy nguyên trong data). 
 
-- Trong 1 diễn biến khác, nếu req là "việt nam" thì res sẽ là "việt_nam được yêu thích của người việt_nam là cà_phê được yêu thích của người việt_nam , đặc_biệt là giới sinh_viên và người việt_nam , đặc_biệt là giới sinh_viên và người lao_động". Ngược lại với bên trên, lần này tin vui là mô hình không copy nguyên câu từ data mà cố gắng sinh câu mới, cho thấy khả năng generalization sơ khai, nhưng nhược điểm nhỏ là ngữ nghĩa lủng củng (cái này thì có thể khắc phục được bằng cách mở rộng data). 
+- **Mô hình học vẹt (memorization):** Ví dụ req là "Đinh Tiên Hoàng" thì res sẽ là "đinh bộ lĩnh lên_ngôi hoàng_đế" (lấy luôn một câu trong data). **Tin vui** là mô hình đã hiểu được Đinh Tiên Hoàng là Đinh Bộ Lĩnh (maybe :))) **Nhưng haizzz, vấn đề** là mô hình học vẹt 100%.
+
+- **Trong 1 diễn biến khác**, nếu req là "việt nam" thì res sẽ là "việt_nam được yêu thích của người việt_nam là cà_phê được yêu thích của người việt_nam , đặc_biệt là giới sinh_viên và người việt_nam , đặc_biệt là giới sinh_viên và người lao_động". Ngược lại với bên trên, lần này **tin vui** là mô hình không copy nguyên câu từ data mà cố gắng sinh câu mới, cho thấy khả năng generalization sơ khai. **Nhưng nhược điểm nhỏ** là ngữ nghĩa lủng củng (cái này thì có thể khắc phục được bằng cách mở rộng data). 
+
+**Hướng giải quyết:**
+- Thay đổi positional encoding thành relative
+- mở rộng data, xáo trộn
 
 **Evaluation:**
 - **Loss:** `sparse_categorical_crossentropy`
