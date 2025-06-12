@@ -80,9 +80,6 @@ print("Req: bạn tên là gì. \nRes: ", generate_response("bạn tên là gì"
 print("Req: bạn mấy tuổi. \nRes: ", generate_response("bạn mấy tuổi"))
 print("Req: bạn sinh ngày mấy. \nRes: ", generate_response("bạn sinh ngày mấy"))
 print("Req: người tạo ra bạn tên là gì. \nRes: ", generate_response("người tạo ra bạn tên là gì"))
-print("Req: hãy tự giới thiệu. \nRes: ", generate_response("hãy tự giới thiệu"))
+print("Req: hãy tự giới thiệu bản thân. \nRes: ", generate_response("hãy tự giới thiệu bản thân"))
 
-print("Req: max verstappen có kết quả tệ tại miami. \nRes: ", generate_response("max verstappen có kết quả tệ tại miami"))
-print("Req: hiện nay redbull tin tưởng ai. \nRes: ", generate_response("hiện nay redbull tin tưởng ai"))
-print("Req: tôi đi vào cuối tuần. \nRes: ", generate_response("tôi đi vào cuối tuần"))
-print("Req: chiến tranh. \nRes: ", generate_response("chiến tranh"))
+print("Req: bánh mì. \nRes: ", generate_response("bánh mì"))
