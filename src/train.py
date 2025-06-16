@@ -1,7 +1,10 @@
 import json
+import numpy as np
+import tensorflow as tf
 from model import Model
 import sys
 from pathlib import Path
+
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 from data.processed.data_tokenized import combined_X, combined_Y
@@ -31,7 +34,6 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 num_samples = combined_X.shape[0]
 num_batches = (num_samples + batch_size - 1) // batch_size
 
-
 for epoch in range(epochs):
     if epoch == 0:
         print("╔═════════════════════════════════════════╗")
@@ -44,6 +46,13 @@ for epoch in range(epochs):
         batch_X = combined_X[start_idx:end_idx]
         batch_Y = combined_Y[start_idx:end_idx]
         
+        # Padding batch cuối nếu cần
+        if batch_X.shape[0] < batch_size:
+            pad_size = batch_size - batch_X.shape[0]
+            batch_X = np.pad(batch_X, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
+            batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
+        
+        # Huấn luyện trên batch
         loss = model.train_on_batch(batch_X, batch_Y)
         if i % 100 == 0 or i == num_batches - 1:
             print(f"║  Epoch: {epoch:4d}, Batch: {i+1}/{num_batches}, Loss: {loss:.4f} ║")
