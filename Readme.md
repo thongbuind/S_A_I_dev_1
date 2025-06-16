@@ -1,7 +1,5 @@
 # *Build a Pre-trained Language Model (LM) from scratch with Transformer architecture*
 
----
-
 ## I. **Data**
 
 ### 1. Pre-train data

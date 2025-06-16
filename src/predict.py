@@ -75,11 +75,20 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
 # ================
 # Kiểm Tra Mô Hình
 # ================
+
+print("\n=== Test pre-train ===")
+print("Req: bánh mì. \nRes: ", generate_response("bánh mì"))
+print("Req: việt nam. \nRes: ", generate_response("việt nam"))
+print("Req: phở. \nRes: ", generate_response("phở"))
+print("Req: đám mây. \nRes: ", generate_response("đám mây"))
+print("Req: Đinh Tiên Hoàng. \nRes: ", generate_response("Đinh Tiên Hoàng"))
+print("Req: lê thái tổ. \nRes: ", generate_response("lê thái tổ"))
+print("Req: công thức 1. \nRes: ", generate_response("công thức 1"))
+
+print("=== Test fine-tune ===")
 print("Req: chào. \nRes: ", generate_response("chào"))
 print("Req: bạn tên là gì. \nRes: ", generate_response("bạn tên là gì"))
 print("Req: bạn mấy tuổi. \nRes: ", generate_response("bạn mấy tuổi"))
 print("Req: bạn sinh ngày mấy. \nRes: ", generate_response("bạn sinh ngày mấy"))
 print("Req: người tạo ra bạn tên là gì. \nRes: ", generate_response("người tạo ra bạn tên là gì"))
 print("Req: hãy tự giới thiệu bản thân. \nRes: ", generate_response("hãy tự giới thiệu bản thân"))
-
-print("Req: bánh mì. \nRes: ", generate_response("bánh mì"))

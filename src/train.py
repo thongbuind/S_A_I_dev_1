@@ -1,5 +1,4 @@
 import json
-import numpy as np
 from model import Model
 import sys
 from pathlib import Path
@@ -21,6 +20,7 @@ num_layers = config['num_layers']
 ff_dim = config['ff_dim']
 dropout = config['dropout']
 epochs = config['epochs']
+batch_size = config['batch_size']
 
 # ================
 #    Huấn luyện
@@ -28,16 +28,28 @@ epochs = config['epochs']
 model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
+num_samples = combined_X.shape[0]
+num_batches = (num_samples + batch_size - 1) // batch_size
+
+
 for epoch in range(epochs):
-    loss = model.train_on_batch(combined_X, combined_Y)
     if epoch == 0:
-        print("╔════════════════════════════════════════════════════╗")
-        print("║                 BẮT ĐẦU PRE-TRAIN                  ║")
-        print("╠════════════════════════════════════════════════════╣")
-    if epoch % 100 == 0 or epoch == epochs - 1:
-        print(f"║  [Pretrain] Epoch: {epoch:4d}, Loss: {loss:.4f}              ║")
+        print("╔═════════════════════════════════════════╗")
+        print("║            BẮT ĐẦU PRE-TRAIN            ║")
+        print("╠═════════════════════════════════════════╣")
+    
+    for i in range(num_batches):
+        start_idx = i * batch_size
+        end_idx = min(start_idx + batch_size, num_samples)
+        batch_X = combined_X[start_idx:end_idx]
+        batch_Y = combined_Y[start_idx:end_idx]
+        
+        loss = model.train_on_batch(batch_X, batch_Y)
+        if i % 100 == 0 or i == num_batches - 1:
+            print(f"║  Epoch: {epoch:4d}, Batch: {i+1}/{num_batches}, Loss: {loss:.4f} ║")
+    
     if epoch == epochs - 1:
-        print("╚════════════════════════════════════════════════════╝")
+        print("╚═════════════════════════════════════════╝")
 
 model_folder = project_root / "model"
 model_folder.mkdir(parents=True, exist_ok=True)
