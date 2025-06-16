@@ -2,35 +2,9 @@
 
 ---
 
-# I. Problem and issue
+## I. **Data**
 
-1. Mô hình đang gặp tình trạng **Catastrophic Forgetting**, hiện đang tìm hiểu cách giải quyết.
-
-**[UPDATE]**: Đã phần nào giải quyết được tình trạng **Catastrophic Forgetting**, nhưng chưa triệt để, cần nâng cấp thêm.
-
-2. **Vấn đề cách huấn luyện**
-   - **Mô tả vấn đề:**
-     - **Dữ liệu huấn luyện:** Chỉ có câu: *"Cho tới nay, bánh mì vẫn là món ăn phổ biến được yêu thích của người Việt Nam"*.
-     - **Hạn chế:** Khi input là *"bánh mì"*, mô hình không thể sinh ra câu *"bánh mì vẫn là món ăn phổ biến..."* mà thay vào đó sinh ra một câu khác không liên quan.
-     - **Dự đoán nguyên nhân:** Mô hình phụ thuộc quá nhiều vào **vị trí của từ** trong dữ liệu huấn luyện, dẫn đến việc mặc định từ *"bánh mì"* không thể đứng đầu câu.
-   - **Cách huấn luyện hiện tại:**
-     - Với dữ liệu **pre-train**:
-       - Input: `[BOS] + seq + [SEP] + seq`
-       - Target: `seq + [SEP] + seq + [EOS]`
-     - Với dữ liệu **fine-tune**:
-       - Input: `[BOS] + req + [SEP] + res`
-       - Target: `req + [SEP] + res + [EOS]`
-   - **Hướng xử lý:** Thay đổi cách huấn luyện để giảm pos bias.
-
-3. Chưa thể tối ưu không gian lưu trữ data huấn luyện (sẽ giải quyết sau).
-
----
-
-# II. Introduction
-
-## 1. **Data**
-
-### a, Pre-train data:
+### 1. Pre-train data
 
 *Crawl từ wikipedia theo các chủ đề, tách thành từng câu một. Chỉ lấy những câu có độ dài `5 < x < 100`. Dùng VNCoreNLP để tách token, tạo ra vocab.txt. Duyệt qua vocab, nếu từ nào có tần suất xuất hiện dưới 10 lần thì xoá khỏi vocab.txt. Duyệt lại data, câu nào có chứa từ đã bị xoá thì xoá câu đó luôn. Mục đích là vì mô hình còn nhỏ, nên sẽ ưu tiên huấn luyện những từ ngữ thông dụng nhất.*
 
@@ -52,17 +26,19 @@
 
 - **Gia đình:** Tập trung vào định nghĩa những mối quan hệ giữa các thành viên trong gia đình.
 
-### b, Fine-tune data: Tự viết :))
+### 2. Fine-tune data
 
-## 2. **Architecture**
+*Hiện tại chỉ là vài dòng đơn giản để test*
 
-### a, DecoderBlock
+## II. **Architecture**
+
+### 1. DecoderBlock
 
 - **Multi-heads Attention:** Use causal_mask.
 
 - **Feed Forward:** Sử dụng hàm kích hoạt `relu`.
 
-### b, Model
+### 2. Model
 
 - *`pos_embedding` hơi đơn giản, sẽ nâng cấp.*
 
@@ -91,7 +67,13 @@ for block in self.decoder_blocks:
 return self.final_layer(x)
 ```
 
-## 3. **Pre-train** 
+## III. **Pre-train** 
+
+### 1. Mục tiêu
+
+### 2. Phương án thực hiện
+
+### 3. Cách làm chi tiết
 
 *(Đây là cách làm hiện tại, đang tìm hiểu cách khác để có hiệu quả tốt hơn)*
 
