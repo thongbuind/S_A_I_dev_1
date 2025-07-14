@@ -35,11 +35,6 @@ num_samples = combined_X.shape[0]
 num_batches = (num_samples + batch_size - 1) // batch_size
 
 for epoch in range(epochs):
-    if epoch == 0:
-        print("╔═════════════════════════════════════════╗")
-        print("║            BẮT ĐẦU PRE-TRAIN            ║")
-        print("╠═════════════════════════════════════════╣")
-    
     for i in range(num_batches):
         start_idx = i * batch_size
         end_idx = min(start_idx + batch_size, num_samples)
@@ -53,9 +48,13 @@ for epoch in range(epochs):
             batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
         
         # Huấn luyện trên batch
+        if epoch == 0:
+            print("╔═════════════════════════════════════════╗")
+            print("║            BẮT ĐẦU PRE-TRAIN            ║")
+            print("╠═════════════════════════════════════════╣")
         loss = model.train_on_batch(batch_X, batch_Y)
         if i % 100 == 0 or i == num_batches - 1:
-            print(f"║  Epoch: {epoch:4d}, Batch: {i+1}/{num_batches}, Loss: {loss:.4f} ║")
+            print(f"║ Epoch: {epoch:3d}, Batch: {i+1:2d}/{num_batches}, Loss: {loss:.4f}  ║")
     
     if epoch == epochs - 1:
         print("╚═════════════════════════════════════════╝")
