@@ -36,7 +36,7 @@ texts = texts1 + texts2
 
 # ----------- TẠO VOCABULARY -----------
 vocab = set()
-batch_size = 50  # Giảm batch size xuống
+batch_size = 50
 max_retries = 3
 
 for i in range(0, len(texts), batch_size):

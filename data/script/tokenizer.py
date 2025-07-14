@@ -4,6 +4,7 @@ import json
 from vncorenlp import VnCoreNLP
 import csv
 from pathlib import Path
+import time
 
 # Lấy đường dẫn tuyệt đối đến file vocab.txt dựa trên vị trí file hiện tại
 current_file = Path(__file__).resolve()
@@ -51,9 +52,7 @@ def load_pretrain_dataset(file_path):
     dataset = []
     with open(file_path, "r", encoding="utf-8") as f:
         json_data = json.load(f)
-        for entry in json_data:
-            if "content" in entry and isinstance(entry["content"], list):
-                dataset.extend([c.strip() for c in entry["content"] if isinstance(c, str) and c.strip()])
+        dataset = [item.strip() for item in json_data if isinstance(item, str) and item.strip()]
     return dataset
 
 def load_finetune_dataset(file_path):
@@ -66,7 +65,7 @@ def load_finetune_dataset(file_path):
                 dataset.append((row[0].strip(), row[1].strip()))
     return dataset * 10
 
-def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7):
+def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7, batch_size=50):
     """
     Chuẩn bị dữ liệu gộp từ pretrain_data và finetune_data, với định dạng thống nhất: 
     [BOS] + sequence + [SEP] + sequence + [EOS].
@@ -77,36 +76,77 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
         vocab: Dictionary ánh xạ từ sang ID
         max_seq_len: Độ dài tối đa của chuỗi
         pretrain_ratio: Tỷ lệ dữ liệu pretrain trong tập gộp (mặc định 0.7)
+        batch_size: Kích thước batch để xử lý tokenization (mặc định 50)
     
     Returns:
         X: Dữ liệu đầu vào (input IDs)
         Y: Dữ liệu mục tiêu (target IDs)
     """
     X, Y = [], []
+    max_retries = 3
 
     # Xử lý dữ liệu pretrain
     pretrain_samples = int(len(pretrain_data) * pretrain_ratio)
-    for sentence in pretrain_data[:pretrain_samples]:
-        tokens = tokenize(sentence)
-        if len(tokens) < 2 or len(tokens) * 2 + 2 > max_seq_len:  # Kiểm tra độ dài để tránh vượt max_seq_len
-            continue
-        # Lặp lại chuỗi tokens
-        sequence = tokens
-        # Tạo đầu vào và mục tiêu
-        inp = [vocab["[BOS]"]] + sequence + [vocab["[SEP]"]] + sequence
-        tgt = sequence + [vocab["[SEP]"]] + sequence + [vocab["[EOS]"]]
-        X.append(inp)
-        Y.append(tgt)
+    
+    for i in range(0, pretrain_samples, batch_size):
+        batch_data = pretrain_data[i:i+batch_size]
+        print(f"Đang xử lý batch pretrain {i//batch_size + 1}/{(pretrain_samples + batch_size - 1)//batch_size}")
+        
+        for sentence in batch_data:
+            retry_count = 0
+            while retry_count < max_retries:
+                try:
+                    tokens = tokenize(sentence)
+                    if len(tokens) < 2 or len(tokens) * 2 + 2 > max_seq_len:  # Kiểm tra độ dài để tránh vượt max_seq_len
+                        break
+                    # Lặp lại chuỗi tokens
+                    sequence = tokens
+                    # Tạo đầu vào và mục tiêu
+                    inp = [vocab["[BOS]"]] + sequence + [vocab["[SEP]"]] + sequence
+                    tgt = sequence + [vocab["[SEP]"]] + sequence + [vocab["[EOS]"]]
+                    X.append(inp)
+                    Y.append(tgt)
+                    break  # Thành công, thoát khỏi vòng lặp retry
+                except Exception as e:
+                    retry_count += 1
+                    print(f"Lỗi khi tokenize (lần thử {retry_count}): {e}")
+                    if retry_count < max_retries:
+                        print("Đang thử lại...")
+                        time.sleep(1)
+                    else:
+                        print(f"Bỏ qua câu: {sentence[:50]}...")
+        
+        # Thêm delay giữa các batch
+        time.sleep(0.1)
 
     # Xử lý dữ liệu fine-tune
-    for req, res in finetune_data:
-        req_ids = tokenize(req)
-        res_ids = tokenize(res)
-        # Tạo đầu vào và mục tiêu
-        inp = [vocab["[BOS]"]] + req_ids + [vocab["[SEP]"]] + res_ids
-        tgt = req_ids + [vocab["[SEP]"]] + res_ids + [vocab["[EOS]"]]
-        X.append(inp)
-        Y.append(tgt)
+    for i in range(0, len(finetune_data), batch_size):
+        batch_data = finetune_data[i:i+batch_size]
+        print(f"Đang xử lý batch finetune {i//batch_size + 1}/{(len(finetune_data) + batch_size - 1)//batch_size}")
+        
+        for req, res in batch_data:
+            retry_count = 0
+            while retry_count < max_retries:
+                try:
+                    req_ids = tokenize(req)
+                    res_ids = tokenize(res)
+                    # Tạo đầu vào và mục tiêu
+                    inp = [vocab["[BOS]"]] + req_ids + [vocab["[SEP]"]] + res_ids
+                    tgt = req_ids + [vocab["[SEP]"]] + res_ids + [vocab["[EOS]"]]
+                    X.append(inp)
+                    Y.append(tgt)
+                    break  # Thành công, thoát khỏi vòng lặp retry
+                except Exception as e:
+                    retry_count += 1
+                    print(f"Lỗi khi tokenize (lần thử {retry_count}): {e}")
+                    if retry_count < max_retries:
+                        print("Đang thử lại...")
+                        time.sleep(1)
+                    else:
+                        print(f"Bỏ qua cặp: {req[:50]}...")
+        
+        # Thêm delay giữa các batch
+        time.sleep(0.1)
 
     # Chuẩn hóa độ dài chuỗi
     X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_seq_len, padding='post')
