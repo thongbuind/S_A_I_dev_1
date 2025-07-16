@@ -48,7 +48,7 @@ for epoch in range(epochs):
             batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
         
         # Huấn luyện trên batch
-        if epoch == 0:
+        if epoch == 0 and i == 0:
             print("╔═════════════════════════════════════════╗")
             print("║            BẮT ĐẦU PRE-TRAIN            ║")
             print("╠═════════════════════════════════════════╣")
