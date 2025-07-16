@@ -54,7 +54,7 @@ for epoch in range(epochs):
             print("╠═════════════════════════════════════════╣")
         loss = model.train_on_batch(batch_X, batch_Y)
         if i % 100 == 0 or i == num_batches - 1:
-            print(f"║ Epoch: {epoch:3d}, Batch: {i+1:2d}/{num_batches}, Loss: {loss:.4f}  ║")
+            print(f"║ Epoch: {epoch:3d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
     
     if epoch == epochs - 1:
         print("╚═════════════════════════════════════════╝")

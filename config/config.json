@@ -6,6 +6,6 @@
     "num_layers": 4,
     "ff_dim": 256,
     "dropout": 0.2,
-    "epochs": 100,
+    "epochs": 1,
     "batch_size": 128
 }
