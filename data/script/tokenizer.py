@@ -65,7 +65,7 @@ def load_finetune_dataset(file_path):
                 dataset.append((row[0].strip(), row[1].strip()))
     return dataset * 10
 
-def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7, batch_size=50):
+def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=1.0, batch_size=50):
     """
     Chuẩn bị dữ liệu gộp từ pretrain_data và finetune_data, với định dạng thống nhất: 
     [BOS] + sequence + [SEP] + sequence + [EOS].
@@ -158,7 +158,7 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
 raw_dir = current_file.parent.parent / "raw"
 pretrain_data = load_pretrain_dataset(raw_dir / "pre_train.json")
 finetune_data = load_finetune_dataset(raw_dir / "fine_tune.csv")
-combined_X, combined_Y = prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7)
+combined_X, combined_Y = prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=1.0)
 
 np.set_printoptions(threshold=np.inf)
 

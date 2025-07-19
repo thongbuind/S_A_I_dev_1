@@ -1,11 +1,11 @@
 {
-    "vocab_size": 19344,
+    "vocab_size": 24450,
     "max_seq_len": 128,
     "d_model": 64,
     "num_heads": 4,
     "num_layers": 4,
     "ff_dim": 256,
     "dropout": 0.2,
-    "epochs": 1,
+    "epochs": 50,
     "batch_size": 128
 }
