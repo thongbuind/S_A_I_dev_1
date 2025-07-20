@@ -100,8 +100,8 @@ def prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_rati
                     # Lặp lại chuỗi tokens
                     sequence = tokens
                     # Tạo đầu vào và mục tiêu
-                    inp = [vocab["[BOS]"]] + sequence + [vocab["[SEP]"]] + sequence
-                    tgt = sequence + [vocab["[SEP]"]] + sequence + [vocab["[EOS]"]]
+                    inp = [vocab["[BOS]"]] + sequence
+                    tgt = sequence + [vocab["[EOS]"]]
                     X.append(inp)
                     Y.append(tgt)
                     lengths.append(len(inp))  # Lưu độ dài thực
