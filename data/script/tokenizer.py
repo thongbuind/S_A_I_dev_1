@@ -55,27 +55,16 @@ def load_pretrain_dataset(file_path):
         dataset = [item.strip() for item in json_data if isinstance(item, str) and item.strip()]
     return dataset
 
-def load_finetune_dataset(file_path):
-    """Tải dữ liệu fine-tune từ CSV 2 cột: input, output"""
-    dataset = []
-    with open(file_path, "r", encoding="utf-8") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if len(row) >= 2:
-                dataset.append((row[0].strip(), row[1].strip()))
-    return dataset * 10
-
-def prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7, batch_size=50):
+def prepare_data(pretrain_data, vocab, max_seq_len, batch_size=50):
     """
-    Chuẩn bị dữ liệu gộp từ pretrain_data và finetune_data, với định dạng thống nhất: 
-    [BOS] + sequence + [SEP] + sequence + [EOS].
+    Chuẩn bị dữ liệu từ pretrain_data với định dạng: 
+        inp = [BOS] + sequence
+        tgt = sequence + [EOS]
     
     Args:
         pretrain_data: List các câu tự do (ví dụ: ["Max Verstappen là tay đua F1", ...])
-        finetune_data: List các cặp [câu hỏi, câu trả lời] (ví dụ: [["Bạn là ai?", "Tôi là S.A.I"], ...])
         vocab: Dictionary ánh xạ từ sang ID
         max_seq_len: Độ dài tối đa của chuỗi
-        pretrain_ratio: Tỷ lệ dữ liệu pretrain trong tập gộp (mặc định 0.7)
         batch_size: Kích thước batch để xử lý tokenization (mặc định 50)
     
     Returns:
@@ -85,7 +74,7 @@ def prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_rati
     """
     X, Y, lengths = [], [], []
     max_retries = 3
-    pretrain_samples = int(len(pretrain_data) * pretrain_ratio)
+    pretrain_samples = int(len(pretrain_data))
     
     for i in range(0, pretrain_samples, batch_size):
         batch_data = pretrain_data[i:i+batch_size]
@@ -117,41 +106,12 @@ def prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_rati
         
         # Thêm delay giữa các batch
         time.sleep(0.1)
-
-    # Xử lý dữ liệu fine-tune
-    for i in range(0, len(finetune_data), batch_size):
-        batch_data = finetune_data[i:i+batch_size]
-        print(f"Đang xử lý batch finetune {i//batch_size + 1}/{(len(finetune_data) + batch_size - 1)//batch_size}")
-        for req, res in batch_data:
-            retry_count = 0
-            while retry_count < max_retries:
-                try:
-                    req_ids = tokenize(req)
-                    res_ids = tokenize(res)
-                    # Tạo đầu vào và mục tiêu
-                    inp = [vocab["[BOS]"]] + req_ids + [vocab["[SEP]"]] + res_ids
-                    tgt = req_ids + [vocab["[SEP]"]] + res_ids + [vocab["[EOS]"]]
-                    X.append(inp)
-                    Y.append(tgt)
-                    lengths.append(len(inp))  # Lưu độ dài thực
-                    break  # Thành công, thoát khỏi vòng lặp retry
-                except Exception as e:
-                    retry_count += 1
-                    print(f"Lỗi khi tokenize (lần thử {retry_count}): {e}")
-                    if retry_count < max_retries:
-                        print("Đang thử lại...")
-                        time.sleep(1)
-                    else:
-                        print(f"Bỏ qua cặp: {req[:50]}...")
-        # Thêm delay giữa các batch
-        time.sleep(0.1)
     return X, Y, lengths
 
 # Tải và chuẩn bị dữ liệu
 raw_dir = current_file.parent.parent / "raw"
 pretrain_data = load_pretrain_dataset(raw_dir / "pre_train.json")
-finetune_data = load_finetune_dataset(raw_dir / "fine_tune.csv")
-X, Y, lengths = prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=1.0, batch_size=50)
+X, Y, lengths = prepare_data(pretrain_data, vocab, max_seq_len, batch_size=50)
 
 np.set_printoptions(threshold=np.inf)
 

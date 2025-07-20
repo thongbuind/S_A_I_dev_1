@@ -28,7 +28,7 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
     req_tokens = tokenize(sentence)
     
     # Bắt đầu với [BOS] + request + [SEP]
-    current_sequence = [vocab["[BOS]"]] + req_tokens + [vocab["[SEP]"]]
+    current_sequence = [vocab["[BOS]"]] + req_tokens
     
     # Generate từng token một
     for step in range(max_new_tokens):
@@ -40,18 +40,11 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
         # Predict next token
         preds = model.predict(padded_input, verbose=0)
         
-        # Thử cả 2 cách lấy prediction
-        # Cách 1: lấy ở vị trí cuối sequence thật
+        # Cách lấy: lấy ở vị trí cuối sequence thật
         pos1 = len(current_sequence) - 1
         if pos1 < preds.shape[1]:
             next_token_probs1 = preds[0, pos1, :]
             next_token1 = np.argmax(next_token_probs1)
-            
-            # Cách 2: lấy ở vị trí cuối cùng (có thể là padding)
-            # next_token_probs2 = preds[0, -1, :]
-            # next_token2 = np.argmax(next_token_probs2)
-            
-            # Sử dụng method 1 trước
             next_token = next_token1
         else:
             next_token = vocab["[EOS]"]
@@ -66,9 +59,9 @@ def generate_response(sentence, max_new_tokens=32, infor=infor):
         if len(current_sequence) >= max_seq_len:
             break
     
-    # Trích xuất phần response (sau [SEP])
-    sep_position = len([vocab["[BOS]"]] + req_tokens + [vocab["[SEP]"]])
-    response_tokens = current_sequence[sep_position:]
+    # # Trích xuất phần response (sau [SEP])
+    # sep_position = len([vocab["[BOS]"]] + req_tokens + [vocab["[SEP]"]])
+    # response_tokens = current_sequence[sep_position:]
 
     return detokenize(response_tokens, infor)
 
