@@ -60,7 +60,7 @@ def create_dynamic_batch(X, Y, lengths, batch_indices):
 # ================
 #    Huấn luyện
 # ================
-model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
+model = Model(vocab_size, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
 num_samples = len(X)
