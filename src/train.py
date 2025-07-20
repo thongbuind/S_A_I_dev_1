@@ -7,7 +7,7 @@ from pathlib import Path
 
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
-from data.processed.data_tokenized import combined_X, combined_Y
+from data.processed.data_tokenized import X, Y, lengths
 
 current_file = Path(__file__).resolve()
 
@@ -25,25 +25,60 @@ dropout = config['dropout']
 epochs = config['epochs']
 batch_size = config['batch_size']
 
+def create_dynamic_batch(X, Y, lengths, batch_indices):
+    """
+    Tạo batch với dynamic padding dựa trên độ dài tối đa trong batch
+    
+    Args:
+        X: Danh sách sequences đầu vào
+        Y: Danh sách sequences mục tiêu
+        lengths: Danh sách độ dài thực của từng sequence
+        batch_indices: Indices của các mẫu trong batch
+    
+    Returns:
+        batch_X: Batch đầu vào đã padding
+        batch_Y: Batch mục tiêu đã padding
+        batch_lengths: Độ dài thực của từng sequence trong batch
+    """
+    batch_X = [X[i] for i in batch_indices]
+    batch_Y = [Y[i] for i in batch_indices]
+    batch_lengths = [lengths[i] for i in batch_indices]
+    
+    # Tìm độ dài tối đa trong batch
+    max_len_in_batch = max(batch_lengths)
+    
+    # Padding đến độ dài tối đa trong batch
+    batch_X_padded = tf.keras.preprocessing.sequence.pad_sequences(
+        batch_X, maxlen=max_len_in_batch, padding='post'
+    )
+    batch_Y_padded = tf.keras.preprocessing.sequence.pad_sequences(
+        batch_Y, maxlen=max_len_in_batch, padding='post'
+    )
+    
+    return batch_X_padded, batch_Y_padded, batch_lengths
+
 # ================
 #    Huấn luyện
 # ================
 model = Model(vocab_size, max_seq_len, d_model, num_heads, num_layers, ff_dim, dropout)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
-num_samples = combined_X.shape[0]
+num_samples = len(X)
 num_batches = (num_samples + batch_size - 1) // batch_size
 
 for epoch in range(epochs):
     for i in range(num_batches):
         start_idx = i * batch_size
         end_idx = min(start_idx + batch_size, num_samples)
-        batch_X = combined_X[start_idx:end_idx]
-        batch_Y = combined_Y[start_idx:end_idx]
+        batch_indices = list(range(start_idx, end_idx))
         
-        # Padding batch cuối nếu cần
+        # Tạo batch với dynamic padding
+        batch_X, batch_Y, batch_lengths = create_dynamic_batch(X, Y, lengths, batch_indices)
+        
+        # Padding batch cuối nếu cần (để đảm bảo batch size cố định nếu yêu cầu)
         if batch_X.shape[0] < batch_size:
             pad_size = batch_size - batch_X.shape[0]
+            current_seq_len = batch_X.shape[1]
             batch_X = np.pad(batch_X, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
             batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
         
@@ -54,7 +89,7 @@ for epoch in range(epochs):
             print("╠═════════════════════════════════════════╣")
         loss = model.train_on_batch(batch_X, batch_Y)
         if i % 100 == 0 or i == num_batches - 1:
-            print(f"║ Epoch: {epoch:3d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
+            print(f"║ Epoch: {epoch:2d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
     
     if epoch == epochs - 1:
         print("╚═════════════════════════════════════════╝")

@@ -65,7 +65,7 @@ def load_finetune_dataset(file_path):
                 dataset.append((row[0].strip(), row[1].strip()))
     return dataset * 10
 
-def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7, batch_size=50):
+def prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7, batch_size=50):
     """
     Chuẩn bị dữ liệu gộp từ pretrain_data và finetune_data, với định dạng thống nhất: 
     [BOS] + sequence + [SEP] + sequence + [EOS].
@@ -79,19 +79,17 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
         batch_size: Kích thước batch để xử lý tokenization (mặc định 50)
     
     Returns:
-        X: Dữ liệu đầu vào (input IDs)
-        Y: Dữ liệu mục tiêu (target IDs)
+        X: Dữ liệu đầu vào (input IDs) - không padding
+        Y: Dữ liệu mục tiêu (target IDs) - không padding
+        lengths: List độ dài thực của từng sequence
     """
-    X, Y = [], []
+    X, Y, lengths = [], [], []
     max_retries = 3
-
-    # Xử lý dữ liệu pretrain
     pretrain_samples = int(len(pretrain_data) * pretrain_ratio)
     
     for i in range(0, pretrain_samples, batch_size):
         batch_data = pretrain_data[i:i+batch_size]
         print(f"Đang xử lý batch pretrain {i//batch_size + 1}/{(pretrain_samples + batch_size - 1)//batch_size}")
-        
         for sentence in batch_data:
             retry_count = 0
             while retry_count < max_retries:
@@ -106,6 +104,7 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
                     tgt = sequence + [vocab["[SEP]"]] + sequence + [vocab["[EOS]"]]
                     X.append(inp)
                     Y.append(tgt)
+                    lengths.append(len(inp))  # Lưu độ dài thực
                     break  # Thành công, thoát khỏi vòng lặp retry
                 except Exception as e:
                     retry_count += 1
@@ -123,7 +122,6 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
     for i in range(0, len(finetune_data), batch_size):
         batch_data = finetune_data[i:i+batch_size]
         print(f"Đang xử lý batch finetune {i//batch_size + 1}/{(len(finetune_data) + batch_size - 1)//batch_size}")
-        
         for req, res in batch_data:
             retry_count = 0
             while retry_count < max_retries:
@@ -135,6 +133,7 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
                     tgt = req_ids + [vocab["[SEP]"]] + res_ids + [vocab["[EOS]"]]
                     X.append(inp)
                     Y.append(tgt)
+                    lengths.append(len(inp))  # Lưu độ dài thực
                     break  # Thành công, thoát khỏi vòng lặp retry
                 except Exception as e:
                     retry_count += 1
@@ -144,30 +143,30 @@ def prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pret
                         time.sleep(1)
                     else:
                         print(f"Bỏ qua cặp: {req[:50]}...")
-        
         # Thêm delay giữa các batch
         time.sleep(0.1)
-
-    # Chuẩn hóa độ dài chuỗi
-    X = tf.keras.preprocessing.sequence.pad_sequences(X, maxlen=max_seq_len, padding='post')
-    Y = tf.keras.preprocessing.sequence.pad_sequences(Y, maxlen=max_seq_len, padding='post')
-
-    return X, Y
+    return X, Y, lengths
 
 # Tải và chuẩn bị dữ liệu
 raw_dir = current_file.parent.parent / "raw"
 pretrain_data = load_pretrain_dataset(raw_dir / "pre_train.json")
 finetune_data = load_finetune_dataset(raw_dir / "fine_tune.csv")
-combined_X, combined_Y = prepare_combined_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=0.7)
+X, Y, lengths = prepare_data(pretrain_data, finetune_data, vocab, max_seq_len, pretrain_ratio=1.0, batch_size=50)
 
 np.set_printoptions(threshold=np.inf)
 
-# Lưu dữ liệu gộp
+# Lưu dữ liệu gộp với thông tin lengths
 data_tokenized_dir = current_file.parent.parent / "processed" / "data_tokenized.py"
 with open(data_tokenized_dir, "w", encoding="utf-8") as f:
     f.write("import numpy as np\n\n")
-    f.write(f"combined_X = np.array({repr(combined_X.tolist())})\n\n")
-    f.write(f"combined_Y = np.array({repr(combined_Y.tolist())})\n")
+    f.write(f"X = {repr(X)}\n\n")  # Lưu dưới dạng list
+    f.write(f"Y = {repr(Y)}\n\n")  # Lưu dưới dạng list
+    f.write(f"lengths = {repr(lengths)}\n")  # Lưu thông tin độ dài
+
+print(f"Đã lưu dữ liệu dynamic padding vào: {data_tokenized_dir}")
+print(f"Tổng số mẫu: {len(X)}")
+print(f"Độ dài sequence trung bình: {np.mean(lengths):.2f}")
+print(f"Độ dài sequence min/max: {min(lengths)}/{max(lengths)}")
 
 # Gợi ý tích hợp EWC để ngăn catastrophic forgetting
 """
