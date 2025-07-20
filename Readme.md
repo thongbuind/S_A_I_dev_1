@@ -1,104 +1,164 @@
-# *Build a Pre-trained Language Model (LM) from scratch with Transformer architecture*
+# Build a Pre-trained Language Model (LM) from scratch with Transformer architecture
 
-## I. **Data**
+## Thang điểm đánh giá bài kiểm tra tạo câu:
+- **10**: Câu hay tuyệt đối.
+- **9**: Câu đúng cấu trúc, đúng nội dung, khá ổn.
+- **6-8**: Câu đúng cấu trúc, nội dung tạm đúng nhưng chung chung quá, không cụ thể hoặc nội dung chỉ gần đúng.
+- **5**: Câu đúng cấu trúc, nhưng sai ngữ nghĩa, nội dung.
+- **2-4**: Câu sai cấu trúc, nhưng nội dung vẫn có gì đó liên quan nhẹ
+- **1**: Câu không liên quan, sai cấu trúc, các từ không có sự liên quan.
 
-### 1. Pre-train data
+---
 
-*Crawl từ wikipedia theo các chủ đề, tách thành từng câu một. Chỉ lấy những câu có độ dài `5 < x < 100`. Dùng VNCoreNLP để tách token, tạo ra vocab.txt. Duyệt qua vocab, nếu từ nào có tần suất xuất hiện dưới 10 lần thì xoá khỏi vocab.txt. Duyệt lại data, câu nào có chứa từ đã bị xoá thì xoá câu đó luôn. Mục đích là vì mô hình còn nhỏ, nên sẽ ưu tiên huấn luyện những từ ngữ thông dụng nhất.*
+## Test pre-train
 
-- **Lịch sử:** Chú trọng vào lịch sử Việt Nam qua các thời kì và các nhân vật nổi tiếng.
+*Mô hình mới pre-train, chưa fine-tune nên chỉ có thể sinh văn bản dựa trên đầu vào, không yêu cầu tính chính xác của thông tin, chỉ xét cấu trúc và ngữ nghĩa.*
 
-- **Ẩm thực:** Ẩm thực Việt Nam.
+### Test 1
+**Req:** bánh mì 
 
-- **Thể thao:** Định nghĩa những môn thể thao phổ biến, 1 vài cá nhân, tập thể.
+**Res:** bánh_mì không_chỉ là một món ăn mà_còn là một phần của văn_hoá ẩm_thực việt_nam , thể_hiện sự sáng_tạo và sáng_tạo của người đầu_bếp .
 
-- **Thiết bị gia dụng:** Những thiết bị gia dụng thường gặp trong nhà.
+**Nhận xét:** Đầu vào đơn giản nên đã gen ra nửa đầu câu mượt, tuy nhiên đó là lấy nguyên từ dataset. Nửa sau thể hiện sự sáng tạo khi đã gen mới, mặc dù bị lặp từ "sáng tạo" nhưng ngữ nghĩa rất ổn.
 
-- **Công nghệ:**
+**Điểm:** 8
 
-- **Thời tiết:**
+---
 
-- **Giao thông:** Những phương tiện giao thông.
+### Test 2
+**Req:** bánh mì có nguồn gốc từ 
 
-- **Giáo dục:**
+**Res:** bánh_mì có nguồn_gốc từ các vùng miền nam , bao_gồm nhiều loại hoa và các loại hoa khác nhau , mỗi loại đều có hương_vị riêng_biệt .
 
-- **Gia đình:** Tập trung vào định nghĩa những mối quan hệ giữa các thành viên trong gia đình.
+**Nhận xét:** Đầu vào này yêu cầu từ nối tiếp là một danh từ, mô hình đã gen đúng. Nửa sau, mô hình đã sáng tạo, tuy đúng cấu trúc "bao gồm" + 2 danh từ nhưng ngữ nghĩa không liên quan đến bánh mì cho lắm.
 
-### 2. Fine-tune data
+**Điểm:** 7
 
-*Hiện tại chỉ là vài dòng đơn giản để test*
+---
 
-## II. **Architecture**
+### Test 3
+**Req:** việt nam 
 
-### 1. DecoderBlock
+**Res:** việt_nam là một quốc_gia có nền kinh_tế mạnh_mẽ , với nhiều quốc_gia khác nhau , bao_gồm cả lào và việt_nam .
 
-- **Multi-heads Attention:** Use causal_mask.
+**Nhận xét:** Đầu vào cũng đơn giản, nhưng khác với câu bánh mì ở trên, mô hình đã sáng tạo, và nội dung đúng, hay. Nửa sau hoàn toàn sai.
 
-- **Feed Forward:** Sử dụng hàm kích hoạt `relu`.
+**Điểm:** nửa đầu 10, nửa sau 2, tổng kết 6
 
-### 2. Model
+---
 
-- *`pos_embedding` hơi đơn giản, sẽ nâng cấp.*
+### Test 4
+**Req:** việt nam sở hữu 
 
-```python
-self.token_embedding = layers.Embedding(input_dim=vocab_size, output_dim=d_model, mask_zero=True)
-self.pos_embedding = layers.Embedding(input_dim=max_len, output_dim=d_model)
+**Res:** việt_nam sở_hữu nhiều quốc_gia đã trở_thành một trong những quốc_gia có ảnh_hưởng lớn đến nền kinh_tế và xã_hội của đất_nước .
 
-self.decoder_blocks = [
-    DecoderBlock(d_model, num_heads, ff_dim, dropout)
-    for _ in range(num_layers)
-]
-self.dropout_layer = layers.Dropout(dropout)
-self.final_layer = layers.Dense(vocab_size, activation="softmax")
-```
+**Nhận xét:** Có phần nào hiểu về cấu trúc câu rồi, nhưng chưa phân biệt được các danh từ với nhau, sai ngữ nghĩa.
 
-```python
-seq_len = tf.shape(inputs)[1]
-positions = tf.range(start=0, limit=seq_len, delta=1)
-x = self.token_embedding(inputs) + self.pos_embedding(positions)
+**Điểm:** 5
 
-x = self.dropout_layer(x, training=training)
+---
 
-for block in self.decoder_blocks:
-    x = block(x, training=training)
+### Test 5
+**Req:** phở 
 
-return self.final_layer(x)
-```
+**Res:** phở thìn lò_đúc được biết đến với nhiều món ăn độc_đáo , từ ẩm_thực đến các món ăn truyền_thống , tạo nên một món ăn hấp_dẫn .
 
-## III. **Pre-train** 
+**Nhận xét:** 1/3 đầu câu sáng tạo, hay, 10 điểm. 1/3 tiếp theo cũng rất hay, có liên kết với đoạn đầu. 1/3 câu cuối đúng cấu trúc, nhưng nó nên là "tạo nên một menu hấp dẫn" thì mới đúng, hoặc là "tạo nên nhiều món ăn hấp dẫn".
 
-### 1. Mục tiêu
+**Điểm:** 9,5
 
-### 2. Phương án thực hiện
+---
 
-### 3. Cách làm chi tiết
+### Test 6
+**Req:** buổi sáng người việt nam thường ăn 
 
-*(Đây là cách làm hiện tại, đang tìm hiểu cách khác để có hiệu quả tốt hơn)*
+**Res:** buổi sáng người việt_nam thường ăn kèm với những món ăn nhẹ và được chế_biến thành các món ăn khác nhau , tạo nên sự đa_dạng trong ẩm_thực việt_nam .
 
-**Mục đích:** Huấn luyện mô hình dạng autoregressive để học cách đoán từ kế tiếp trong câu.
+**Nhận xét:** Đầu vào yêu cầu tên một món ăn (danh từ), thực ra thì kết quả cũng phần nào hiểu được, chỉ là có phần hơi lệch thôi. Nói hay thì không nhưng nói dở thì cũng không đúng.
+Xét về cục bộ từng đoạn thì ổn: "thường ăn kèm với những", "được chế_biến thành các món ăn khác nhau , tạo nên sự đa_dạng", nhưng về tổng quan toàn câu thì lại chưa hay.
 
-**Cấu trúc dữ liệu:** Giả sử có một câu: "Tôi đang học".
+**Điểm:** 7
 
-**Input:** [BOS] + tôi + đang + học + [SEP] + tôi + đang + học
+---
 
-**Target:** tôi + đang + học + [SEP] + tôi + đang + học + [EOS]
+### Test 7
+**Req:** đám mây 
 
-*(Như đã nói ở trên, chuẩn bị data như thế này chưa ổn)*
+**Res:** đám mây là một trong những nguyên_tố nhẹ hàng_đầu thế_giới , nổi_bật với khả_năng di_chuyển linh_hoạt và khả_năng di_chuyển linh_hoạt .
 
-**Các vấn đề hiện tại:**
+**Nhận xét:** Đầu vào là một danh từ đơn giản, mô hình đã gen ra vị ngữ đúng cấu trúc, nhưng vẫn bị lặp từ, sai ngữ nghĩa.
 
-- **Mô hình quá phụ thuộc vào vị trí từ (position bias):** Nguyên nhân là vì dùng absolute positional encoding (sin-cos) hoặc data chưa được xáo trộn đủ. Giải pháp: Dùng relative positional encoding.
+**Điểm:** 4,5
 
-- Ví dụ: Trong dataset có nhiều câu liên quan đến bánh mì, nhưng từ "bánh mì" chỉ xuất hiện ở giữa câu, không xuất hiện ở đầu câu. Nếu req là "bánh mì" thì res sẽ là "sự khác_biệt về văn_hoá giữa hai miền có_lẽ bắt_nguồn từ cuộc nam tiến này" (một câu **không hề liên quan**, lấy nguyên trong data). 
+---
 
-- **Mô hình học vẹt (memorization):** Ví dụ req là "Đinh Tiên Hoàng" thì res sẽ là "đinh bộ lĩnh lên_ngôi hoàng_đế" (lấy luôn một câu trong data). **Tin vui** là mô hình đã hiểu được Đinh Tiên Hoàng là Đinh Bộ Lĩnh (maybe :))) **Nhưng haizzz, vấn đề** là mô hình học vẹt 100%.
+### Test 8
+**Req:** Đinh Tiên Hoàng lên ngôi 
 
-- **Trong 1 diễn biến khác**, nếu req là "việt nam" thì res sẽ là "việt_nam được yêu thích của người việt_nam là cà_phê được yêu thích của người việt_nam , đặc_biệt là giới sinh_viên và người việt_nam , đặc_biệt là giới sinh_viên và người lao_động". Ngược lại với bên trên, lần này **tin vui** là mô hình không copy nguyên câu từ data mà cố gắng sinh câu mới, cho thấy khả năng generalization sơ khai. **Nhưng nhược điểm nhỏ** là ngữ nghĩa lủng củng (cái này thì có thể khắc phục được bằng cách mở rộng data). 
+**Res:** đinh tiên hoàng lên_ngôi , một trong những triều_đại nổi_bật của triều nguyễn , đã trở_thành một trong những nhân_vật quan_trọng trong lịch_sử việt_nam .
 
-**Hướng giải quyết:**
-- Thay đổi positional encoding thành relative
-- mở rộng data, xáo trộn
+**Nhận xét:** Đề bài yêu cầu gen ra một chữ "hoàng đế", hoặc "vua", là một chức danh gì đó nhưng mô hình lại chọn dấu phẩy ngắt ý. Phần sau thì khá ổn đúng cấu trúc ngữ nghĩa (hơi sai chỗ từ "triều đại"), cũng phần nào hiểu được nhưng chưa hay.
 
-**Evaluation:**
-- **Loss:** `sparse_categorical_crossentropy`
-- **Optimizer:** `adam`
+**Điểm:** 5
+
+---
+
+### Test 9
+**Req:** lê thái tổ có miếu hiệu 
+
+**Res:** lê_thái tổ có miếu_hiệu nổi_bật với những công_trình kiến_trúc độc_đáo , phản_ánh sự giao_thoa văn_hoá giữa các nền văn_minh khác nhau .
+
+**Nhận xét:** Input đã có cấu trúc chủ ngữ + vị ngữ và còn khuyết ở cuối, nhưng mô hình lại nghĩ đầu vào là chủ ngữ/danh từ và thêm vị ngữ đằng sau. Về cấu trúc thì 1 điểm còn ngữ nghĩa thì 5 điểm, hay nhưng không liên quan.
+
+**Điểm:** 3
+
+---
+
+### Test 10
+**Req:** công thức 1 
+
+**Res:** công_thức 1 là một trong những giải đua xe nổi_tiếng nhất thế_giới , nổi_bật với những thành_tích ấn_tượng và phong_cách lái_xe xuất_sắc .
+
+**Nhận xét:** Nửa câu đầu đúng, lấy trong dataset, 9 điểm. Ở nửa sau, mô hình đã biết chủ ngữ là một danh từ nhưng lại nhầm lẫn với danh từ chỉ người dẫn đến sai nghĩa, nhưng cấu trúc thì oke, 7 điểm.
+
+**Điểm:** 8
+
+---
+
+### Test 11
+**Req:** sáng hôm ấy 
+
+**Res:** hôm ấy là một trong những nhân_vật quan_trọng trong lịch_sử việt_nam , nổi_bật với những thành_tựu trong việc xây_dựng đất_nước .
+
+**Nhận xét:** Sai cấu trúc, ngữ nghĩa không liên quan.
+
+**Điểm:** 1,5
+
+---
+
+### Test 12
+**Req:** sau khi ăn xong, chúng tôi đi 
+
+**Res:** sau khi ăn xong , chúng_tôi đi kèm với nhiều loại iv , tạo nên một bức tranh đa_dạng trong văn_hoá việt_nam .
+
+**Điểm:** 1
+
+---
+
+### Test 13
+**Req:** mặc dù 
+
+**Res:** mặc_dù không có con sông lớn , nhưng cũng có nhiều loại khác nhau , nhưng cũng đã trở_thành một phần không_thể thiếu trong việc phát_triển kinh_tế của đất_nước .
+
+**Nhận xét:** Đúng cấu trúc "mặc dù-nhưng", ngữ nghĩa không liên quan.
+
+**Điểm:** 5
+
+---
+
+### Test 14
+**Req:** bởi vì trời mưa, 
+
+**Res:** bởi_vì trời mưa , nơi mà các hạt trở_thành một phần quan_trọng trong văn_hoá và lịch_sử của việt_nam .
+
+**Điểm:** 1

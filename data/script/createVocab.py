@@ -73,16 +73,6 @@ for i in range(0, len(texts), batch_size):
 special_tokens = ["[PAD]", "[CLS]", "[SEP]", "[MASK]", "[UNK]", "[BOS]", "[EOS]"]
 sorted_vocab = special_tokens + sorted(vocab)
 word_to_id = {word: idx for idx, word in enumerate(sorted_vocab)}
-
-# ----------- THÊM TOKEN TỪ infor.json -----------
-infor_dir = current_file.parent.parent.parent / "config" / "infor.json"
-with open(infor_dir, "r", encoding="utf-8") as f:
-    infor = json.load(f)
-
-for key in ["nametoken", "agetoken", "birthdaytoken", "creatornametoken"]:
-    for word in infor[key].split():
-        if word not in word_to_id:
-            word_to_id[word] = len(word_to_id)
  
 # ----------- LƯU vocab.txt -----------
 vocab_path = data_dir / "vocab.txt"
@@ -90,7 +80,7 @@ with open(vocab_path, "w", encoding="utf-8") as f:
     for word, idx in word_to_id.items():
         f.write(f"{word}\t{idx}\n")
 
-print("✅ Đã tách từ, thêm token đặc biệt và lưu vào vocab.txt từ JSON + CSV!")
+print("✅ Đã tách từ, thêm token đặc biệt và lưu vào vocab.txt")
 
 # ----------- CẬP NHẬT config.json -----------
 config_dir = current_file.parent.parent.parent / "config" / "config.json"
