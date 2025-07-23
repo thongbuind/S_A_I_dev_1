@@ -44,7 +44,7 @@ def create_dynamic_batch(X, Y, lengths, batch_indices):
 # ================
 #    Huấn luyện
 # ================
-model = Model(vocab_size, d_model, num_heads, num_layers, ff_dim, dropout)
+model = Model(vocab_size, d_model, num_heads, num_layers, ff_dim, dropout, max_seq_len)
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
 
 num_samples = len(X)
@@ -56,7 +56,6 @@ for epoch in range(epochs):
         end_idx = min(start_idx + batch_size, num_samples)
         batch_indices = list(range(start_idx, end_idx))
         
-        # Tạo batch với dynamic padding
         batch_X, batch_Y, batch_lengths = create_dynamic_batch(X, Y, lengths, batch_indices)
         
         # Padding batch cuối nếu cần (để đảm bảo batch size cố định nếu yêu cầu)
@@ -66,13 +65,12 @@ for epoch in range(epochs):
             batch_X = np.pad(batch_X, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
             batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
         
-        # Huấn luyện trên batch
         if epoch == 0 and i == 0:
             print("╔═════════════════════════════════════════╗")
             print("║            BẮT ĐẦU PRE-TRAIN            ║")
             print("╠═════════════════════════════════════════╣")
         loss = model.train_on_batch(batch_X, batch_Y)
-        if i == 1 or i == num_batches - 1:
+        if i == 0 or i == num_batches - 1:
             print(f"║ Epoch: {epoch:2d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
     
     if epoch == epochs - 1:

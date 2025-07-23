@@ -8,7 +8,6 @@ from vncorenlp import VnCoreNLP
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
-# Lấy đường dẫn tuyệt đối đến file vocab.txt dựa trên vị trí file hiện tại
 current_file = Path(__file__).resolve()
 
 model_path = project_root / "model" / "s_a_i.keras"
