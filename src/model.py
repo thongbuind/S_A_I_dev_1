@@ -211,4 +211,3 @@ class Model(models.Model):
             "max_seq_len": self.max_seq_len,
         })
         return config
-    

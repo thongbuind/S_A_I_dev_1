@@ -41,41 +41,155 @@ def create_dynamic_batch(X, Y, lengths, batch_indices):
     
     return batch_X_padded, batch_Y_padded, batch_lengths
 
-# ================
-#    Huấn luyện
-# ================
-model = Model(vocab_size, d_model, num_heads, num_layers, ff_dim, dropout, max_seq_len)
-model.compile(loss="sparse_categorical_crossentropy", optimizer="adam")
+def split_train_val_test(X, Y, lengths, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+    """Chia dữ liệu thành train/validation/test set"""
+    total_samples = len(X)
+    indices = np.random.permutation(total_samples)
+    
+    train_size = int(total_samples * train_ratio)
+    val_size = int(total_samples * val_ratio)
+    
+    train_indices = indices[:train_size]
+    val_indices = indices[train_size:train_size + val_size]
+    test_indices = indices[train_size + val_size:]
+    
+    X_train = [X[i] for i in train_indices]
+    Y_train = [Y[i] for i in train_indices]
+    lengths_train = [lengths[i] for i in train_indices]
+    
+    X_val = [X[i] for i in val_indices]
+    Y_val = [Y[i] for i in val_indices]
+    lengths_val = [lengths[i] for i in val_indices]
+    
+    X_test = [X[i] for i in test_indices]
+    Y_test = [Y[i] for i in test_indices]
+    lengths_test = [lengths[i] for i in test_indices]
+    
+    return X_train, Y_train, lengths_train, X_val, Y_val, lengths_val, X_test, Y_test, lengths_test
 
-num_samples = len(X)
-num_batches = (num_samples + batch_size - 1) // batch_size
-
-for epoch in range(epochs):
-    for i in range(num_batches):
+def evaluate_model(model, X_val, Y_val, lengths_val, batch_size):
+    num_val_samples = len(X_val)
+    num_val_batches = (num_val_samples + batch_size - 1) // batch_size
+    total_loss = 0.0
+    total_batches = 0
+    
+    for i in range(num_val_batches):
         start_idx = i * batch_size
-        end_idx = min(start_idx + batch_size, num_samples)
+        end_idx = min(start_idx + batch_size, num_val_samples)
         batch_indices = list(range(start_idx, end_idx))
         
-        batch_X, batch_Y, batch_lengths = create_dynamic_batch(X, Y, lengths, batch_indices)
+        batch_X, batch_Y, batch_lengths = create_dynamic_batch(X_val, Y_val, lengths_val, batch_indices)
         
-        # Padding batch cuối nếu cần (để đảm bảo batch size cố định nếu yêu cầu)
         if batch_X.shape[0] < batch_size:
             pad_size = batch_size - batch_X.shape[0]
             current_seq_len = batch_X.shape[1]
             batch_X = np.pad(batch_X, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
             batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
         
-        if epoch == 0 and i == 0:
-            print("╔═════════════════════════════════════════╗")
-            print("║            BẮT ĐẦU PRE-TRAIN            ║")
-            print("╠═════════════════════════════════════════╣")
-        loss = model.train_on_batch(batch_X, batch_Y)
-        if i == 0 or i == num_batches - 1:
-            print(f"║ Epoch: {epoch:2d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
+        loss = model.test_on_batch(batch_X, batch_Y)
+        total_loss += loss
+        total_batches += 1
     
-    if epoch == epochs - 1:
-        print("╚═════════════════════════════════════════╝")
+    return total_loss / total_batches if total_batches > 0 else float('inf')
 
+X_train, Y_train, lengths_train, X_val, Y_val, lengths_val, X_test, Y_test, lengths_test = split_train_val_test(X, Y, lengths, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+initial_learning_rate = 0.001
+
+class CustomLRScheduler:
+    def __init__(self, model, X_val, Y_val, lengths_val, batch_size, patience=3, factor=0.5, min_lr=1e-6):
+        self.model = model
+        self.X_val = X_val
+        self.Y_val = Y_val
+        self.lengths_val = lengths_val
+        self.batch_size = batch_size
+        self.patience = patience
+        self.factor = factor
+        self.min_lr = min_lr
+        self.best_val_loss = float('inf')
+        self.wait = 0
+        self.current_lr = initial_learning_rate
+        
+    def on_epoch_end(self, epoch):
+        val_loss = evaluate_model(self.model, self.X_val, self.Y_val, self.lengths_val, self.batch_size)
+        
+        if val_loss < self.best_val_loss:
+            self.best_val_loss = val_loss
+            self.wait = 0
+        else:
+            self.wait += 1
+            
+        if self.wait >= self.patience:
+            old_lr = self.current_lr
+            self.current_lr = max(self.current_lr * self.factor, self.min_lr)
+            if self.current_lr < old_lr:
+                print(f"║ Giảm learning rate từ {old_lr:.6f} xuống {self.current_lr:.6f} ║")
+                tf.keras.backend.set_value(self.model.optimizer.learning_rate, self.current_lr)
+                self.wait = 0
+        
+        return val_loss
+
+model = Model(vocab_size, d_model, num_heads, num_layers, ff_dim, dropout, max_seq_len)
+optimizer = tf.keras.optimizers.Adam(learning_rate=initial_learning_rate)
+model.compile(loss="sparse_categorical_crossentropy", optimizer=optimizer)
+
+lr_scheduler = CustomLRScheduler(model, X_val, Y_val, lengths_val, batch_size)
+
+num_train_samples = len(X_train)
+num_train_batches = (num_train_samples + batch_size - 1) // batch_size
+
+print("╔═════════════════════════════════════════╗")
+print("║            BẮT ĐẦU PRE-TRAIN            ║")
+print("╠═════════════════════════════════════════╣")
+
+best_val_loss = float('inf')
+patience_counter = 0
+
+for epoch in range(epochs):
+    # SHUFFLE TRAIN SET trước mỗi epoch
+    train_indices = np.random.permutation(len(X_train))
+    X_train_shuffled = [X_train[i] for i in train_indices]
+    Y_train_shuffled = [Y_train[i] for i in train_indices]
+    lengths_train_shuffled = [lengths_train[i] for i in train_indices]
+    
+    epoch_train_loss = 0.0
+    num_train_samples = len(X_train_shuffled)
+    num_train_batches = (num_train_samples + batch_size - 1) // batch_size
+    
+    for i in range(num_train_batches):
+        start_idx = i * batch_size
+        end_idx = min(start_idx + batch_size, num_train_samples)
+        batch_indices = list(range(start_idx, end_idx))
+        
+        batch_X, batch_Y, batch_lengths = create_dynamic_batch(X_train_shuffled, Y_train_shuffled, lengths_train_shuffled, batch_indices)
+        
+        if batch_X.shape[0] < batch_size:
+            pad_size = batch_size - batch_X.shape[0]
+            current_seq_len = batch_X.shape[1]
+            batch_X = np.pad(batch_X, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
+            batch_Y = np.pad(batch_Y, [(0, pad_size), (0, 0)], mode='constant', constant_values=0)
+        
+        loss = model.train_on_batch(batch_X, batch_Y)
+        epoch_train_loss += loss
+    
+    avg_train_loss = epoch_train_loss / num_train_batches
+    
+    val_loss = lr_scheduler.on_epoch_end(epoch)
+    current_lr = float(tf.keras.backend.get_value(model.optimizer.learning_rate))
+    
+    print(f"║ Epoch: {epoch+1:2d}/{epochs}, Train Loss: {avg_train_loss:.4f}, Val Loss: {val_loss:.4f}, LR: {current_lr:.4f} ║")
+
+print("╠═════════════════════════════════════════╣")
+print("║          ĐÁNH GIÁ TRÊN TEST SET         ║")
+print("╠═════════════════════════════════════════╣")
+
+test_loss = evaluate_model(model, X_test, Y_test, lengths_test, batch_size)
+
+print(f"║ Test Loss: {test_loss:.4f}        ║")
+print("╚═════════════════════════════════════════╝")
+
+# Lưu model cuối cùng
 model_folder = project_root / "model"
 model_folder.mkdir(parents=True, exist_ok=True)
 model.save(model_folder / "s_a_i.keras")
+print(f"Đã lưu model cuối cùng vào: {model_folder / 's_a_i.keras'}")
+print(f"Test Loss cuối cùng: {test_loss:.4f}")
