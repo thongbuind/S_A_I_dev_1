@@ -49,6 +49,151 @@ class RelativePositionalEmbedding(layers.Layer):
             "max_relative_distance": self.max_relative_distance,
         })
         return config
+    
+class RotaryPositionEmbedding(layers.Layer):
+    def __init__(self, d_model, max_seq_len=2048, **kwargs):
+        super().__init__(**kwargs)
+        
+        # Validation checks
+        if d_model % 2 != 0:
+            raise ValueError('d_model must be even for RoPE')
+        
+        self.d_model = d_model
+        self.max_seq_len = max_seq_len
+        
+        # Pre-compute frequency matrix
+        inv_freq = 1.0 / (10000 ** (tf.range(0, d_model, 2, dtype=tf.float32) / d_model))
+        self.inv_freq = tf.Variable(inv_freq, trainable=False, name="inv_freq")
+        
+        # Pre-compute and cache cos/sin frequencies for max_seq_len
+        position = tf.range(max_seq_len, dtype=tf.float32)
+        freqs = tf.einsum('i,j->ij', position, inv_freq)  # [max_seq_len, d_model//2]
+        
+        cos_freqs = tf.cos(freqs)
+        sin_freqs = tf.sin(freqs)
+        
+        # Expand and cache
+        cos_freqs = tf.repeat(cos_freqs, 2, axis=-1)  # [max_seq_len, d_model]
+        sin_freqs = tf.repeat(sin_freqs, 2, axis=-1)  # [max_seq_len, d_model]
+        
+        self.cos_cached = tf.Variable(cos_freqs, trainable=False, name="cos_freqs")
+        self.sin_cached = tf.Variable(sin_freqs, trainable=False, name="sin_freqs")
+    
+    def call(self, seq_len):
+        """
+        Args:
+            seq_len: Sequence length (scalar tensor or int)
+        Returns:
+            cos_freqs, sin_freqs: [1, seq_len, d_model]
+        """
+        # Validation
+        if seq_len > self.max_seq_len:
+            raise ValueError(f"seq_len ({seq_len}) exceeds max_seq_len ({self.max_seq_len})")
+        
+        # Slice cached frequencies
+        cos_freqs = self.cos_cached[:seq_len, :]  # [seq_len, d_model]
+        sin_freqs = self.sin_cached[:seq_len, :]  # [seq_len, d_model]
+        
+        # Add batch dimension
+        cos_freqs = tf.expand_dims(cos_freqs, 0)  # [1, seq_len, d_model]
+        sin_freqs = tf.expand_dims(sin_freqs, 0)  # [1, seq_len, d_model]
+        
+        return cos_freqs, sin_freqs
+    
+    def apply_rope(self, x, cos_freqs, sin_freqs):
+        """Apply RoPE to input tensor x"""
+        # Reshape x để tách cặp dimensions
+        x_even = x[..., ::2]  # [batch, seq_len, d_model//2]
+        x_odd = x[..., 1::2]  # [batch, seq_len, d_model//2]
+        
+        cos_half = cos_freqs[..., ::2]  # [1, seq_len, d_model//2]
+        sin_half = sin_freqs[..., ::2]  # [1, seq_len, d_model//2]
+        
+        # Apply rotation
+        rotated_x_even = x_even * cos_half - x_odd * sin_half
+        rotated_x_odd = x_even * sin_half + x_odd * cos_half
+        
+        # Interleave back
+        rotated_x = tf.stack([rotated_x_even, rotated_x_odd], axis=-1)
+        rotated_x = tf.reshape(rotated_x, tf.shape(x))
+        
+        return rotated_x
+
+    
+class MultiHeadAttention(layers.Layer):
+    def __init__(self, d_model, num_heads, max_seq_len=2048, **kwargs):
+        super().__init__(**kwargs)
+        
+        if d_model % num_heads != 0:
+            raise ValueError('d_model must be divisible by num_heads')
+        
+        self.d_model = d_model
+        self.num_heads = num_heads
+        self.head_dim = d_model // num_heads
+        self.max_seq_len = max_seq_len
+        
+        self.wq = layers.Dense(d_model, name="query")
+        self.wk = layers.Dense(d_model, name="key")
+        self.wv = layers.Dense(d_model, name="value")
+        self.wo = layers.Dense(d_model, name="output")
+        
+        self.rope = RotaryPositionEmbedding(self.head_dim, max_seq_len)
+        
+        mask = tf.linalg.band_part(tf.ones((max_seq_len, max_seq_len)), -1, 0)
+        mask = tf.where(mask == 0, -1e9, 0.0)
+        self.causal_mask = tf.Variable(mask, trainable=False, name="causal_mask")
+    
+    def call(self, x, mask=None, training=False):
+        """
+        Args:
+            x: Input tensor [batch, seq_len, d_model]
+            mask: Custom attention mask (optional)
+            training: Training mode flag
+        """
+        batch_size = tf.shape(x)[0]
+        seq_len = tf.shape(x)[1]
+        
+        if seq_len > self.max_seq_len:
+            raise ValueError(f"seq_len ({seq_len}) exceeds max_seq_len ({self.max_seq_len})")
+        
+        q = self.wq(x)
+        k = self.wk(x)
+        v = self.wv(x)
+        
+        q = tf.reshape(q, (batch_size, seq_len, self.num_heads, self.head_dim))
+        k = tf.reshape(k, (batch_size, seq_len, self.num_heads, self.head_dim))
+        v = tf.reshape(v, (batch_size, seq_len, self.num_heads, self.head_dim))
+        
+        cos_freqs, sin_freqs = self.rope(seq_len)
+        cos_freqs = tf.reshape(cos_freqs, (1, seq_len, 1, self.head_dim))
+        sin_freqs = tf.reshape(sin_freqs, (1, seq_len, 1, self.head_dim))
+        
+        q = self.rope.apply_rope(q, cos_freqs, sin_freqs)
+        k = self.rope.apply_rope(k, cos_freqs, sin_freqs)
+        
+        q = tf.transpose(q, [0, 2, 1, 3])
+        k = tf.transpose(k, [0, 2, 1, 3])
+        v = tf.transpose(v, [0, 2, 1, 3])
+        
+        scores = tf.matmul(q, k, transpose_b=True) / tf.sqrt(tf.cast(self.head_dim, tf.float32))
+        
+        if mask is not None:
+            scores += mask
+        else:
+            causal_mask = self.causal_mask[:seq_len, :seq_len]
+            scores += causal_mask
+        
+        attention_weights = tf.nn.softmax(scores, axis=-1)
+        
+        if training:
+            attention_weights = tf.nn.dropout(attention_weights, rate=0.1)
+        
+        attention_output = tf.matmul(attention_weights, v)
+        
+        attention_output = tf.transpose(attention_output, [0, 2, 1, 3])
+        attention_output = tf.reshape(attention_output, (batch_size, seq_len, self.d_model))
+        
+        return self.wo(attention_output)
 
 class DecoderBlock(layers.Layer):
     def __init__(self, d_model, num_heads, ff_dim, dropout, **kwargs):
@@ -58,7 +203,7 @@ class DecoderBlock(layers.Layer):
         self.ff_dim = ff_dim
         self.dropout = dropout
 
-        self.mha = layers.MultiHeadAttention(num_heads=num_heads, key_dim=d_model)
+        self.mha = MultiHeadAttention(d_model, num_heads)
         self.ffn = tf.keras.Sequential([
             layers.Dense(ff_dim, activation='relu'),
             layers.Dense(d_model),
