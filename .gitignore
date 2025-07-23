@@ -10,3 +10,6 @@ __pycache__/
 
 # Cache
 *.tmp
+
+# data
+data/raw/

@@ -26,28 +26,12 @@ epochs = config['epochs']
 batch_size = config['batch_size']
 
 def create_dynamic_batch(X, Y, lengths, batch_indices):
-    """
-    Tạo batch với dynamic padding dựa trên độ dài tối đa trong batch
-    
-    Args:
-        X: Danh sách sequences đầu vào
-        Y: Danh sách sequences mục tiêu
-        lengths: Danh sách độ dài thực của từng sequence
-        batch_indices: Indices của các mẫu trong batch
-    
-    Returns:
-        batch_X: Batch đầu vào đã padding
-        batch_Y: Batch mục tiêu đã padding
-        batch_lengths: Độ dài thực của từng sequence trong batch
-    """
     batch_X = [X[i] for i in batch_indices]
     batch_Y = [Y[i] for i in batch_indices]
     batch_lengths = [lengths[i] for i in batch_indices]
     
-    # Tìm độ dài tối đa trong batch
     max_len_in_batch = max(batch_lengths)
     
-    # Padding đến độ dài tối đa trong batch
     batch_X_padded = tf.keras.preprocessing.sequence.pad_sequences(
         batch_X, maxlen=max_len_in_batch, padding='post'
     )
@@ -88,7 +72,7 @@ for epoch in range(epochs):
             print("║            BẮT ĐẦU PRE-TRAIN            ║")
             print("╠═════════════════════════════════════════╣")
         loss = model.train_on_batch(batch_X, batch_Y)
-        if i % 100 == 0 or i == num_batches - 1:
+        if i == 1 or i == num_batches - 1:
             print(f"║ Epoch: {epoch:2d}, Batch: {i+1:3d}/{num_batches}, Loss: {loss:.4f} ║")
     
     if epoch == epochs - 1:
