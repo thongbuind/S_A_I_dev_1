@@ -24,7 +24,7 @@ class Dataset(torch.utils.data.Dataset):
         )
     
     @classmethod
-    def create_dataloader(cls, X, Y, lengths, batch_size, num_workers, shuffle, loss_masks=None):
+    def create_dataloader(cls, X, Y, lengths, batch_size, max_seq_len, num_workers, shuffle, loss_masks=None):
         log_progress(f"Đang tạo dataset từ {len(X)} samples...")
         indices = np.arange(len(X))
         dataset = cls(X, Y, lengths, indices, loss_masks)
@@ -37,8 +37,8 @@ class Dataset(torch.utils.data.Dataset):
             lm_batch = [item[3] for item in batch]
 
             max_len = max(len(x) for x in X_batch)
-            if max_len > 1000:
-                bucket = 1024
+            if max_len > (max_seq_len - (max_seq_len%bucket_size)):
+                bucket = max_seq_len
             else:
                 bucket = int(np.ceil(max_len / bucket_size) * bucket_size)
 

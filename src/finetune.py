@@ -43,8 +43,8 @@ def _build_val_test_loaders(phase_name, main_data, sub_data, train_ratio, val_ra
         X, Y, loss_mask, lengths, train_ratio, val_ratio
     )
 
-    val_ds = Dataset.create_dataloader(X_val, Y_val, len_val, batch_size, num_workers, shuffle=False, loss_masks=mask_val)
-    test_ds = Dataset.create_dataloader(X_test, Y_test, len_test, batch_size, num_workers, shuffle=False, loss_masks=mask_test)
+    val_ds = Dataset.create_dataloader(X_val, Y_val, len_val, batch_size, max_seq_len, num_workers, shuffle=False, loss_masks=mask_val)
+    test_ds = Dataset.create_dataloader(X_test, Y_test, len_test, batch_size, max_seq_len, num_workers, shuffle=False, loss_masks=mask_test)
 
     train_size = len(X_train)
     val_size = len(X_val)
@@ -69,7 +69,7 @@ def _build_train_loader_epoch(phase_name, main_data, sub_data, train_ratio, val_
         X, Y, loss_mask, lengths, train_ratio, val_ratio
     )
 
-    train_ds = Dataset.create_dataloader(X_train, Y_train, len_train, batch_size, num_workers, shuffle=True, loss_masks=mask_train)
+    train_ds = Dataset.create_dataloader(X_train, Y_train, len_train, batch_size, max_seq_len, num_workers, shuffle=True, loss_masks=mask_train)
 
     del X_val, Y_val, mask_val, len_val
     del X_test, Y_test, mask_test, len_test
@@ -97,9 +97,9 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
 
         log_progress(f"[{phase_name}] Train: {len(X_train)}, Val: {len(X_val)}, Test: {len(X_test)}")
 
-        train_ds = Dataset.create_dataloader(X_train, Y_train, len_train, batch_size, num_workers, shuffle=True, loss_masks=mask_train)
-        val_ds = Dataset.create_dataloader(X_val, Y_val, len_val, batch_size, num_workers, shuffle=False, loss_masks=mask_val)
-        test_ds = Dataset.create_dataloader(X_test, Y_test, len_test, batch_size, num_workers, shuffle=False, loss_masks=mask_test)
+        train_ds = Dataset.create_dataloader(X_train, Y_train, len_train, batch_size, max_seq_len, num_workers, shuffle=True, loss_masks=mask_train)
+        val_ds = Dataset.create_dataloader(X_val, Y_val, len_val, batch_size, max_seq_len, num_workers, shuffle=False, loss_masks=mask_val)
+        test_ds = Dataset.create_dataloader(X_test, Y_test, len_test, batch_size, max_seq_len, num_workers, shuffle=False, loss_masks=mask_test)
 
         del X_train, Y_train, mask_train, len_train
         del X_val, Y_val, mask_val, len_val
@@ -226,13 +226,12 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), model_save_path)
-            print(f"Epoch {epoch+1}: val_loss improved to {val_loss:.5f}, saving model")
+            log_progress(f"Epoch {epoch+1}: Saving model and checkpoint")
 
         save_checkpoint(
             checkpoint_path, epoch, global_step,
             model, optimizer, scheduler, scaler, best_val_loss
         )
-        log_progress(f"Checkpoint saved → {checkpoint_path}")
 
         if torch.cuda.is_available():
             torch.cuda.empty_cache()

@@ -49,9 +49,9 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
     X_train, Y_train, _, lengths_train, X_val, Y_val, _, lengths_val, X_test, Y_test, _, lengths_test = split_train_val_test(X, Y, None, lengths, train_ratio, val_ratio)
     log_progress(f"Train: {len(X_train)}, Val: {len(X_val)}, Test: {len(X_test)}")
 
-    train_ds = Dataset.create_dataloader(X_train, Y_train, lengths_train, batch_size, num_workers, shuffle=True)
-    val_ds = Dataset.create_dataloader(X_val, Y_val, lengths_val, batch_size, num_workers, shuffle=False)
-    test_ds = Dataset.create_dataloader(X_test, Y_test, lengths_test, batch_size, num_workers, shuffle=False)
+    train_ds = Dataset.create_dataloader(X_train, Y_train, lengths_train, batch_size, max_seq_len, num_workers, shuffle=True)
+    val_ds = Dataset.create_dataloader(X_val, Y_val, lengths_val, batch_size, max_seq_len, num_workers, shuffle=False)
+    test_ds = Dataset.create_dataloader(X_test, Y_test, lengths_test, batch_size, max_seq_len, num_workers, shuffle=False)
 
     del X_train, Y_train, lengths_train, X_val, Y_val, lengths_val, X_test, Y_test, lengths_test
     gc.collect()
