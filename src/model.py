@@ -14,9 +14,9 @@ class RotaryPositionalEmbedding(nn.Module):
         self._build_cache(max_seq_len)
 
     def _build_cache(self, seq_len: int):
-        pos   = torch.arange(seq_len, dtype=torch.float32)
-        freqs = torch.outer(pos, self.inv_freq)          # (seq_len, head_dim/2)
-        emb   = torch.cat([freqs, freqs], dim=-1)        # (seq_len, head_dim)
+        pos = torch.arange(seq_len, dtype=torch.float32)
+        freqs = torch.outer(pos, self.inv_freq) # (seq_len, head_dim/2)
+        emb = torch.cat([freqs, freqs], dim=-1) # (seq_len, head_dim)
         self.register_buffer("cos_cached", emb.cos(), persistent=False)
         self.register_buffer("sin_cached", emb.sin(), persistent=False)
 
@@ -26,21 +26,16 @@ class RotaryPositionalEmbedding(nn.Module):
         return torch.cat((-x2, x1), dim=-1)
 
     def apply_rope(self, x: torch.Tensor, positions: torch.Tensor) -> torch.Tensor:
-        """
-        x         : (B, num_heads, T, head_dim)
-        positions : (T,) — vị trí tuyệt đối
-        """
         cos = self.cos_cached[positions][None, None, :, :]
         sin = self.sin_cached[positions][None, None, :, :]
         return x * cos + self._rotate_half(x) * sin
-
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, d_model: int, num_heads: int, max_seq_len: int, dropout: float):
         super().__init__()
         assert d_model % num_heads == 0
-        self.num_heads    = num_heads
-        self.d_k          = d_model // num_heads
+        self.num_heads = num_heads
+        self.d_k = d_model // num_heads
         self.dropout_rate = dropout
 
         self.wq = nn.Linear(d_model, d_model, bias=False)
@@ -61,6 +56,29 @@ class MultiHeadAttention(nn.Module):
         B, _, T, _ = out.shape
         return self.wo(out.transpose(1, 2).contiguous().view(B, T, self.num_heads * self.d_k))
 
+    def forward(self, x: torch.Tensor, pad_mask=None) -> torch.Tensor:
+        B, T, _ = x.shape
+        q, k, v = self._project_qkv(x)
+
+        pos = torch.arange(T, device=x.device)
+        q = self.rope.apply_rope(q, pos)
+        k = self.rope.apply_rope(k, pos)
+
+        dropout_p = self.dropout_rate if self.training else 0.0
+
+        causal = torch.triu(torch.full((T, T), float('-inf'), device=x.device), diagonal=1)
+        attn_mask = causal[None, None, :, :]
+
+        if pad_mask is not None:
+            pad = torch.zeros(B, 1, 1, T, device=x.device)
+            pad.masked_fill_(~pad_mask[:, None, None, :], float('-inf'))
+            attn_mask = attn_mask + pad
+
+        out = F.scaled_dot_product_attention(
+            q, k, v, attn_mask=attn_mask, is_causal=False, dropout_p=dropout_p,
+        )
+        return self._merge(out)
+
     def prefill(self, x: torch.Tensor):
         B, T, _ = x.shape
         q, k, v = self._project_qkv(x)
@@ -72,7 +90,7 @@ class MultiHeadAttention(nn.Module):
         out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
         return self._merge(out), (k, v)
 
-    def forward(self, x: torch.Tensor, past_kv, cache_len: int):
+    def forward_with_cache(self, x: torch.Tensor, past_kv, cache_len: int):
         B, T, _ = x.shape
         q, k, v = self._project_qkv(x)
 
@@ -93,7 +111,7 @@ class SwiGLU(nn.Module):
     def __init__(self, d_model: int, ff_dim: int):
         super().__init__()
         self.gate = nn.Linear(d_model, ff_dim, bias=False)
-        self.up   = nn.Linear(d_model, ff_dim, bias=False)
+        self.up = nn.Linear(d_model, ff_dim, bias=False)
         self.down = nn.Linear(ff_dim,  d_model, bias=False)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -102,11 +120,16 @@ class SwiGLU(nn.Module):
 class DecoderBlock(nn.Module):
     def __init__(self, d_model: int, num_heads: int, ff_dim: int, max_seq_len: int, dropout: float):
         super().__init__()
-        self.mha   = MultiHeadAttention(d_model, num_heads, max_seq_len, dropout)
-        self.ffn   = SwiGLU(d_model, ff_dim)
+        self.mha = MultiHeadAttention(d_model, num_heads, max_seq_len, dropout)
+        self.ffn = SwiGLU(d_model, ff_dim)
         self.norm1 = nn.RMSNorm(d_model, eps=1e-6)
         self.norm2 = nn.RMSNorm(d_model, eps=1e-6)
-        self.drop  = nn.Dropout(dropout)
+        self.drop = nn.Dropout(dropout)
+
+    def forward(self, x, pad_mask=None):
+        x = x + self.drop(self.mha(self.norm1(x), pad_mask))
+        x = x + self.drop(self.ffn(self.norm2(x)))
+        return x
 
     def prefill(self, x):
         attn, kv = self.mha.prefill(self.norm1(x))
@@ -114,35 +137,26 @@ class DecoderBlock(nn.Module):
         x = x + self.drop(self.ffn(self.norm2(x)))
         return x, list(kv)
 
-    def forward(self, x, kv, cache_len: int):
-        x = x + self.drop(self.mha.forward(self.norm1(x), kv, cache_len))
+    def forward_with_cache(self, x, kv, cache_len: int):
+        x = x + self.drop(self.mha.forward_with_cache(self.norm1(x), kv, cache_len))
         x = x + self.drop(self.ffn(self.norm2(x)))
         return x
 
 class TransformerModel(nn.Module):
-    def __init__(
-        self,
-        vocab_size:   int,
-        d_model:      int,
-        num_heads:    int,
-        num_layers:   int,
-        ff_dim:       int,
-        max_seq_len:  int,
-        dropout:      float,
-        pad_token_id: int = 0,
-    ):
+    def __init__(self, vocab_size: int, d_model: int, num_heads: int, num_layers: int, ff_dim: int, max_seq_len: int, dropout: float, pad_token_id: int = 0):
         super().__init__()
-        self.d_model      = d_model
-        self.num_heads    = num_heads
-        self.num_layers   = num_layers
+        self.d_model = d_model
+        self.num_heads = num_heads
+        self.num_layers = num_layers
         self.pad_token_id = pad_token_id
+        self.max_seq_len = max_seq_len
 
-        self.embed  = nn.Embedding(vocab_size, d_model)
+        self.embed = nn.Embedding(vocab_size, d_model)
         self.blocks = nn.ModuleList([
             DecoderBlock(d_model, num_heads, ff_dim, max_seq_len, dropout)
             for _ in range(num_layers)
         ])
-        self.norm    = nn.RMSNorm(d_model, eps=1e-6)
+        self.norm = nn.RMSNorm(d_model, eps=1e-6)
         self.lm_head = nn.Linear(d_model, vocab_size, bias=False)
         self.lm_head.weight = self.embed.weight
         self._init_weights()
@@ -165,7 +179,6 @@ class TransformerModel(nn.Module):
         return self.lm_head(self.norm(x))
 
     def init_cache(self, batch_size: int, max_gen_len: int, device: torch.device):
-        """Khởi tạo pre-allocated KV cache buffer."""
         d_k = self.d_model // self.num_heads
         return [
             [
@@ -176,7 +189,6 @@ class TransformerModel(nn.Module):
         ]
 
     def prefill(self, input_ids: torch.Tensor, kv_cache=None):
-        """Forward pass toàn bộ prompt. Trả về logits token cuối và KV cache."""
         B, T = input_ids.shape
         x = self.embed(input_ids)
         new_cache = []
@@ -192,7 +204,6 @@ class TransformerModel(nn.Module):
         return logits, new_cache
 
     def decode_step(self, token_ids: torch.Tensor, kv_cache, cache_len: int):
-        """Decode một token. token_ids: (B,) hoặc (B,1). Trả về logits (B, vocab_size)."""
         token_ids = token_ids.view(-1, 1)
         x = self.embed(token_ids)
         for block, kv in zip(self.blocks, kv_cache):
