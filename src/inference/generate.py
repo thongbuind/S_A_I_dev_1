@@ -1,10 +1,5 @@
 import torch
-import sys
 from pathlib import Path
-
-current_file = Path(__file__).resolve()
-project_root = current_file.parent.parent.parent
-sys.path.append(str(project_root))
 
 def build_input(user_input, tokenizer):
     vocab = tokenizer.get_vocab()

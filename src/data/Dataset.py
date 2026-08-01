@@ -3,7 +3,7 @@ import numpy as np
 import gc
 import json
 from pathlib import Path
-from utils.utils import log_progress
+from src.utils.utils import log_progress
 
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, X, Y, lengths, indices, loss_masks=None):

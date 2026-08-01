@@ -5,12 +5,11 @@ import torch.optim as optim
 from torch.amp import autocast, GradScaler
 import json
 import gc
-import sys
 import argparse
 import math
-from utils.utils import get_step_lr_lambda, log_progress, load_checkpoint, save_checkpoint
-from data.Dataset import Dataset, split_train_val_test, load_data
-from model.TransformerModel import TransformerModel
+from src.utils.utils import get_step_lr_lambda, log_progress, load_checkpoint, save_checkpoint
+from src.data.Dataset import Dataset, split_train_val_test, load_data
+from src.model.TransformerModel import TransformerModel
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True, help="Model size: 100M or 500M")
@@ -25,8 +24,7 @@ args = parser.parse_args()
 model_size = args.model
 
 current_file = Path(__file__).resolve()
-project_root = current_file.parent.parent
-sys.path.append(str(project_root))
+project_root = current_file.parent.parent.parent
 config_dir = project_root / "config"
 data_dir = project_root / "data"
 model_dir = project_root / "model"

@@ -4,12 +4,11 @@ import torch.nn as nn
 import torch.optim as optim
 import json
 import gc
-import sys
 import argparse
-from utils.utils import get_step_lr_lambda, freeze_layers, unfreeze_all_layers, log_progress, load_checkpoint, save_checkpoint
-from data.Dataset import Dataset, split_train_val_test, load_data
-from training.PenaltyEngine import PenaltyEngine, WrongTokenMarginPenalty, WrongTokenEntropyPenalty, FocalOverconfidencePenalty
-from model.TransformerModel import TransformerModel
+from src.utils.utils import get_step_lr_lambda, freeze_layers, unfreeze_all_layers, log_progress, load_checkpoint, save_checkpoint
+from src.data.Dataset import Dataset, split_train_val_test, load_data
+from src.training.PenaltyEngine import PenaltyEngine, WrongTokenMarginPenalty, WrongTokenEntropyPenalty, FocalOverconfidencePenalty
+from src.model.TransformerModel import TransformerModel
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True, help="Model size: 100M or 500M")
@@ -22,8 +21,7 @@ args = parser.parse_args()
 model_size = args.model
 
 current_file = Path(__file__).resolve()
-project_root = current_file.parent.parent
-sys.path.append(str(project_root))
+project_root = current_file.parent.parent.parent
 config_dir = project_root / "config"
 data_dir = project_root / "data"
 model_dir = project_root / "model"
