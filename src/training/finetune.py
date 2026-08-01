@@ -7,18 +7,19 @@ import gc
 import sys
 import argparse
 from utils.utils import get_step_lr_lambda, freeze_layers, unfreeze_all_layers, log_progress, load_checkpoint, save_checkpoint
-from utils.Dataset import Dataset, split_train_val_test, load_data
-from PenaltyEngine import PenaltyEngine, WrongTokenMarginPenalty, WrongTokenEntropyPenalty, FocalOverconfidencePenalty
-from model import TransformerModel
+from data.Dataset import Dataset, split_train_val_test, load_data
+from training.PenaltyEngine import PenaltyEngine, WrongTokenMarginPenalty, WrongTokenEntropyPenalty, FocalOverconfidencePenalty
+from model.TransformerModel import TransformerModel
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--model", type=str, required=True, help="Model size: 35M or 100M")
+parser.add_argument("--model", type=str, required=True, help="Model size: 100M or 500M")
 parser.add_argument(
     "--phase", type=str, required=True,
     choices=["sft1", "sft2", "sft1_resume", "sft2_resume", "full"],
     help="Training phase: sft1 | sft2 | sft1_resume | sft2_resume | full"
 )
 args = parser.parse_args()
+model_size = args.model
 
 current_file = Path(__file__).resolve()
 project_root = current_file.parent.parent
@@ -33,6 +34,12 @@ model_dir.mkdir(parents=True, exist_ok=True)
 data_processed_dir = project_root / "data" / "processed"
 SFT1_data_ids_file = data_processed_dir / "SFT1_data_ids.npz"
 SFT2_data_ids_file = data_processed_dir / "SFT2_data_ids.npz"
+
+pretrained_save_path = model_dir / f"pretrained_{model_size}.pt"
+sft1_save_path = model_dir / f"sft1_{model_size}.pt"
+sft1_ckpt_path = model_dir / f"sft1_{model_size}.ckpt.pt"
+sft2_save_path = model_dir / f"sft2_{model_size}.pt"
+sft2_ckpt_path = model_dir / f"sft2_{model_size}.ckpt.pt"
 
 def _build_val_test_loaders(phase_name, main_data, sub_data, train_ratio, val_ratio, batch_size, num_workers):
     X, Y, loss_mask, lengths = load_data(phase_name, main_data, sub_data)
@@ -272,6 +279,7 @@ vocab_size = config["vocab_size"]
 max_seq_len = config["max_seq_len"]
 d_model = config["d_model"]
 num_heads = config["num_heads"]
+num_kv_heads = config['num_kv_heads']
 num_layers = config["num_layers"]
 ff_dim = config["ff_dim"]
 dropout = config["dropout"]
@@ -296,12 +304,12 @@ penalty_engine = (PenaltyEngine()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 log_progress(f"Sử dụng device: {device}")
 
-model = TransformerModel(vocab_size, d_model, num_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
+model = TransformerModel(vocab_size, d_model, num_heads, num_kv_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
 
 phase = args.phase
 if phase == "sft1":
-    log_progress("Load model từ continued-pretrain...")
-    model.load_state_dict(torch.load(model_dir / "continued_pretrained.pt", map_location=device))
+    log_progress("Load model từ pretrain...")
+    model.load_state_dict(torch.load(pretrained_save_path, map_location=device))
     freeze_layers(model, freeze)
 
     optimizer_sft1 = optim.AdamW(
@@ -312,7 +320,7 @@ if phase == "sft1":
     test_loss = finetune(
         model, optimizer_sft1, device, SFT1_data_ids_file, sub_data=None,
         num_epochs=sft1_epochs,
-        model_save_path=model_dir / "sft1.pt",
+        model_save_path=sft1_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft1",
         num_workers=num_workers,
@@ -334,19 +342,19 @@ elif phase == "sft1_resume":
     test_loss = finetune(
         model, optimizer_sft1, device, SFT1_data_ids_file, sub_data=None,
         num_epochs=sft1_epochs,
-        model_save_path=model_dir / "sft1.pt",
+        model_save_path=sft1_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft1",
         num_workers=num_workers,
         penalty_engine=penalty_engine,
         resample_per_epoch=False,
-        resume_checkpoint_path=model_dir / "sft1.ckpt.pt",
+        resume_checkpoint_path=sft1_ckpt_path,
     )
     log_progress(f"SFT1 Test Loss: {test_loss:.4f}")
 
 elif phase == "sft2":
     log_progress("Load model từ sft1...")
-    model.load_state_dict(torch.load(model_dir / "sft1.pt", map_location=device))
+    model.load_state_dict(torch.load(sft1_save_path, map_location=device))
     unfreeze_all_layers(model)
     freeze_layers(model, freeze)
 
@@ -358,7 +366,7 @@ elif phase == "sft2":
     test_loss = finetune(
         model, optimizer_sft2, device, SFT2_data_ids_file, SFT1_data_ids_file,
         num_epochs=sft2_epochs,
-        model_save_path=model_dir / "sft2.pt",
+        model_save_path=sft2_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft2",
         num_workers=num_workers,
@@ -381,20 +389,20 @@ elif phase == "sft2_resume":
     test_loss = finetune(
         model, optimizer_sft2, device, SFT2_data_ids_file, SFT1_data_ids_file,
         num_epochs=sft2_epochs,
-        model_save_path=model_dir / "sft2.pt",
+        model_save_path=sft2_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft2",
         num_workers=num_workers,
         penalty_engine=penalty_engine,
         resample_per_epoch=True,
-        resume_checkpoint_path=model_dir / "sft2.ckpt.pt",
+        resume_checkpoint_path=sft2_ckpt_path,
     )
     log_progress(f"SFT2 Test Loss: {test_loss:.4f}")
 
 elif phase == "full":
     # ── SFT1 ──
-    log_progress("Load model từ continued-pretrain...")
-    model.load_state_dict(torch.load(model_dir / "continued_pretrained.pt", map_location=device))
+    log_progress("Load model từ pretrain...")
+    model.load_state_dict(torch.load(pretrained_save_path, map_location=device))
     freeze_layers(model, freeze)
 
     optimizer_sft1 = optim.AdamW(
@@ -405,7 +413,7 @@ elif phase == "full":
     test_loss = finetune(
         model, optimizer_sft1, device, SFT1_data_ids_file, sub_data=None,
         num_epochs=sft1_epochs,
-        model_save_path=model_dir / "sft1.pt",
+        model_save_path=sft1_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft1",
         num_workers=num_workers,
@@ -417,7 +425,7 @@ elif phase == "full":
 
     # ── SFT2 ──
     log_progress("Load model từ sft1...")
-    model.load_state_dict(torch.load(model_dir / "sft1.pt", map_location=device))
+    model.load_state_dict(torch.load(sft1_save_path, map_location=device))
     unfreeze_all_layers(model)
     freeze_layers(model, freeze)
 
@@ -429,7 +437,7 @@ elif phase == "full":
     test_loss = finetune(
         model, optimizer_sft2, device, SFT2_data_ids_file, SFT1_data_ids_file,
         num_epochs=sft2_epochs,
-        model_save_path=model_dir / "sft2.pt",
+        model_save_path=sft2_save_path,
         train_ratio=train_ratio, val_ratio=val_ratio,
         batch_size=batch_size, phase_name="sft2",
         num_workers=num_workers,
@@ -439,4 +447,4 @@ elif phase == "full":
     )
     log_progress(f"SFT2 Test Loss: {test_loss:.4f}")
 
-log_progress(f"Model cuối cùng lưu tại: {model_dir / (phase.split('_')[0] + '.pt')}")
+log_progress(f"Model cuối cùng lưu tại: {model_dir / (phase.split('_')[0] + f'_{model_size}.pt')}")

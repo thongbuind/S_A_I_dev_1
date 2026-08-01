@@ -1,0 +1,902 @@
+[
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nHai vận động viên đang tranh tài ở cự ly 10 dặm. Người đầu tiên chạy với tốc độ trung bình 8 phút mỗi dặm, trong khi người thứ hai chạy với tốc độ trung bình x phút mỗi dặm. Sau 56 phút, người về thứ hai dừng lại uống nước. Người thứ hai có thể dừng lại trong bao nhiêu phút trước khi người thứ nhất đuổi kịp mình? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 8 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Hai vận động viên đang tranh tài ở cự ly 10 dặm. Người đầu tiên chạy với tốc độ trung bình 8 phút mỗi dặm, trong khi người thứ hai chạy với tốc độ trung bình x phút mỗi dặm. Sau 56 phút, người về thứ hai dừng lại uống nước. Người thứ hai có thể dừng lại trong bao nhiêu phút trước khi người thứ nhất đuổi kịp mình? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 8 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "7",
+    "gold_full": "Người chạy thứ nhất chạy với tốc độ trung bình là 8 phút/dặm, vậy sau 56 phút, anh ta đã đi được 56/8 = 7 dặm. Người thứ hai chạy với tốc độ trung bình là x phút/dặm, vậy sau 56 phút anh ta đã đi được 56/x dặm. Chúng ta muốn biết người chạy thứ hai có thể dừng lại trong bao nhiêu phút trước khi người chạy thứ nhất đuổi kịp anh ta. Nói cách khác, chúng ta muốn tìm thời gian để người chạy thứ nhất đi hết quãng đường như người chạy thứ hai. Vì người chạy đầu tiên chạy 7 dặm trong 56 phút nên chúng ta có thể sử dụng thông tin này để thiết lập tỷ lệ: Thời gian/Khoảng cách = Thời gian/Khoảng cách x/7 = 56/(56/x) Rút gọn vế phải, chúng ta nhận được: x/ 7 = x/1 Nhân chéo ta được: x = 7x Chia cả hai vế cho x, ta được: 1 = 7 Phương trình này không thể xảy ra, nghĩa là không có giá trị nào của x thỏa mãn điều kiện đã cho. Do đó, không có giá trị nào của x cho phép người chạy thứ hai dừng lại trong bất kỳ khoảng thời gian nào mà không bị người chạy thứ nhất bắt kịp. ####7 Đáp án là: 7",
+    "pred_number": "7",
+    "raw_output": "** đáp án đúng là ( a ) b ). ** * # # # lựa chọn 1 : xác định các phương trình để tìm giá trị thay vì chỉ liệt kê tất cả các lần chạy , ta cần tính tổng quãng đường di chuyển từ điểm này đến điểm khác bằng cách chia thời gian đi theo chiều kim đồng hồ . ** bước 1 : viết lại phương trình ** \\ [ - \\ fra c { 2 } { 4 } = 3 \\ ] \\ [ (- \\ fra ction { 3 } { 5 } + 3 } = 6 \\ im p li es d = 7 \\ ] vậy nghiệm của phương trình là : \\ [ \\ bo xe d { m = 7 } \\ ]",
+    "correct": true
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nVì $n$ nằm trong phạm vi các số nguyên dương, giá trị lớn nhất có thể có của ước chung lớn nhất của $11n+3$ và $6n+1$ là bao nhiêu?",
+    "question": "Vì $n$ nằm trong phạm vi các số nguyên dương, giá trị lớn nhất có thể có của ước chung lớn nhất của $11n+3$ và $6n+1$ là bao nhiêu?",
+    "gold_answer": "7",
+    "gold_full": "Chúng tôi sử dụng thuật toán Euclide: \\begin{align*} \\gcd(11n+3,6n+1) &= \\gcd(6n+1,11n+3-(1)(6n+1)) \\\\ &= \\ gcd(6n+1,5n+2) \\\\ &= \\gcd(5n+2,6n+1-(1)(5n+2)) \\\\ &= \\gcd(5n+2,n-1) \\ \\ &= \\gcd(n-1,5n+2-(1)(n-1)) \\\\ &= \\gcd(n-1,4n+3). \\end{align*} Vì $4n+3=4(n-1)+(7)$, nên chúng ta có \\[\\gcd(n-1,4n+3) = \\gcd(n-1,7). \\] Giá trị lớn nhất có thể có của $\\gcd(n-1,7)$ là $\\boxed{7}$, xảy ra khi $n-1=7$ hoặc $n=8$. Câu trả lời là: 7",
+    "pred_number": null,
+    "raw_output": "** đáp án đúng là ( a ) $ \\ ri ght ar row $ ** . **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTại tiệm bánh của Penny, món bánh phô mai việt quất nổi tiếng của cô có giá 7 USD một miếng. Mỗi chiếc bánh phô mai được cắt thành x lát dày. Nếu cô ấy bán 7 chiếc bánh phô mai thì cô ấy kiếm được 294 tiền.",
+    "question": "Tại tiệm bánh của Penny, món bánh phô mai việt quất nổi tiếng của cô có giá 7 USD một miếng. Mỗi chiếc bánh phô mai được cắt thành x lát dày. Nếu cô ấy bán 7 chiếc bánh phô mai thì cô ấy kiếm được 294 tiền.",
+    "gold_answer": "6",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số lát dày mà mỗi chiếc bánh phô mai được cắt thành. Hãy chia nhỏ thông tin đã cho: Giá của mỗi lát bánh pho mát việt quất: 7 USD Số bánh pho mát đã bán: 7 Tổng số tiền kiếm được: 294 USD Chúng ta có thể thiết lập phương trình như sau: Chi phí mỗi lát * Số lát trên mỗi chiếc bánh * Số lượng bánh nướng đã bán = Tổng số tiền kiếm được $7 * x * 7 = $294 Hãy đơn giản hóa và giải x: 7x * 7 = 294 49x = 294 Để tách x, chúng ta chia cả hai vế của phương trình cho 49: 49x / 49 = 294 / 49 x = 6 Giá trị của x là 6. #### 6 Đáp án là: 6",
+    "pred_number": null,
+    "raw_output": "bạn vui lòng cung cấp hình ảnh hoặc mô tả để tôi trả lời câu hỏi này .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJacoby muốn tiết kiệm tiền cho chuyến đi đến Brickville. Anh ấy cần có tổng cộng 5000 đô la để thực hiện chuyến đi của mình. Anh ta làm một công việc kiếm được 20 USD một giờ và làm việc 10 giờ. Sau đó, anh ta nhận thấy mình có thể bán bánh quy với giá 4 đô la một chiếc và anh ta bán được 24 chiếc bánh quy. Với số tiền có được cho đến nay, anh ấy mua một tờ vé số với giá x$ và trúng được 500$. Cuối cùng, anh ấy nhận được 500 đô la từ cả hai chị gái của mình như một món quà. Jacob cần bao nhiêu tiền nữa để đến Brickville? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 3214 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Jacoby muốn tiết kiệm tiền cho chuyến đi đến Brickville. Anh ấy cần có tổng cộng 5000 đô la để thực hiện chuyến đi của mình. Anh ta làm một công việc kiếm được 20 USD một giờ và làm việc 10 giờ. Sau đó, anh ta nhận thấy mình có thể bán bánh quy với giá 4 đô la một chiếc và anh ta bán được 24 chiếc bánh quy. Với số tiền có được cho đến nay, anh ấy mua một tờ vé số với giá x$ và trúng được 500$. Cuối cùng, anh ấy nhận được 500 đô la từ cả hai chị gái của mình như một món quà. Jacob cần bao nhiêu tiền nữa để đến Brickville? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 3214 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "10",
+    "gold_full": "Jacoby kiếm được 20 USD mỗi giờ và làm việc 10 giờ, vậy anh ấy kiếm được 20 * 10 = 200 USD. Anh ấy bán bánh quy với giá 4 đô la mỗi cái và bán được 24 chiếc, vì vậy anh ấy kiếm được 4 * 24 = 96 đô la. Anh ta mua một tờ vé số với giá x $ và thắng được $500, nên tổng số tiền thắng của anh ta là 500 - x. Anh ấy cũng nhận được 500 đô la từ mỗi chị gái của mình, vì vậy anh ấy nhận được tổng cộng 2 * 500 = 1000 đô la. Tổng số tiền Jacoby có đến thời điểm này là 200 + 96 + (500 - x) + 1000 = 1296 + 500 - x. Để biết Jacoby cần thêm bao nhiêu tiền để đến Brickville, chúng ta lấy tổng số tiền anh ấy cần trừ đi tổng số tiền anh ấy có: 5000 - (1296 + 500 - x) = 5000 - 1796 + x = 3204 + x. Chúng ta được biết rằng Jacoby cần thêm 3214 đô la, vì vậy chúng ta có thể viết: 3204 + x = 3214. Giải x, chúng ta nhận được: x = 10. Giá trị của x là 10. #### 10 Đáp án là: 10",
+    "pred_number": null,
+    "raw_output": "dưới đây là đáp án chính xác về các phương trình đã cho : ** * # # # a",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nRút gọn biểu thức $[(2 + 3 + 4 + 5) \\div 2] + [(2 \\cdot 5 + 8) \\div 3]$.",
+    "question": "Rút gọn biểu thức $[(2 + 3 + 4 + 5) \\div 2] + [(2 \\cdot 5 + 8) \\div 3]$.",
+    "gold_answer": "13",
+    "gold_full": "Đầu tiên, chúng ta đơn giản hóa các biểu thức bên trong ngoặc: $[(2 + 3 + 4 + 5) \\div 2] = [14 \\div 2] = 7$ $[(2 \\cdot 5 + 8) \\div 3] = [18 \\div 3] = 6$ Sau đó, chúng ta cộng hai biểu thức đơn giản lại với nhau: $7 + 6 = \\boxed{13}$ Câu trả lời là: 13",
+    "pred_number": "9",
+    "raw_output": "để giải phương trình này , ta làm theo các bước sau : ** bước 1 : viết lại phương trình ** \\ [ - 3 + 3 = (- 3 + 6 + 7 ) \\ ] ** bước 2 : chuyển tất cả các hạng tử chứa \\ ( n \\ ) về một vế , hằng số về vế kia : \\ [ \\ bo xe d { n = 0 } \\ ] vậy nghiệm của phương trình là \\ ( a = \\ fra c { 0 } { 9 } \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJackson muốn bắt đầu tiết kiệm cho kỳ nghỉ anh ấy sẽ tham gia vào tháng 8 tới, x tháng nữa. Anh ấy muốn tiết kiệm $3,000.00. Nếu anh ấy được trả lương 2 lần một tháng thì anh ấy cần để dành bao nhiêu tiền cho mỗi phiếu lương, Anh ấy cần tiết kiệm 100 tiền cho kỳ nghỉ của mình. Giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Jackson muốn bắt đầu tiết kiệm cho kỳ nghỉ anh ấy sẽ tham gia vào tháng 8 tới, x tháng nữa. Anh ấy muốn tiết kiệm $3,000.00. Nếu anh ấy được trả lương 2 lần một tháng thì anh ấy cần để dành bao nhiêu tiền cho mỗi phiếu lương, Anh ấy cần tiết kiệm 100 tiền cho kỳ nghỉ của mình. Giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "15",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số tháng cho đến kỳ nghỉ của Jackson. Hãy chia nhỏ thông tin đã cho: Số tiền Jackson muốn tiết kiệm: $3000,00 Số tiền lương mỗi tháng: 2 Số tiền cần để dành cho mỗi phiếu lương: $100,00 Chúng ta có thể thiết lập phương trình như sau: Số tiền cần để dành mỗi phiếu lương * Số phiếu lương mỗi tháng * Số tháng = Số tiền Jackson muốn tiết kiệm $100,00 * 2 * x = $3000,00 Hãy đơn giản hóa và giải x: $200,00 * x = $3000,00 Để cô lập x, chúng ta chia cả hai vế của phương trình bằng $200,00: $200,00 * x / $200,00 = $3000,00 / $200,00 x = 15 Giá trị của x là 15. #### 15 Câu trả lời là: 15",
+    "pred_number": "1",
+    "raw_output": "dựa trên thông tin bạn cung cấp trong đề bài : - ngày 1 / 7 / 20 26 là thời hạn cuối cùng mà người lao động phải bỏ ra để có thể hoàn thành công việc hoặc các nhiệm vụ khác liên quan đến năm tài chính hiện tại ( tính theo tháng ). do đó , không có đủ số giờ làm việc hợp lý từ ngày này sang ngày khác . đáp án đúng là : ** 1 **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGiá trị của $N$ là bao nhiêu nếu 15% của $N$ bằng 45% của năm 2003?",
+    "question": "Giá trị của $N$ là bao nhiêu nếu 15% của $N$ bằng 45% của năm 2003?",
+    "gold_answer": "6009",
+    "gold_full": "Chúng ta có thể dịch câu \"15% của $N$ bằng 45% của năm 2003\" thành phương trình $0,15N=0,45(2003)$. Chia cả hai vế của phương trình cho 0,15, chúng ta có $N=\\frac{0,45(2003)}{0,15}$. Đánh giá biểu thức ở vế phải sẽ cho $N=\\frac{901.35}{0.15}= \\boxed{6009}$. Đáp án là: 6009",
+    "pred_number": "4",
+    "raw_output": "$ \\ tex t { năm 2003 } = 4 $ .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nỞ một đàn vi khuẩn nhất định, số lượng vi khuẩn tăng gấp đôi mỗi ngày. Thuộc địa bắt đầu với 3 vi khuẩn và có 6 vi khuẩn vào cuối ngày 1, 12 vi khuẩn vào cuối ngày 2, v.v. Ngày đầu tiên mà khuẩn lạc có hơn 100 vi khuẩn là bao nhiêu?",
+    "question": "Ở một đàn vi khuẩn nhất định, số lượng vi khuẩn tăng gấp đôi mỗi ngày. Thuộc địa bắt đầu với 3 vi khuẩn và có 6 vi khuẩn vào cuối ngày 1, 12 vi khuẩn vào cuối ngày 2, v.v. Ngày đầu tiên mà khuẩn lạc có hơn 100 vi khuẩn là bao nhiêu?",
+    "gold_answer": "6",
+    "gold_full": "Chúng ta có thể thấy rằng số lượng vi khuẩn tuân theo mô hình $3 \\cdot 2^n$, trong đó $n$ là số ngày. Chúng ta muốn tìm $n$ nhỏ nhất sao cho $3 \\cdot 2^n > 100$. Chia cả hai vế cho 3, chúng ta có $2^n > 33.\\overline{3}$. Lấy logarit cơ số 2 của cả hai vế, ta có $n > \\log_2{33.\\overline{3}}$. Vì $2^5 = 32 < 33.\\overline{3}$ và $2^6 = 64 > 33.\\overline{3}$, nên chúng ta biết rằng $5 < \\log_2{33.\\overline{3}} < 6$ . Do đó, $n$ nhỏ nhất là $\\boxed{6}$. Câu trả lời là: 6",
+    "pred_number": "4",
+    "raw_output": "đáp án đúng là : ** số 4 ** vì vi khuẩn sống trong môi trường ẩm ướt nhiều ngày ( thường từ vài tuần đến hàng tháng ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMarcus đã nhận được hoa hồng cho càng nhiều bức tranh càng tốt. Marcus lên kế hoạch cho các bức vẽ của mình để khách hàng của anh ấy có thể nhận được một số bức tranh càng sớm càng tốt nhưng việc này vẫn sẽ mất nhiều thời gian. Ngày đầu tiên anh vẽ x bức tranh. Sau đó, anh ấy vẽ mỗi ngày và mỗi ngày anh ấy vẽ số tranh gấp đôi số tranh anh ấy vẽ ngày hôm trước. Nếu anh ấy vẽ trong 5 ngày thì anh ấy sẽ vẽ tổng cộng bao nhiêu bức tranh? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 62 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Marcus đã nhận được hoa hồng cho càng nhiều bức tranh càng tốt. Marcus lên kế hoạch cho các bức vẽ của mình để khách hàng của anh ấy có thể nhận được một số bức tranh càng sớm càng tốt nhưng việc này vẫn sẽ mất nhiều thời gian. Ngày đầu tiên anh vẽ x bức tranh. Sau đó, anh ấy vẽ mỗi ngày và mỗi ngày anh ấy vẽ số tranh gấp đôi số tranh anh ấy vẽ ngày hôm trước. Nếu anh ấy vẽ trong 5 ngày thì anh ấy sẽ vẽ tổng cộng bao nhiêu bức tranh? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 62 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "2",
+    "gold_full": "Vào ngày đầu tiên, Marcus vẽ x bức tranh. Ngày thứ hai người ấy vẽ số tranh gấp đôi số tranh hôm trước, tức là số tranh anh ấy vẽ gấp đôi. Vào ngày thứ ba, số tranh anh ấy vẽ gấp đôi số tranh anh ấy vẽ ngày hôm trước, nghĩa là số tranh anh ấy vẽ là 2 * (2x) = 4x. Vào ngày thứ tư, số tranh anh ta vẽ gấp đôi số tranh anh ta vẽ ngày hôm trước, nghĩa là số tranh anh ta vẽ là 2 * (4x) = 8x. Vào ngày thứ năm, số tranh anh ta vẽ gấp đôi số tranh anh ta vẽ ngày hôm trước, nghĩa là số tranh anh ta vẽ là 2 * (8x) = 16x. Tổng số bức tranh anh ta vẽ trong 5 ngày là tổng số bức tranh anh ta vẽ mỗi ngày: x + 2x + 4x + 8x + 16x = 31x. Cho tổng số bức tranh là 62 nên ta viết: 31x = 62. Chia hai vế cho 31 ta được: x = 2. Giá trị của x là 2. #### 2 Đáp án là: 2",
+    "pred_number": "3",
+    "raw_output": "** đáp án đúng là : ** 1 . ** * # # # lựa chọn 1 : xác định thông tin liên quan đến biến x trong đoạn văn bản không cung cấp bất kỳ dữ liệu cụ thể nào về mức độ phức tạp hoặc chi tiết của biến . thay vào đó , nó đề cập đến sự chênh lệch giữa số lượng bức tranh ( $ \\ ri ght ar row $ ) và tỷ lệ tác phẩm ( $ p _ { cm } = \\ fra c { 2 } { 3 } $ ). điều này phù hợp với kiến thức nền tảng mà người viết đang nghiên cứu .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nAlan đi chợ và mua x quả trứng với giá 2$ một quả trứng. Anh ta mua 6 con gà với giá 8$ một con. Alan đã tiêu 88 tiền ở chợ. Giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Alan đi chợ và mua x quả trứng với giá 2$ một quả trứng. Anh ta mua 6 con gà với giá 8$ một con. Alan đã tiêu 88 tiền ở chợ. Giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "20",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số lượng trứng Alan đã mua. Hãy chia nhỏ thông tin đã cho: Giá mỗi quả trứng: $2 Số lượng trứng đã mua: x Giá mỗi con gà: $8 Số lượng gà mua: 6 Tổng số tiền chi ra ở chợ: $88 Chúng ta có thể thiết lập phương trình như sau: Giá mỗi quả trứng * Số trứng đã mua + Giá mỗi con gà * Số gà đã mua = Tổng số tiền chi tiêu trên thị trường $2x + $8 * 6 = $88 Hãy đơn giản hóa và giải x: $2x + $48 = $88 Để tách x, chúng ta trừ cả hai $48 các vế của phương trình: $2x + $48 - $48 = $88 - $48 $2x = $40 Để giải x, chúng ta chia cả hai vế của phương trình cho $2: x = $40 / $2 x = 20 Giá trị của x là 20. # ###20 Đáp án là: 20",
+    "pred_number": "7",
+    "raw_output": "dựa vào đề bài , ta có thể suy luận rằng alan đã mua 1 quả trứng khi còn nhỏ ( tức là khoảng 3 - 4 kg ) để chuẩn bị bữa ăn trong gia đình . vậy đáp án đúng là : ** số 7 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nBa phần tư số vẹt trên Đảo Chim có màu xanh lá cây, số còn lại có màu xanh lam. Nếu có tổng cộng 92 con vẹt trên Đảo Chim thì có bao nhiêu con vẹt đó có màu xanh?",
+    "question": "Ba phần tư số vẹt trên Đảo Chim có màu xanh lá cây, số còn lại có màu xanh lam. Nếu có tổng cộng 92 con vẹt trên Đảo Chim thì có bao nhiêu con vẹt đó có màu xanh?",
+    "gold_answer": "23",
+    "gold_full": "Nếu 3/4 số vẹt có màu xanh lá cây thì 1/4 số vẹt có màu xanh lam. Vì tổng số con vẹt là 92 nên chúng ta có thể thiết lập phương trình $\\frac{1}{4} \\cdot 92 = \\boxed{23}$. Câu trả lời là: 23",
+    "pred_number": null,
+    "raw_output": "câu trả lời đúng là : ** có **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTại quán cà phê của Hank, anh ấy bán bánh kếp xếp chồng lớn có 5 chiếc bánh kếp và bánh kếp xếp chồng ngắn có x chiếc bánh kếp. Nếu 9 khách hàng đặt gói bánh ngắn và 6 khách hàng đặt gói bánh lớn thì Hank cần làm bao nhiêu chiếc bánh? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 57 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Tại quán cà phê của Hank, anh ấy bán bánh kếp xếp chồng lớn có 5 chiếc bánh kếp và bánh kếp xếp chồng ngắn có x chiếc bánh kếp. Nếu 9 khách hàng đặt gói bánh ngắn và 6 khách hàng đặt gói bánh lớn thì Hank cần làm bao nhiêu chiếc bánh? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 57 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "3",
+    "gold_full": "Chúng ta biết rằng mỗi chồng lớn có 5 cái bánh. Chúng ta cũng biết rằng mỗi ngăn xếp ngắn có x cái bánh. Nếu 6 khách đặt chồng lớn thì tổng số bánh cho chồng lớn là 6 * 5 = 30 bánh. Nếu 9 khách đặt chồng ngắn thì tổng số bánh cho chồng ngắn là 9 * x = 9x bánh xèo. Tổng số bánh mà Hank cần làm là tổng số bánh của chồng lớn và số bánh của chồng ngắn: 30 + 9x. Ta được rằng tổng số chiếc bánh pancake mà Hank cần làm là 57 nên ta có thể viết: 30 + 9x = 57. Giải x, ta được: x = 3. Giá trị của x là 3. #### 3 Câu trả lời là: 3",
+    "pred_number": "2",
+    "raw_output": "dựa vào đề bài đã cung cấp , ta thấy rằng giá trị hiện nay của \" biến x \". - - - # # # bước 1 : xác định các sự kiện liên quan đến biến x trong đoạn văn ** * ** sự kiện 1 ( ăn cơm ): ** nhân viên giao hàng đang chuẩn bị thực phẩm để phục vụ bữa sáng . * ** tình huống 2 ( mua bánh mới ): ** người bán bánh dự kiến sẽ hoàn thành việc dọn dẹp nhà cửa trước khi đi ngủ .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTrong số tất cả các nghiệm của \\[z^8 - z^6 + z^4 - z^2 + X = 0,\\]phần ảo tối đa của một nghiệm có thể được biểu thị dưới dạng $\\sin \\theta,$ trong đó $- 90^\\circ \\le \\theta \\le 90^\\circ.$ Tìm $\\theta. 54. Giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Trong số tất cả các nghiệm của \\[z^8 - z^6 + z^4 - z^2 + X = 0,\\]phần ảo tối đa của một nghiệm có thể được biểu thị dưới dạng $\\sin \\theta,$ trong đó $- 90^\\circ \\le \\theta \\le 90^\\circ.$ Tìm $\\theta. 54. Giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "1",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho phần ảo lớn nhất của nghiệm. Hãy phân tích thông tin đã cho: Đa thức đã cho là \\[z^8 - z^6 + z^4 - z^2 + x = 0.\\] Chúng ta đang tìm phần ảo tối đa của một nghiệm, có thể là được biểu thị dưới dạng $\\sin \\theta.$ Chúng ta có thể viết lại đa thức dưới dạng \\[z^8 - z^6 + z^4 - z^2 + x = (z^4 - z^2 + 1)(z^4 + z^2 + x).\\] Vì biểu thức $(z^4 - z^2 + 1)$ không có bất kỳ nghiệm thực nào, nên phần ảo tối đa của một nghiệm xuất phát từ biểu thức $(z^4 + z^2 + x).$ Biểu thức $(z^4 + z^2 + x)$ có thể được viết là \\[z^4 + z^2 + x = z^4 + 2z^2 + 1 - z ^2 + x = (z^2 + 1)^2 - z^2 + x.\\] Để tìm phần ảo lớn nhất, chúng ta muốn cực đại hóa phần ảo của $(z^2 + 1)^2 - z ^2.$ Chúng ta có thể viết lại $(z^2 + 1)^2 - z^2$ dưới dạng \\[(z^2 + 1)^2 - z^2 = z^4 + 2z^2 + 1 - z ^2 = z^4 + z^2 + 1.\\] Vì $\\sin \\theta$ đại diện cho phần ảo tối đa, chúng tôi muốn tối đa hóa giá trị của $\\sin \\theta.$ Để tối đa hóa $\\sin \\theta, $ chúng tôi muốn tìm giá trị tối đa của $\\sin \\theta$ trong phạm vi đã cho $-90^\\circ \\le \\theta \\le 90^\\circ.$ Giá trị tối đa của $\\sin \\theta$ xảy ra ở $ \\theta = 90^\\circ,$ trong đó $\\sin \\theta = 1.$ Do đó, giá trị của x là 1. Giá trị của x là 1. Câu trả lời là: 1",
+    "pred_number": "50",
+    "raw_output": "phương trình trở thành : \\ [ \\ bo xe d { z = \\ fra c { 1 } { 9 } ^ 3 + 5 } { 10 } \\ ] bước 1 : rút gọn biểu thức ở vế trái : \\ (- 90 ^ 7 + 5 ) = 100 \\ ] vậy nghiệm của phương trình là : \\ ( z = 50 \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTỷ lệ phần trăm của mỗi loại thanh sô cô la trong hộp kẹo của Makenna gồm 25 thanh sô cô la sữa, 25 thanh sô cô la đen, 25 thanh sô cô la sữa có thanh hạnh nhân và 25 thanh sô cô la trắng là bao nhiêu?",
+    "question": "Tỷ lệ phần trăm của mỗi loại thanh sô cô la trong hộp kẹo của Makenna gồm 25 thanh sô cô la sữa, 25 thanh sô cô la đen, 25 thanh sô cô la sữa có thanh hạnh nhân và 25 thanh sô cô la trắng là bao nhiêu?",
+    "gold_answer": "25",
+    "gold_full": "Tổng số thanh sô cô la trong hộp kẹo là 25 + 25 + 25 + 25 = 100. Tỷ lệ phần trăm của mỗi loại thanh sô cô la có thể được tính bằng cách chia số lượng từng loại thanh sô cô la cho tổng số thanh sô cô la và nhân với 100. Đối với thanh sô cô la sữa, tỷ lệ phần trăm là 25/100 * 100 = 25%. Đối với những thanh sôcôla đen, tỷ lệ phần trăm là 25/100 * 100 = 25%. Đối với sô cô la sữa có thanh hạnh nhân thì tỷ lệ là 25/100 * 100 = 25%. Đối với thanh sô cô la trắng, tỷ lệ là 25/100 * 100 = 25%. Vì vậy, mỗi loại thanh sôcôla chiếm 25% hộp kẹo. #### 25 Đáp án là: 25",
+    "pred_number": "1",
+    "raw_output": "câu trả lời đúng là : 1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu $AAA_4$ có thể được biểu thị dưới dạng $33_b$, trong đó $A$ là một chữ số trong cơ số 4 và $b$ là cơ số lớn hơn X, thì tổng nhỏ nhất có thể có $A+b$ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 7 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Nếu $AAA_4$ có thể được biểu thị dưới dạng $33_b$, trong đó $A$ là một chữ số trong cơ số 4 và $b$ là cơ số lớn hơn X, thì tổng nhỏ nhất có thể có $A+b$ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 7 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "5",
+    "gold_full": "Chúng ta được biết rằng $AAA_4$ có thể được biểu thị dưới dạng $33_b$, trong đó $A$ là một chữ số trong cơ số 4 và $b$ là cơ số lớn hơn $X$. Để tìm tổng $A+b$ nhỏ nhất có thể, chúng ta cần xác định giá trị của $X$. Chúng ta có thể bắt đầu bằng cách chuyển đổi số $AAA_4$ từ cơ số 4 sang cơ số 10. Trong cơ số 4, mỗi chữ số biểu thị lũy thừa của 4. Vì vậy, $AAA_4$ có thể được viết là $A \\cdot 4^2 + A \\cdot 4 ^1 + A \\cdot 4^0$. Rút gọn biểu thức này, chúng ta có $AAA_4 = 16A + 4A + A$. Chúng ta được biết rằng $AAA_4$ có thể được biểu thị dưới dạng $33_b$, vì vậy chúng ta có thể thiết lập phương trình: $16A + 4A + A = 3b + 3$ Kết hợp các số hạng tương tự, chúng ta có $21A = 3b + 3$. Vì $b$ là cơ số lớn hơn $X$, nên chúng ta có thể giả sử rằng $b$ ít nhất bằng $X+1$. Để tìm tổng nhỏ nhất có thể có của $A+b$, chúng ta cần tìm các giá trị nhỏ nhất có thể có của $A$ và $b$. Hãy bắt đầu bằng cách giả sử $A=1$ và $b=X+1$. Thay các giá trị này vào phương trình, chúng ta có $21 = 3(X+1) + 3$. Rút gọn, chúng ta tìm được $21 = 3X + 6$. Trừ 6 từ cả hai vế, chúng ta nhận được $15 = 3X$. Chia cả hai vế cho 3, chúng ta tìm thấy $5 = X$. Vì vậy, giá trị nhỏ nhất có thể có của $X$ là 5. Thay giá trị này vào phương trình, chúng ta có $21A = 3b + 3$. Thay $X=5$, ta được $21A = 3b + 3$. Vì đã biết tổng $A+b$ là 7 nên chúng ta có thể viết $A + b = 7$. Thay thế giá trị này vào phương trình, chúng ta có $21A = 3(7 - A) + 3$. Rút gọn phương trình này ta có $21A = 21 - 3A + 3$. Kết hợp các số hạng tương tự, chúng ta có $24A = 24$. Chia cả hai vế cho 24, chúng ta tìm được $A = 1$. Thay giá trị này của $A$ vào phương trình $A + b = 7$, chúng ta có $1 + b = 7$. Giải $b$, ta tìm được $b = 6$. Do đó, tổng nhỏ nhất có thể có $A+b$ là $1+6 = 7$. Giá trị của $X$ là 5. Câu trả lời là: 5",
+    "pred_number": "6",
+    "raw_output": "** đáp án đúng là ( a ) _ 4 ** . - - - # # # lựa chọn 1 : xác định các phương trình đã cho để tìm \\ ( b \\ ): \\ [ p = \\ fra c { 7 } { 3 } ^ 2 } \\ ] bước 1 : tính giá trị biểu thức ở vế trái : \\ [ \\ bo xe d { b = 5 } \\ im p li es 0 = 6 \\ ] vậy nghiệm của phương trình là \\ (- 6 \\ ). *",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nCho $f(x) = 4-3x$ và $g(x) = x^2 + 1$, giá trị của $f(g(\\sqrt{2}))$ là bao nhiêu?",
+    "question": "Cho $f(x) = 4-3x$ và $g(x) = x^2 + 1$, giá trị của $f(g(\\sqrt{2}))$ là bao nhiêu?",
+    "gold_answer": "-5",
+    "gold_full": "Đầu tiên, chúng ta cần tìm giá trị của $g(\\sqrt{2})$. Chúng ta thay $\\sqrt{2}$ vào biểu thức của $g(x)$ để được $g(\\sqrt{2}) = (\\sqrt{2})^2 + 1 = 2 + 1 = 3$. Tiếp theo, chúng ta thay $g(\\sqrt{2})$ vào biểu thức của $f(x)$ để được $f(g(\\sqrt{2})) = 4 - 3(3) = 4 - 9 = \\boxed{-5}$. Câu trả lời là: -5",
+    "pred_number": "7",
+    "raw_output": "ta có phương trình : \\ [ \\ bo xe d { f = \\ fra c { 4 } { 5 } = 6 \\ ] ** đáp án đúng là : ** \\ [ p ( 6 \\ times 8 ) = 7 \\ ]",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGiá trị của $3 \\times (7 - 5) - 5$ là bao nhiêu?",
+    "question": "Giá trị của $3 \\times (7 - 5) - 5$ là bao nhiêu?",
+    "gold_answer": "1",
+    "gold_full": "Đầu tiên, chúng tôi đơn giản hóa các dấu ngoặc đơn: $7 - 5 = 2$. Tiếp theo, chúng ta nhân: $3 \\time 2 = 6$. Cuối cùng, chúng tôi trừ: $6 - 5 = \\boxed{1}$. Câu trả lời là: 1",
+    "pred_number": "4",
+    "raw_output": "$ 3 = 4 $ .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nXác suất, được biểu thị dưới dạng số thập phân, để lấy được một viên bi màu đỏ hoặc xanh từ một túi chứa 3 viên bi đỏ, 2 viên bi xanh và 5 viên bi vàng là bao nhiêu?",
+    "question": "Xác suất, được biểu thị dưới dạng số thập phân, để lấy được một viên bi màu đỏ hoặc xanh từ một túi chứa 3 viên bi đỏ, 2 viên bi xanh và 5 viên bi vàng là bao nhiêu?",
+    "gold_answer": "2",
+    "gold_full": "Có tổng cộng $3+2+5=10$ viên bi trong túi. Xác suất lấy được viên bi đỏ hoặc xanh bằng số viên bi đỏ và xanh chia cho tổng số viên bi. Vậy xác suất là $\\frac{3+2}{10} = \\frac{5}{10} = \\boxed{0.5}$. Câu trả lời là: \\frac{1}{2}",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** xác suất ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGiả sử $a \\clubsuit b = \\frac{2a}{b} \\cdot \\frac{b}{a}$. $(5 \\clubsuit (3 \\clubsuit 6)) \\clubsuit 1$ là gì?",
+    "question": "Giả sử $a \\clubsuit b = \\frac{2a}{b} \\cdot \\frac{b}{a}$. $(5 \\clubsuit (3 \\clubsuit 6)) \\clubsuit 1$ là gì?",
+    "gold_answer": "2",
+    "gold_full": "Đầu tiên, chúng tôi đánh giá $3 \\clubsuit 6$: \\[3 \\clubsuit 6 = \\frac{2 \\cdot 3}{6} \\cdot \\frac{6}{3} = 2 \\cdot 2 = 4.\\] Tiếp theo, chúng tôi đánh giá $5 \\clubsuit 4$: \\[5 \\clubsuit 4 = \\frac{2 \\cdot 5}{4} \\cdot \\frac{4}{5} = 2 \\cdot 1 = 2.\\] Cuối cùng, chúng tôi đánh giá $2 \\clubsuit 1$: \\[2 \\clubsuit 1 = \\frac{2 \\cdot 2}{1} \\cdot \\frac{1}{2} = 2 \\cdot 1 = 2.\\] Do đó, $(5 \\ clubsuit (3 \\clubsuit 6)) \\clubsuit 1 = 2 \\clubsuit 1 = \\boxed{2}.$ Câu trả lời là: 2",
+    "pred_number": "7",
+    "raw_output": "ta có phương trình : \\ [ 4 \\ club vest 2 + 3 \\ ] bước 1 : rút gọn các hạng tử chứa \\ ( n \\ ) ở hai vế để đưa hằng số về một phía , chúng ta cần tìm giá trị của \\ ( d \\ ). bước 2 : chia cả hai vế cho 4 để tìm \\ ( a \\ ): \\ [ p = \\ bo xe d { a = - 0 } \\ ] vậy nghiệm của phương trình là : ** \\ [ \\ bo ngựa 1 + 0 \\ ri ght ar row 8 = 7 \\ ]",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMona mang 20 chiếc bánh quy đến chia sẻ trong lớp. Jasmine mang ít hơn Mona 5 cái bánh quy. Rachel mang nhiều hơn Jasmine 10 cái bánh quy. Có bao nhiêu cái bánh quy mà Mona, Jasmine và Rachel mang đến chia sẻ trong lớp?",
+    "question": "Mona mang 20 chiếc bánh quy đến chia sẻ trong lớp. Jasmine mang ít hơn Mona 5 cái bánh quy. Rachel mang nhiều hơn Jasmine 10 cái bánh quy. Có bao nhiêu cái bánh quy mà Mona, Jasmine và Rachel mang đến chia sẻ trong lớp?",
+    "gold_answer": "60",
+    "gold_full": "Mona mang tới 20 cái bánh quy. Jasmine mang ít hơn Mona 5 cái bánh quy nên cô ấy mang 20 - 5 = 15 cái bánh quy. Rachel mang nhiều hơn Jasmine 10 cái bánh quy nên cô ấy mang 15 + 10 = 25 cái bánh quy. Tổng cộng Mona, Jasmine và Rachel mang theo 20 + 15 + 25 = 60 cái bánh quy. ####60 Đáp án là: 60",
+    "pred_number": "1",
+    "raw_output": "đáp án đúng là : ** số 1 ** vì mona đã mang rất nhiều bánh quy trên vỏ bánh quy của cô ấy khi chia sẻ với bạn bè .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nYolanda đã ghi được 345 điểm trong cả mùa giải. Có 15 trận đấu trong mùa giải. Cô ấy thực hiện trung bình 4 quả ném phạt (có giá trị x điểm) và 5 quả ném rổ hai điểm mỗi trận. Cô ấy ném trung bình 3 rổ ba điểm một trận.",
+    "question": "Yolanda đã ghi được 345 điểm trong cả mùa giải. Có 15 trận đấu trong mùa giải. Cô ấy thực hiện trung bình 4 quả ném phạt (có giá trị x điểm) và 5 quả ném rổ hai điểm mỗi trận. Cô ấy ném trung bình 3 rổ ba điểm một trận.",
+    "gold_answer": "1",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số điểm mà mỗi lần ném phạt có giá trị. Hãy chia nhỏ thông tin đã cho: Tổng số điểm ghi được trong mùa giải: 345 Số trận: 15 Số quả ném phạt trung bình mỗi trận: 4 Số lần ném rổ hai điểm trung bình mỗi trận: 5 Số lần ném rổ ba điểm trung bình mỗi trận: 3 Ta có thể thiết lập phương trình như sau: Tổng số điểm ghi được trong mùa giải = Số trận * (Số quả ném phạt trung bình mỗi trận * Giá trị mỗi lần ném phạt + Số lần ném rổ trung bình 2 điểm mỗi trận * 2 + Số trung bình số lần ném rổ ba điểm mỗi trận * 3) 345 = 15 * (4 * x + 5 * 2 + 3 * 3) Hãy đơn giản hóa và giải x: 345 = 15 * (4x + 10 + 9) 345 = 15 * ( 4x + 19) Để tách x, ta chia cả hai vế của phương trình cho 15: 345 / 15 = (4x + 19) 23 = 4x + 19 Để tách x, ta trừ 19 ở cả hai vế của phương trình: 23 - 19 = 4x + 19 - 19 4 = 4x Để giải x, ta chia cả hai vế của phương trình cho 4: 4 / 4 = 4x / 4 1 = x Giá trị của x là 1. #### 1 Đáp án là: 1",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** không **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nLà một thợ lặn, Gretchen thích tìm kiếm kho báu dưới đáy đại dương. Tuy nhiên, cô chỉ có thể mang theo 3 đồ vật cùng lúc khi bơi dưới nước. Nếu cô ấy tìm thấy tổng cộng 17 đồ vật thì cô ấy cần phải thực hiện số chuyến đi tối thiểu trên mặt nước để vận chuyển tất cả 17 đồ vật đó lên thuyền là bao nhiêu?",
+    "question": "Là một thợ lặn, Gretchen thích tìm kiếm kho báu dưới đáy đại dương. Tuy nhiên, cô chỉ có thể mang theo 3 đồ vật cùng lúc khi bơi dưới nước. Nếu cô ấy tìm thấy tổng cộng 17 đồ vật thì cô ấy cần phải thực hiện số chuyến đi tối thiểu trên mặt nước để vận chuyển tất cả 17 đồ vật đó lên thuyền là bao nhiêu?",
+    "gold_answer": "6",
+    "gold_full": "Nếu Gretchen chỉ có thể mang 3 đồ vật cùng một lúc thì cô ấy sẽ phải thực hiện 17/3 = 5,67 chuyến đi. Vì cô ấy không thể thực hiện một phần nhỏ chuyến đi nên Gretchen sẽ cần thực hiện tối thiểu 6 chuyến để vận chuyển tất cả 17 đồ vật lên thuyền. ####6 Đáp án là: 6",
+    "pred_number": "2",
+    "raw_output": "dựa vào đề bài đã cung cấp , ta sẽ phân tích từng bước như sau : 1 . ** xác định các đồ vật được nhắc đến trong câu hỏi **: - thợ lặn thường sử dụng thiết bị lặn chuyên dụng hoặc tàu cứu hộ để di chuyển hàng hóa trên biển . 2",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu phép toán $*$ được xác định cho các số nguyên khác 0 là $a * b = \\frac{1}{a} + \\frac{1}{b}$, và $a + b = 9$ và $a \\ nhân b = 20$, giá trị của $a * b$, được biểu thị dưới dạng phân số chung là bao nhiêu?",
+    "question": "Nếu phép toán $*$ được xác định cho các số nguyên khác 0 là $a * b = \\frac{1}{a} + \\frac{1}{b}$, và $a + b = 9$ và $a \\ nhân b = 20$, giá trị của $a * b$, được biểu thị dưới dạng phân số chung là bao nhiêu?",
+    "gold_answer": "20",
+    "gold_full": "Chúng ta biết rằng $a + b = 9$ và $a \\times b = 20$. Chúng ta muốn tìm giá trị của $a * b = \\frac{1}{a} + \\frac{1}{b}$. Chúng ta có thể viết lại $\\frac{1}{a} + \\frac{1}{b}$ dưới dạng $\\frac{a + b}{ab}$ bằng cách sử dụng mẫu số chung. Thay thế các giá trị đã cho, chúng ta có $\\frac{a + b}{ab} = \\frac{9}{20}$. Do đó, $a * b = \\boxed{\\frac{9}{20}}$. Câu trả lời là: \\frac{9}{20}",
+    "pred_number": null,
+    "raw_output": "** đáp án đúng là ( a ) $ ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu $\\sin x = 3 \\cos x$, giá trị của $\\sin x \\cos x$ là bao nhiêu?",
+    "question": "Nếu $\\sin x = 3 \\cos x$, giá trị của $\\sin x \\cos x$ là bao nhiêu?",
+    "gold_answer": "10",
+    "gold_full": "Chúng ta có thể bình phương cả hai vế của phương trình $\\sin x = 3 \\cos x$ để được $\\sin^2 x = 9 \\cos^2 x$. Vì $\\sin^2 x + \\cos^2 x = 1$, nên chúng ta có $9 \\cos^2 x + \\cos^2 x = 1$. Điều này đơn giản hóa thành $10 \\cos^2 x = 1$. Chia cả hai vế cho 10, ta được $\\cos^2 x = \\frac{1}{10}$. Lấy căn bậc hai của cả hai vế, ta có $\\cos x = \\pm \\frac{1}{\\sqrt{10}}$. Vì $\\sin x = 3 \\cos x$, chúng ta có thể thay thế giá trị của $\\cos x$ để tìm $\\sin x$. Nếu $\\cos x = \\frac{1}{\\sqrt{10}}$, thì $\\sin x = 3 \\cdot \\frac{1}{\\sqrt{10}} = \\frac{3}{\\sqrt {10}}$. Nếu $\\cos x = -\\frac{1}{\\sqrt{10}}$, thì $\\sin x = 3 \\cdot -\\frac{1}{\\sqrt{10}} = -\\frac{3} {\\sqrt{10}}$. Do đó, các giá trị có thể có của $\\sin x \\cos x$ là $\\frac{3}{\\sqrt{10}} \\cdot \\frac{1}{\\sqrt{10}} = \\frac{3}{10 }$ và $-\\frac{3}{\\sqrt{10}} \\cdot -\\frac{1}{\\sqrt{10}} = \\frac{3}{10}$. Giá trị của $\\sin x \\cos x$ là $\\boxed{\\frac{3}{10}}$. Câu trả lời là: \\frac{3}{10}",
+    "pred_number": "2",
+    "raw_output": "để trả lời câu hỏi này một cách đầy đủ và chính xác , ta cần thực hiện các bước phân tích chi tiết như sau : ** * # # # giai đoạn 1 : hiểu đề bài - đề bài yêu cầu tìm giá trị cụ thể ( $ \\ ri ght ar row $ $ \\ tex t { năm } ^ 2 + 4 } $ ). nội dung tập trung vào sự thay đổi về mặt thời gian trong hệ đo lường quốc tế ( si ) theo thời gian . ** ý nghĩa cốt lõi : ** giá trị được định nghĩa bằng công thức : $ $ f = \\ fra c { 3 } { 6 } $ . phương trình trở thành : \\ [ \\ bo xe d { m = 3 } \\ ] ** mục tiêu ban đầu : ** tính tỷ lệ phần tử trong đơn vị thời gian chuẩn ( ví dụ : \\ (- p = a \\ times r ^ 2 \\ ), với \\ ( w \\ ) là tỉ số giữa hai số đó khi chia cả hai vế cho \\ (-",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Yvette ban đầu có ngân sách là 60 đô la và chiếc khung mà cô ấy muốn đắt hơn 20% so với ngân sách của mình, nhưng cuối cùng cô ấy lại mua một chiếc khung nhỏ hơn với giá bằng 3/4 giá của chiếc khung ban đầu, cô ấy còn lại bao nhiêu tiền?",
+    "question": "Nếu Yvette ban đầu có ngân sách là 60 đô la và chiếc khung mà cô ấy muốn đắt hơn 20% so với ngân sách của mình, nhưng cuối cùng cô ấy lại mua một chiếc khung nhỏ hơn với giá bằng 3/4 giá của chiếc khung ban đầu, cô ấy còn lại bao nhiêu tiền?",
+    "gold_answer": "6",
+    "gold_full": "Nếu khung hình mà Yvette muốn đắt hơn 20% so với ngân sách của cô thì nó sẽ có giá $60 + ($60 * 0,20) = $72. Nhưng cuối cùng cô ấy lại mua một chiếc khung nhỏ hơn với giá bằng 3/4 giá khung ban đầu, vì vậy chiếc khung nhỏ hơn có giá 72 USD * (3/4) = 54 USD. Do đó, Yvette còn lại $60 - $54 = $6. ####6 Đáp án là: 6",
+    "pred_number": null,
+    "raw_output": "bạn vui lòng cung cấp câu trả lời chi tiết để tôi có thể đưa ra đáp án chính xác nhất .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTìm $3 \\cdot X \\cdot 7 + 15 \\div 3. 110. Giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Tìm $3 \\cdot X \\cdot 7 + 15 \\div 3. 110. Giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "5",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần đơn giản hóa biểu thức đã cho và giải biến x chưa biết. Hãy chia nhỏ biểu thức đã cho: $3 * X * 7 + 15 / 3 = 110 Chúng ta có thể đơn giản hóa biểu thức như sau: 21X + 5 = 110 Để tách X, chúng ta trừ 5 từ cả hai vế của phương trình: 21X + 5 - 5 = 110 - 5 21X = 105 Để giải X, ta chia cả hai vế của phương trình cho 21: X = 105/21 X = 5 Giá trị của X là 5. Đáp án là: 5",
+    "pred_number": "5",
+    "raw_output": "để trả lời câu hỏi này , ta thực hiện các bước sau đây một cách chi tiết như sau : ** bước 1 : hiểu đề bài ** - đề bài nói về việc tìm giá trị lớn nhất mà không tìm thấy bất kỳ thông tin cụ thể nào liên quan đến biến x ( ví dụ : tỷ lệ phần trăm trên tổng giá trị đầu tư ). điều này có nghĩa là giá trị đó được tính bằng công thức : \\ [ \\ fra c { 3 } { 2 } = 5 \\ times 9 \\ ] trong đó : - \\ (- 4 \\ ) là số nguyên tố - \\ ( 6 \\ times 10 \\ ri ght ar row 8 \\ times 23 = 0 \\ ) vậy phương trình trở thành \" \\ [ - 4 \\ im p li es d = 5 - 20 \\ ] ** kết luận : ** giá trị biểu diễn của biến là \\ ( \\ bo xe d { s = 5 } \\ ).",
+    "correct": true
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Yanna nướng hai mươi chiếc bánh quy bơ và bốn mươi chiếc bánh quy vào buổi sáng và thêm mười chiếc bánh quy bơ và hai mươi chiếc bánh quy vào buổi chiều thì cô ấy đã nướng thêm bao nhiêu chiếc bánh quy so với số lượng bánh quy bơ?",
+    "question": "Nếu Yanna nướng hai mươi chiếc bánh quy bơ và bốn mươi chiếc bánh quy vào buổi sáng và thêm mười chiếc bánh quy bơ và hai mươi chiếc bánh quy vào buổi chiều thì cô ấy đã nướng thêm bao nhiêu chiếc bánh quy so với số lượng bánh quy bơ?",
+    "gold_answer": "30",
+    "gold_full": "Buổi sáng, Yanna nướng 20 cái bánh quy bơ + 40 cái bánh quy = 60 cái bánh quy tổng cộng. Vào buổi chiều, Yanna nướng 10 chiếc bánh quy bơ + 20 chiếc bánh quy = tổng cộng 30 chiếc bánh quy. Do đó, Yanna đã nướng tổng cộng 60 chiếc bánh quy - 30 chiếc bánh quy bơ = nhiều hơn 30 chiếc bánh quy so với bánh quy bơ. ####30 Đáp án là: 30",
+    "pred_number": "23",
+    "raw_output": "để trả lời câu hỏi \" khi nào cô ấy sẽ nướng thêm ba mươi cái bánh quy ?\" ta thực hiện các bước phân tích như sau : ** bước 1 : xác định thông tin liên quan đến thời gian nướng bánh ** - ban đầu , việc nướng bánh quy thường diễn ra ở nhiệt độ rất cao ( khoảng 220 ° c ) trong một lò nướng hoặc máy nướng bánh . - tuy nhiên , không có dữ liệu cụ thể về thời gian này vì đây chỉ là mô tả công thức nấu ăn của người làm món đó . ** bước 2 : đánh giá khả năng nướng bánh theo thời gian thực ** - thời gian cần thiết để nướng bánh được tính bằng công thức : \\ [ p = a _ r + 3 } { \\ tex t { năm } } = \\ fra c { 5 } { 4 } \\ ] - do vậy , thời gian phù hợp nhất để kết thúc quá trình này là : \\ (- 8 \\ times 10 = 20 \\ times 12 \\ times 15 = 23 \\ times",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGary có 30 gam vàng có giá 15 USD một gam. Anna có 50 gam vàng với giá $x một gam. Tổng giá trị số vàng của họ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 1450 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Gary có 30 gam vàng có giá 15 USD một gam. Anna có 50 gam vàng với giá $x một gam. Tổng giá trị số vàng của họ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 1450 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "20",
+    "gold_full": "Gary có 30 gam vàng có giá 15 đô la một gam, vậy giá vàng của anh ấy là 30 * 15 đô la = 450 đô la. Anna có 50 gram vàng với giá $x mỗi gram, vì vậy giá vàng của cô ấy là 50 * $x = $50x. Tổng giá trị số vàng của họ cộng lại là tổng giá trị số vàng của Gary và giá trị số vàng của Anna: $450 + $50x. Chúng ta được biết rằng tổng chi phí là $1450, vì vậy chúng ta có thể viết: $450 + $50x = $1450. Trừ $450 từ cả hai vế, chúng ta nhận được: $50x = $1000. Chia cả hai vế cho $50, ta được: x = 20. Giá trị của x là 20. #### 20 Đáp án là: 20",
+    "pred_number": "50",
+    "raw_output": "dựa vào đề bài đã cung cấp , ta không thể xác định chính xác giá trị cụ thể của số vàng mà anna nhận được trong các lựa chọn : - 14 50 = 14 50 bước 1 : tính giá trị hiện tại của \\ ( l ^ 2 + 14 50 ) \\ [ 14 50 \\ times 14 50 } { 14 49 } \\ ] bước 2 : tìm ước chung lớn nhất giữa 14 50 và 14 50 ( vì 14 50 nhỏ hơn 14 50 ), ước này là 13 50 . vậy giá trị thực sự của biến là : 14 50 ** kết luận : ** giá trị tuyệt đối của biến \" 14 50 \". đáp án đúng là : 16 50",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột phần tư thời lượng phát sóng của một chương trình truyền hình được dành cho quảng cáo. Nếu có 6 chương trình dài 30 phút thì tổng thời lượng của 6 chương trình đó là bao nhiêu phút?",
+    "question": "Một phần tư thời lượng phát sóng của một chương trình truyền hình được dành cho quảng cáo. Nếu có 6 chương trình dài 30 phút thì tổng thời lượng của 6 chương trình đó là bao nhiêu phút?",
+    "gold_answer": "45",
+    "gold_full": "Mỗi chương trình dài 30 phút nên tổng thời lượng của 6 chương trình là 6 * 30 = 180 phút. 1/4 thời lượng phát sóng được dành cho quảng cáo nên số phút dành cho quảng cáo là 180 * 1/4 = 45 phút. Vì vậy, 45 phút được dành cho quảng cáo trong suốt thời lượng của 6 chương trình. ####45 Đáp án là: 45",
+    "pred_number": "1",
+    "raw_output": "đáp án đúng là : 1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nQuãng đường từ nhà Philip đến trường trẻ là 2,5 dặm, và quãng đường đến chợ là 2 dặm. Anh đi lại trường hai lần (khi đưa con đến trường và khi đưa con về) mỗi ngày, 4 ngày một tuần. Sau đó, anh ấy đi chợ một lần vào cuối tuần. Xe của anh ấy đi được bao nhiêu km trong một tuần thông thường?",
+    "question": "Quãng đường từ nhà Philip đến trường trẻ là 2,5 dặm, và quãng đường đến chợ là 2 dặm. Anh đi lại trường hai lần (khi đưa con đến trường và khi đưa con về) mỗi ngày, 4 ngày một tuần. Sau đó, anh ấy đi chợ một lần vào cuối tuần. Xe của anh ấy đi được bao nhiêu km trong một tuần thông thường?",
+    "gold_answer": "44",
+    "gold_full": "Quãng đường khứ hồi đến trường là 2,5 dặm mỗi chiều nên tổng khoảng cách cho một lượt đi là 2,5 x 2 = 5 dặm. Philip thực hiện chuyến đi khứ hồi này hai lần một ngày, vì vậy tổng khoảng cách cho các chuyến đi trong một ngày là 5 x 2 = 10 dặm. Anh ấy làm điều này 4 ngày một tuần, vậy tổng quãng đường cho chuyến dã ngoại trong một tuần là 10 x 4 = 40 dặm. Quãng đường khứ hồi tới chợ là 2 dặm mỗi chiều nên tổng khoảng cách cho một chuyến khứ hồi là 2 x 2 = 4 dặm. Philip thực hiện chuyến đi khứ hồi này một lần vào cuối tuần, vì vậy tổng khoảng cách cho chuyến đi chợ trong một tuần là 4 x 1 = 4 dặm. Do đó, quãng đường ô tô của anh ấy đi được trong một tuần điển hình là 40 + 4 = 44 dặm. #### 44 Đáp án là: 44",
+    "pred_number": "30",
+    "raw_output": "1 giờ 30 sáng",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột con bọ cạp mù sống sót nhờ bắt được động vật nhiều chân. Nó cần ăn nhiều động vật nhiều chân để tồn tại: tổng cộng 800 đoạn cơ thể mỗi ngày. Nếu nó đã ăn một con rết có 60 đốt và 2 con rết dài gấp đôi thì nó cần ăn bao nhiêu con rết 50 đốt để đạt tổng số hàng ngày?",
+    "question": "Một con bọ cạp mù sống sót nhờ bắt được động vật nhiều chân. Nó cần ăn nhiều động vật nhiều chân để tồn tại: tổng cộng 800 đoạn cơ thể mỗi ngày. Nếu nó đã ăn một con rết có 60 đốt và 2 con rết dài gấp đôi thì nó cần ăn bao nhiêu con rết 50 đốt để đạt tổng số hàng ngày?",
+    "gold_answer": "10",
+    "gold_full": "Bọ cạp đã ăn 1 con rết có 60 đốt nên vẫn cần ăn 800 - 60 = 740 đốt. Nó cũng đã ăn thịt 2 con rết dài gấp đôi nên mỗi con rết này có 60 x 2 = 120 đốt. Vậy con bọ cạp đã ăn tổng cộng 2 x 120 = 240 đốt từ những con rết này. Vì thế nó vẫn cần ăn 740 - 240 = 500 đoạn. Vì mỗi con rết có 50 đốt nên bọ cạp cần ăn 500/50 = 10 đốt. ####10 Đáp án là: 10",
+    "pred_number": "1",
+    "raw_output": "** đáp án đúng là : ** 1 . ** phân tích các lựa chọn trả lời : ** - a ( động vật ít chân ): đây không phải là câu hỏi về số lượng động vật , mà là kết quả của quá trình sinh học phức tạp trong việc tìm kiếm thức ăn từ động vật rất đa dạng và phong phú . - b ( động thực vật lớn hơn ) cũng liên quan đến hoạt động săn mồi nhưng không trực tiếp cung cấp thông tin cụ thể về thời gian sống hay mức độ mất mát động vật . do đó , đáp án phù hợp nhất với ngữ cảnh này là c .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nCó bao nhiêu giá trị có thể có của $k$ nếu cả hai nghiệm của phương trình bậc hai $x^2 - 63x + k = 0$ đều là số nguyên tố?",
+    "question": "Có bao nhiêu giá trị có thể có của $k$ nếu cả hai nghiệm của phương trình bậc hai $x^2 - 63x + k = 0$ đều là số nguyên tố?",
+    "gold_answer": "1",
+    "gold_full": "Tổng các nghiệm của phương trình bậc hai $ax^2 + bx + c = 0$ là $-b/a$, và tích của các nghiệm là $c/a$. Trong trường hợp này, tổng của các nghiệm là $63$, chia hết cho $3$ và $9$. Vì gốc là số nguyên tố nên chúng phải là $3$ và $61$ (hoặc $61$ và $3$). Do đó, tích của nghiệm là $3 \\cdot 61 = 183$. Vì vậy, chỉ có $\\boxed{1}$ giá trị có thể có của $k$, là $k = 183$. Câu trả lời là: 1",
+    "pred_number": null,
+    "raw_output": "** đáp án đúng là ( b ) $ \\ ri ght ar row $ ** . **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTìm ước chung lớn nhất của 1407 và 903.",
+    "question": "Tìm ước chung lớn nhất của 1407 và 903.",
+    "gold_answer": "21",
+    "gold_full": "Chúng ta có thể sử dụng thuật toán Euclide để tìm ước số chung lớn nhất (GCD) của 1407 và 903. Đầu tiên, chúng ta chia 1407 cho 903 và tìm số dư: $1407 = 1 \\cdot 903 + 504$ Tiếp theo, chúng ta chia 903 cho 504 và tìm số dư: $903 = 1 \\cdot 504 + 399$ Sau đó, chúng ta chia 504 cho 399 và tìm số dư: $504 = 1 \\cdot 399 + 105$ Chúng ta tiếp tục quá trình này cho đến khi đạt số dư 0: $399 = 3 \\cdot 105 + 84$ $105 = 1 \\cdot 84 + 21$ $84 = 4 \\cdot 21 + 0$ Vì số dư bây giờ là 0, nên chúng ta có thể kết luận rằng GCD của 1407 và 903 là số dư trước đó, được $\\boxed{ 21}$. Câu trả lời là: 21",
+    "pred_number": "3",
+    "raw_output": "để trả lời câu hỏi này , ta cần thực hiện các bước sau đây một cách chi tiết : ** bước 1 : hiểu đề bài ** - đề bài nói về việc tìm kiếm ước chung nhỏ nhất ( chia hết cho 4 ) trong tập hợp các số nguyên . - mục tiêu là tìm một con số cụ thể mà mỗi phần tử phải đạt được bằng cách lấy tất cả những gì có thể xảy ra hoặc không tồn tại trước đó . ** bước 2 : phân tích yêu cầu ** - xác định xem khi tìm thấy một ký tự đặc biệt ( ví dụ như chữ cái ' s ', \" a \", \" l \") thì giá trị của nó sẽ bao gồm điều gì ? - nếu chỉ chọn một chuỗi ký tự duy nhất , ta có thể tính tổng các giá trị đã tìm được với từng phần tử . - - - # # # bước 3 : so sánh nội dung đề bài với các lựa chọn đã cho - lựa chọn a ( số nguyên ): phù hợp hơn vì nó liên quan trực tiếp",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nUrsula đang làm việc tại một công ty tiếp thị. Cô ấy đã tạo một đoạn quảng cáo dài 30 giây. Sếp của cô ấy nói với cô ấy rằng quảng cáo này quá dài để phát sóng và yêu cầu cô ấy rút ngắn quảng cáo đi x%. Quảng cáo này sẽ là 21 sau khi Ursula thực hiện những thay đổi mong muốn. Giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Ursula đang làm việc tại một công ty tiếp thị. Cô ấy đã tạo một đoạn quảng cáo dài 30 giây. Sếp của cô ấy nói với cô ấy rằng quảng cáo này quá dài để phát sóng và yêu cầu cô ấy rút ngắn quảng cáo đi x%. Quảng cáo này sẽ là 21 sau khi Ursula thực hiện những thay đổi mong muốn. Giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "30",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho tỷ lệ phần trăm mà Ursula cần rút ngắn quảng cáo. Chúng ta hãy chia nhỏ thông tin đã cho: Độ dài ban đầu của quảng cáo: 30 giây Độ dài mong muốn của quảng cáo: 21 giây Tỷ lệ phần trăm mà quảng cáo cần rút ngắn: x% Chúng ta có thể thiết lập phương trình như sau: Độ dài ban đầu của quảng cáo - (Tỷ lệ phần trăm cần rút ngắn/100) * Độ dài ban đầu của quảng cáo = Độ dài mong muốn của quảng cáo 30 - (x/100) * 30 = 21 Hãy đơn giản hóa và giải x: 30 - (x/100) * 30 = 21 Để tách x, chúng ta trừ 30 từ cả hai vế của phương trình: 30 - 30 - (x/100) * 30 = 21 - 30 -(x/100) * 30 = -9 Để giải x, chúng ta chia cả hai vế của phương trình với -30/100: -(x/100) * 30 / (-30/100) = -9 / (-30/100) x = -9 / (-30/100) x = 9 / (30/100) x = 9 / (3/10) x = 9 * (10/3) x = 30 Giá trị của x là 30. #### 30 Đáp án là: 30",
+    "pred_number": "5",
+    "raw_output": "dựa trên đề bài , ta có thể suy luận về các lựa chọn trả lời như sau : 1 . ** thời gian ( time ): ** - \" thời gian \": nghĩa là khoảng thời gian hoặc sự kiện xảy ra trong tương lai . - \" ngày tháng \": không phải lúc bắt đầu hay kết thúc chính thức . 2 . ** chi phí **: - thời gian cần thiết để sản xuất nội dung quảng cáo . 3 . ** mức độ ảnh hưởng đến doanh thu **: - chi phí sản phẩm / dịch vụ thường cao hơn so với chi phí quảng cáo ban đầu . 4 . ** mục tiêu kinh doanh **: - tăng doanh thu từ quảng cáo mà vẫn duy trì hiệu quả hoạt động . 5 . ** khả năng thành công **: - chiến lược marketing phù hợp giúp doanh nghiệp đạt được lợi nhuận nhanh chóng nhưng cũng dễ bị tổn thất do rủi ro tài chính .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMáy gọt bút chì quay tay có thể mài một cây bút chì cứ sau 45 giây. Phiên bản điện có thể mài sắc một chiếc trong hai mươi giây. Máy mài điện có thể mài được bao nhiêu cây bút chì hơn máy mài quay tay trong sáu phút?",
+    "question": "Máy gọt bút chì quay tay có thể mài một cây bút chì cứ sau 45 giây. Phiên bản điện có thể mài sắc một chiếc trong hai mươi giây. Máy mài điện có thể mài được bao nhiêu cây bút chì hơn máy mài quay tay trong sáu phút?",
+    "gold_answer": "10",
+    "gold_full": "Một phút có 60 giây nên 6 phút bằng 6 * 60 = 360 giây. Máy mài quay tay có thể mài một cây bút chì cứ sau 45 giây, như vậy trong 360 giây nó có thể mài 360/45 = 8 cây bút chì. Máy gọt điện có thể gọt một cây bút chì cứ sau 20 giây, như vậy trong 360 giây nó có thể gọt 360/20 = 18 cây bút chì. Do đó, máy mài điện có thể mài nhiều hơn 18 - 8 = 10 cây bút chì so với máy mài quay tay trong sáu phút. ####10 Đáp án là: 10",
+    "pred_number": null,
+    "raw_output": "câu trả lời đúng là : ** không ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu bố của Logan nhận được 50 thùng để kinh doanh sữa, mỗi thùng chứa 20 lọ sữa, nhưng trong quá trình giao hàng lại có ít hơn 20 thùng. Ngoài ra, trong quá trình dỡ hàng, anh phát hiện 3 hũ, mỗi thùng 5 thùng bị hư hỏng, 1 thùng bị hư hỏng toàn bộ. Có bao nhiêu lọ sữa còn tốt và có thể bán được trong tuần đó?",
+    "question": "Nếu bố của Logan nhận được 50 thùng để kinh doanh sữa, mỗi thùng chứa 20 lọ sữa, nhưng trong quá trình giao hàng lại có ít hơn 20 thùng. Ngoài ra, trong quá trình dỡ hàng, anh phát hiện 3 hũ, mỗi thùng 5 thùng bị hư hỏng, 1 thùng bị hư hỏng toàn bộ. Có bao nhiêu lọ sữa còn tốt và có thể bán được trong tuần đó?",
+    "gold_answer": "565",
+    "gold_full": "Nếu bố của Logan nhận được 50 thùng sữa, nhưng khi giao hàng lại có ít hơn 20 thùng, thì ông có 50 - 20 = 30 thùng sữa để bán. Mỗi thùng chứa 20 hũ sữa nên 30 thùng x 20 hũ = 600 hũ sữa. Trong quá trình bốc dỡ, 5 thùng carton mỗi thùng có 3 lọ bị hư hỏng nên tổng cộng có 5 thùng x 3 lọ = 15 lọ bị hư hỏng. Ngoài ra, 1 thùng bị hư hỏng hoàn toàn nên 1 thùng x 20 lọ = 20 lọ bị hư hỏng. Tổng cộng có 15 lọ + 20 lọ = 35 lọ bị hư. Do đó, số hũ sữa còn tốt và có sẵn để bán là 600 hũ - 35 hũ = 565 hũ. ####565 Đáp án là: 565",
+    "pred_number": "2",
+    "raw_output": "** đáp án đúng là ( a ): ** 2",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGia đình Donaldson trả 15 USD/giờ cho việc trông trẻ. Gia đình Merck trả 18 USD/giờ và gia đình Hille trả 20 USD/giờ cho việc trông trẻ. Layla trông trẻ cho gia đình Donaldson trong 7 giờ, cho gia đình Merck trong 6 giờ và cho gia đình Hille trong 3 giờ. Layla đã kiếm được bao nhiêu đô la khi trông trẻ?",
+    "question": "Gia đình Donaldson trả 15 USD/giờ cho việc trông trẻ. Gia đình Merck trả 18 USD/giờ và gia đình Hille trả 20 USD/giờ cho việc trông trẻ. Layla trông trẻ cho gia đình Donaldson trong 7 giờ, cho gia đình Merck trong 6 giờ và cho gia đình Hille trong 3 giờ. Layla đã kiếm được bao nhiêu đô la khi trông trẻ?",
+    "gold_answer": "273",
+    "gold_full": "Layla trông trẻ cho gia đình Donaldson trong 7 giờ nên cô kiếm được 15 USD x 7 = 105 USD. Cô ấy cũng trông trẻ cho gia đình Merck trong 6 giờ, vì vậy cô ấy kiếm được 18 đô la x 6 = 108 đô la. Cuối cùng, cô ấy trông trẻ cho gia đình Hille trong 3 giờ, vì vậy cô ấy kiếm được 20 đô la x 3 = 60 đô la. Tổng cộng, Layla kiếm được 105 USD + 108 USD + 60 USD = 273 USD cho việc trông trẻ. ####273 Đáp án là: 273",
+    "pred_number": "16",
+    "raw_output": "gia đình char lotte trả 16 usd mỗi giờ để trông trẻ ( theo thông tin bạn cung cấp ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Eman và Frank đồng ý mua một bàn máy tính, ghế máy tính và cần điều khiển mới, với bàn máy tính giá 140 USD, ghế máy tính giá 100 USD và cần điều khiển giá 20 USD, và Eman đồng ý trả tiền cho chiếc ghế máy tính trong khi Frank đồng ý mua. trả tiền cho chiếc bàn máy tính, Frank sẽ bỏ ra bao nhiêu tiền so với Eman nếu anh ta cũng đồng ý trả 1/4 giá chiếc cần điều khiển và số tiền còn lại sẽ do Eman trả?",
+    "question": "Nếu Eman và Frank đồng ý mua một bàn máy tính, ghế máy tính và cần điều khiển mới, với bàn máy tính giá 140 USD, ghế máy tính giá 100 USD và cần điều khiển giá 20 USD, và Eman đồng ý trả tiền cho chiếc ghế máy tính trong khi Frank đồng ý mua. trả tiền cho chiếc bàn máy tính, Frank sẽ bỏ ra bao nhiêu tiền so với Eman nếu anh ta cũng đồng ý trả 1/4 giá chiếc cần điều khiển và số tiền còn lại sẽ do Eman trả?",
+    "gold_answer": "30",
+    "gold_full": "Tổng chi phí của bàn ghế máy tính là $140 + $100 = $240. Frank đồng ý trả tiền cho chiếc bàn máy tính nên anh ấy sẽ chi 140 đô la. Eman đồng ý trả tiền cho chiếc ghế máy tính nên anh ấy sẽ chi 100 USD. Frank đồng ý trả 1/4 giá của cần điều khiển, tức là 20/4 = 5 USD. Số tiền còn lại của cần điều khiển mà Eman sẽ trả là 20 USD - 5 USD = 15 USD. Tổng cộng, Frank sẽ chi $140 + $5 = $145. Eman sẽ chi $100 + $15 = $115. Do đó, Frank sẽ chi nhiều hơn Eman $145 - $115 = $30. ####30 Đáp án là: 30",
+    "pred_number": "2",
+    "raw_output": "dựa trên đề bài đã cung cấp , chúng ta có thể phân tích các lựa chọn để tìm câu trả lời chính xác nhất từ hai phương pháp này . ** * # # # bước 1 : hiểu yêu cầu của câu hỏi ( vấn đề cốt lõi ) đây không phải là kết quả trực tiếp mà là sự mâu thuẫn về mặt nội dung giữa thông tin ban đầu và kiến thức cơ bản được trình bày dưới dạng mô tả chi tiết ( de tai ls ). - ** bối cảnh : ** mối quan hệ nhân quả giữa việc đặt bàn máy vi tính và nhu cầu điều khiển thiết bị . - ** nguyên tắc hoạt động : ** cân bằng giá cả ( $ \\ ri ght ar row $ điều chỉnh giá $ x + y = 50 $ ), tức là tỷ lệ phần trăm lợi nhuận thay vì chênh lệch lớn hơn nhiều so với mức giá gốc ( $ p _ { i } = \\ fra c { 50 } { 2 } ^ 3 } $ ). - - - ** bước 2 : đánh giá",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nXác định $\\mathbf{A} = \\begin{pmatrix} 0 & 1 \\\\ 3 & 0 \\end{pmatrix}.$ Tìm vectơ $\\mathbf{v}$ sao cho \\[(\\mathbf{A}^8 + \\mathbf{A}^6 + \\mathbf{A}^4 + \\mathbf{A}^2 + \\mathbf{I}) \\mathbf{v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix }.\\] Nếu chúng ta biết câu trả lời cho câu hỏi trên là \\begin{pmatrix}0\\1/11\\end{pmatrix} thì giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Xác định $\\mathbf{A} = \\begin{pmatrix} 0 & 1 \\\\ 3 & 0 \\end{pmatrix}.$ Tìm vectơ $\\mathbf{v}$ sao cho \\[(\\mathbf{A}^8 + \\mathbf{A}^6 + \\mathbf{A}^4 + \\mathbf{A}^2 + \\mathbf{I}) \\mathbf{v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix }.\\] Nếu chúng ta biết câu trả lời cho câu hỏi trên là \\begin{pmatrix}0\\1/11\\end{pmatrix} thì giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "0",
+    "gold_full": "Chúng ta có \\[(\\mathbf{A}^8 + \\mathbf{A}^6 + \\mathbf{A}^4 + \\mathbf{A}^2 + \\mathbf{I}) \\mathbf{v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix},\\] trong đó $\\mathbf{A} = \\begin{pmatrix} 0 & 1 \\\\ 3 & 0 \\end{pmatrix}$ và $\\mathbf{ v}$ là vector chúng ta muốn tìm. Chúng ta có thể bắt đầu bằng cách tính lũy thừa của $\\mathbf{A}$: \\begin{align*} \\mathbf{A}^2 &= \\begin{pmatrix} 0 & 1 \\\\ 3 & 0 \\end{pmatrix} \\ bắt đầu{pmatrix} 0 & 1 \\\\ 3 & 0 \\end{pmatrix} = \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}, \\\\ \\mathbf{A}^4 &= \\mathbf {A}^2 \\cdot \\mathbf{A}^2 = \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix} \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix } = \\begin{pmatrix} 9 & 0 \\\\ 0 & 9 \\end{pmatrix}, \\\\ \\mathbf{A}^6 &= \\mathbf{A}^4 \\cdot \\mathbf{A}^2 = \\ bắt đầu{pmatrix} 9 & 0 \\\\ 0 & 9 \\end{pmatrix} \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix} = \\begin{pmatrix} 27 & 0 \\\\ 0 & 27 \\ end{pmatrix}, \\\\ \\mathbf{A}^8 &= \\mathbf{A}^6 \\cdot \\mathbf{A}^2 = \\begin{pmatrix} 27 & 0 \\\\ 0 & 27 \\end{pmatrix } \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix} = \\begin{pmatrix} 81 & 0 \\\\ 0 & 81 \\end{pmatrix}. \\end{align*} Bây giờ chúng ta có thể thay thế các giá trị này vào phương trình: \\[(\\mathbf{A}^8 + \\mathbf{A}^6 + \\mathbf{A}^4 + \\mathbf{A}^2 + \\mathbf{I}) \\mathbf{v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] \\[\\begin{pmatrix} 81 & 0 \\\\ 0 & 81 \\end{pmatrix} \\mathbf{v} + \\begin{pmatrix} 27 & 0 \\\\ 0 & 27 \\end{pmatrix} \\mathbf{v} + \\begin{pmatrix} 9 & 0 \\\\ 0 & 9 \\end{pmatrix} \\mathbf {v} + \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix} \\mathbf{v} + \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix} \\mathbf{v } = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] \\[\\begin{pmatrix} 81 + 27 + 9 + 3 + 1 & 0 \\\\ 0 & 81 + 27 + 9 + 3 + 1 \\end{pmatrix} \\mathbf{v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] \\[\\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{pmatrix} \\mathbf {v} = \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] Vì ma trận $\\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{pmatrix}$ là khả nghịch nên chúng ta có thể nhân cả hai vế của phương trình theo nghịch đảo của nó: \\[\\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{pmatrix}^{-1} \\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{ pmatrix} \\mathbf{v} = \\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{pmatrix}^{-1} \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] \\[ \\mathbf{v} = \\begin{pmatrix} 121 & 0 \\\\ 0 & 121 \\end{pmatrix}^{-1} \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] Vì nghịch đảo của một ma trận đường chéo thu được bằng cách lấy nghịch đảo của các phần tử đường chéo, ta có \\[\\mathbf{v} = \\begin{pmatrix} \\frac{1}{121} & 0 \\\\ 0 & \\frac{1}{121 } \\end{pmatrix} \\begin{pmatrix} X \\\\ 11 \\end{pmatrix}.\\] Đơn giản hóa, ta tìm được \\[\\mathbf{v} = \\begin{pmatrix} \\frac{X}{121} \\\\ \\frac{11}{121} \\end{pmatrix}.\\] Cho rằng giá trị của $\\mathbf{v}$ là $\\begin{pmatrix} 0 \\\\ \\frac{1}{11} \\end{pmatrix }$, chúng ta có thể đánh đồng các thành phần tương ứng: \\[\\begin{pmatrix} \\frac{X}{121} \\\\ \\frac{11}{121} \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ \\frac{1}{11} \\end{ pmatrix}.\\] Điều này ngụ ý rằng $\\frac{X}{121} = 0$ và $\\frac{11}{121} = \\frac{1}{11}$. Từ phương trình đầu tiên, chúng ta có $X = 0$. Do đó, giá trị của $X$ là $0$. Câu trả lời là: 0",
+    "pred_number": "50",
+    "raw_output": "** bước 1 : viết lại phương trình ** \\ [ - \\ bo xe d { q = \\ fra c { 1 } { 12 } = 5 \\ im p li es 7 \\ ] ** bước 2 : chuyển các hạng tử chứa \\ ( p \\ ) về một phía , hằng số về phía kia : \\ [ (- \\ bo ) = 5 + 5 \\ times 10 = 50 \\ ] vậy nghiệm của phương trình là \\ ( \\ bo \\ ri ght ar row \\ bo ld sy n \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nKết quả của phép nhân ước chung lớn nhất với bội số chung nhỏ nhất của 18 và 42 là bao nhiêu?",
+    "question": "Kết quả của phép nhân ước chung lớn nhất với bội số chung nhỏ nhất của 18 và 42 là bao nhiêu?",
+    "gold_answer": "756",
+    "gold_full": "Chúng ta có thể tìm ước chung lớn nhất (GCD) của 18 và 42 bằng cách phân tích cả hai số thành thừa số nguyên tố. $18=2\\cdot3^2$ và $42=2\\cdot3\\cdot7$, vì vậy GCD là $2\\cdot3=6$. Chúng ta có thể tìm bội số chung nhỏ nhất (LCM) của 18 và 42 bằng cách lấy tích có lũy thừa cao nhất của tất cả các thừa số nguyên tố có liên quan. $18=2\\cdot3^2$ và $42=2\\cdot3\\cdot7$, vì vậy LCM là $2\\cdot3^2\\cdot7=126$. Do đó, kết quả của việc nhân GCD và LCM là $6\\cdot126=\\boxed{756}$. Đáp án là: 756",
+    "pred_number": "1",
+    "raw_output": "để trả lời câu hỏi này , ta cần thực hiện các bước sau đây một cách chi tiết : ** * # # # giai đoạn 1 : xác định khái niệm \" tổng quát hóa \" trong lý thuyết tập hợp ( clas si fi cation ) - tính chất cốt lõi của đại lượng đặc trưng ở cấp độ nguyên tử . - có thể đề cập đến sự thay đổi về khối lượng hoặc cấu trúc liên tục của một hệ thống vật lý theo thời gian dưới tác động của lực hấp dẫn . - không chỉ đơn thuần mô tả mối quan hệ giữa các thành phần cơ bản như khối lượng , nhiệt độ , áp suất mà còn nhấn mạnh rằng toàn bộ hệ thống được chia thành nhiều thành phần nhỏ hơn so với kích thước bình thường . - điều này giúp chúng ta hiểu rõ quá trình hình thành và biến đổi của đa dạng năng lượng từ trạng thái lỏng sang trạng thái rắn thông qua việc phân tích từng thành phần cụ thể trên bề mặt kim loại .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMatt có thể làm một mẻ bánh quy với 2 pound bột mì. Anh ta dùng 4 túi bột, mỗi túi nặng 5 pound. Nếu Jim ăn x cái bánh quy thì còn lại bao nhiêu cái bánh quy? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 105 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Matt có thể làm một mẻ bánh quy với 2 pound bột mì. Anh ta dùng 4 túi bột, mỗi túi nặng 5 pound. Nếu Jim ăn x cái bánh quy thì còn lại bao nhiêu cái bánh quy? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 105 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "15",
+    "gold_full": "Chúng ta biết rằng Matt có thể làm một mẻ hàng chục chiếc bánh quy bằng cách sử dụng 2 pound bột mì, hoặc 1/6 pound bột mì cho mỗi chiếc bánh quy. Anh dùng 4 túi bột, mỗi túi nặng 5 pound, vậy tổng lượng bột dùng là 4 * 5 = 20 pound. Số lượng bánh quy được làm bằng 20 pound bột mì là 20 * 6 = 120 bánh quy. Nếu Jim ăn x cái bánh quy thì số bánh quy còn lại là 120 - x. Giả sử số cookie còn lại là 105 nên ta có thể viết: 120 - x = 105. Giải x, ta được: x = 15. Giá trị của x là 15. #### 15 Đáp án là: 15",
+    "pred_number": "1",
+    "raw_output": "dựa vào đề bài đã cung cấp , ta không thể xác định chính xác giá trị cụ thể của các loại bánh quy mà matt đã sử dụng trong đoạn văn này như thế nào để đưa ra kết luận về giá trị hiện tại của món bánh quy . ** * # # # lựa chọn 1 ( trung bình - cao ) * ** lý do : ** câu hỏi yêu cầu tính tổng hợp thông tin chi tiết từ nhiều nguồn dữ liệu khác nhau . thay vì liệt kê tất cả những thứ cần tìm ( bánh quy ), tôi sẽ tập trung phân tích mối quan hệ nhân quả giữa hai yếu tố đó .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGia đình Gauss có ba cậu con trai $7,$ một cô gái X và một cậu bé $15.$ Độ tuổi trung bình (trung bình) của những đứa trẻ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 10 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Gia đình Gauss có ba cậu con trai $7,$ một cô gái X và một cậu bé $15.$ Độ tuổi trung bình (trung bình) của những đứa trẻ là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 10 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "14",
+    "gold_full": "Chúng ta muốn tìm giá trị của $X$ trong tình huống đã cho. Giá trị trung bình (trung bình) của một tập hợp số được tìm thấy bằng cách tính tổng tất cả các số và chia cho tổng số. Trong trường hợp này, chúng ta có tuổi của ba bé trai 7 tuổi, một bé gái $X$ và một bé trai 15 tuổi. Để tìm giá trị trung bình, chúng ta có thể cộng tất cả các độ tuổi và chia cho tổng số trẻ em (5 in). trường hợp này). Tổng số tuổi là: $7 + 7 + 7 + X + 15$ Tổng số trẻ em là 5. Do đó, giá trị trung bình là: $\\frac{7 + 7 + 7 + X + 15}{5}$ Cho trước rằng giá trị trung bình là 10, chúng ta có thể viết: $10 = \\frac{7 + 7 + 7 + X + 15}{5}$ Nhân cả hai vế của phương trình với 5 để loại bỏ phân số, chúng ta nhận được: $50 = 7 + 7 + 7 + X + 15$ Rút gọn, ta có: $50 = 36 + X$ Trừ 36 từ cả hai vế của phương trình, ta thấy: $X = 14$ Giá trị của X là 14. Đáp án là: 14",
+    "pred_number": null,
+    "raw_output": "dựa vào đề bài đã cung cấp : - gia đình của gau ss không phải là một cặp vợ chồng mà là hai người anh em ruột trong gia đình . vì vậy , giá trị cụ thể của \" gia đình \". đáp án đúng là : ** gia đình **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu một người thợ mộc cần 80 khúc gỗ để xây một ngôi nhà và đã có 8 khúc gỗ, mỗi khúc có thể sản xuất 5 khúc gỗ, vậy người thợ mộc còn cần thêm bao nhiêu khúc gỗ nữa?",
+    "question": "Nếu một người thợ mộc cần 80 khúc gỗ để xây một ngôi nhà và đã có 8 khúc gỗ, mỗi khúc có thể sản xuất 5 khúc gỗ, vậy người thợ mộc còn cần thêm bao nhiêu khúc gỗ nữa?",
+    "gold_answer": "8",
+    "gold_full": "Người thợ mộc đã có 8 khúc gỗ, mỗi khúc gỗ có thể tạo ra 5 mộc bản, vậy tổng số mộc bản từ những khúc gỗ này là 8 x 5 = 40 mộc bản. Người thợ mộc cần tổng cộng 80 mộc bản nên vẫn cần 80 - 40 = 40 mộc bản. Vì mỗi khúc gỗ có thể làm ra 5 khúc gỗ nên người thợ mộc vẫn cần thêm 40/5 = 8 khúc gỗ. ####8 Đáp án là: 8",
+    "pred_number": "7",
+    "raw_output": "đáp án đúng là : ** số 7 khúc gỗ ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNăm điểm bài tập của Jeff là 89, X, 88, 95 và 91. Giá trị trung bình cộng của năm điểm này là 91. Giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Năm điểm bài tập của Jeff là 89, X, 88, 95 và 91. Giá trị trung bình cộng của năm điểm này là 91. Giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "92",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số điểm chưa biết trong bài tập của Jeff. Chúng ta biết rằng trung bình số học (trung bình) của năm điểm này là 91. Hãy thiết lập phương trình tính trung bình số học: (89 + x + 88 + 95 + 91) / 5 = 91 Hãy đơn giản hóa và giải tìm x: (363 + x) / 5 = 91 Để cô lập x, chúng ta nhân cả hai vế của phương trình với 5: 5 * (363 + x) / 5 = 91 * 5 363 + x = 455 Để cô lập x, chúng ta trừ 363 từ cả hai vế của phương trình: 363 + x - 363 = 455 - 363 x = 92 Giá trị của x là 92. Đáp án là: 92",
+    "pred_number": "3",
+    "raw_output": "để trả lời câu hỏi \" giá trị cụ thể của biến a đã biết là gì ?\" dựa trên đề bài , ta thực hiện các bước phân tích như sau : ** bước 1 : xác định thông tin liên quan trong đề bài ** - đề bài nói về việc tìm giá trị lớn nhất mà jeff dùng làm thay đổi tỷ lệ phần trăm so với giá trị hiện tại ( 92 % ). - tuy nhiên , đề bài không cung cấp bất kỳ con số hay dữ liệu cụ thể nào để kiểm tra tính chính xác của nó . ** bước 2 : xem xét các phương án được đưa ra ** * # # # lựa chọn 3",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJohn quay 3 giỏ cua mỗi tuần. Mỗi giỏ đựng được 4 con cua. Anh ta thu thập cua hai lần một tuần. Mỗi con cua được bán với giá 3 USD. Anh ấy kiếm được bao nhiêu tiền?",
+    "question": "John quay 3 giỏ cua mỗi tuần. Mỗi giỏ đựng được 4 con cua. Anh ta thu thập cua hai lần một tuần. Mỗi con cua được bán với giá 3 USD. Anh ấy kiếm được bao nhiêu tiền?",
+    "gold_answer": "72",
+    "gold_full": "John quay 3 giỏ cua một tuần và mỗi giỏ chứa 4 con cua, vì vậy anh ta thu thập được 3 x 4 = 12 con cua hai lần một tuần. Anh ta thu thập được tổng cộng 12 x 2 = 24 con cua. Mỗi con cua được bán với giá 3 đô la, vậy anh ta kiếm được 24 x 3 đô la = 72 đô la. #### 72 Đáp án là: 72",
+    "pred_number": "7",
+    "raw_output": "dựa trên đề bài đã cung cấp , tổng chi phí = ( x + y ) × 2 usd / tháng - 1 usd = 7 usd . đáp án đúng là : d",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTrong một nhà hàng thuần chay, có mười món ăn trong thực đơn bao gồm ba loại protein: seitan, đậu và đậu lăng. Hai món có đậu và đậu lăng, hai món có đậu và mì căn. Các món còn lại chỉ có một loại protein. Một nửa số món ăn này chỉ có đậu, và số món chỉ có đậu gấp ba lần số món chỉ có mì căn. Có bao nhiêu món ăn trong thực đơn có đậu lăng?",
+    "question": "Trong một nhà hàng thuần chay, có mười món ăn trong thực đơn bao gồm ba loại protein: seitan, đậu và đậu lăng. Hai món có đậu và đậu lăng, hai món có đậu và mì căn. Các món còn lại chỉ có một loại protein. Một nửa số món ăn này chỉ có đậu, và số món chỉ có đậu gấp ba lần số món chỉ có mì căn. Có bao nhiêu món ăn trong thực đơn có đậu lăng?",
+    "gold_answer": "4",
+    "gold_full": "Có hai món có đậu và đậu lăng, và hai món có đậu và mì căn, như vậy tổng cộng có 2 + 2 = 4 món có đậu. Số món chỉ có đậu nhiều gấp ba lần số món chỉ có mì căn, nên có 3 x 1 = 3 món chỉ có mì căn. Một nửa số món ăn chỉ có một loại protein chỉ có đậu, nên có 3 x 2 = 6 món chỉ có đậu. Vậy có tổng cộng 4 + 6 = 10 món có đậu. Thực đơn có mười món, chúng ta biết rằng hai món có đậu và đậu lăng, bốn món có đậu nên các món còn lại nhất định phải có đậu lăng. Vậy có 10 - 2 - 4 = 4 món trong đó có đậu lăng. ####4 Đáp án là: 4",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** đậu lăng ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Janet cần lát hai bức tường có kích thước 5 feet x 8 feet và 7 feet x 8 feet, và mỗi foot vuông của bức tường cần 4 viên gạch, Janet sẽ tiết kiệm được bao nhiêu tiền bằng cách chọn những viên gạch màu tím có giá 11 đô la một viên thay vì gạch màu ngọc lam có giá 13 USD mỗi viên?",
+    "question": "Nếu Janet cần lát hai bức tường có kích thước 5 feet x 8 feet và 7 feet x 8 feet, và mỗi foot vuông của bức tường cần 4 viên gạch, Janet sẽ tiết kiệm được bao nhiêu tiền bằng cách chọn những viên gạch màu tím có giá 11 đô la một viên thay vì gạch màu ngọc lam có giá 13 USD mỗi viên?",
+    "gold_answer": "768",
+    "gold_full": "Bức tường thứ nhất có diện tích 5 feet x 8 feet = 40 feet vuông Bức tường thứ hai có diện tích 7 feet x 8 feet = 56 feet vuông Tổng cộng Janet cần lát gạch 40 feet vuông + 56 feet vuông = 96 feet vuông Mỗi foot vuông cần 4 viên gạch, vì vậy Janet cần 96 foot vuông x 4 viên = 384 viên gạch. Nếu những viên gạch màu tím có giá 11 USD một viên, thì tổng chi phí cho những viên gạch màu tím sẽ là 384 viên x 11 USD mỗi viên = 4224 USD Nếu những viên gạch màu ngọc lam có giá $13 mỗi ô, khi đó tổng chi phí cho các ô màu ngọc lam sẽ là 384 ô x $13 mỗi ô = $4992 Janet sẽ tiết kiệm được $4992 - $4224 = $768 bằng cách chọn các ô màu tím. #### 768 Đáp án là: 768",
+    "pred_number": "1",
+    "raw_output": "dựa trên đề bài đã cung cấp , ta không thể xác định chính xác mức độ chi phí để mua hoặc sử dụng các vật liệu trang trí khác . ** câu trả lời đúng nhất là : ** 1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu một hộp ban đầu chứa 2 tá bánh rán và gia đình đó đã ăn 8 chiếc bánh rán thì còn lại bao nhiêu chiếc bánh rán?",
+    "question": "Nếu một hộp ban đầu chứa 2 tá bánh rán và gia đình đó đã ăn 8 chiếc bánh rán thì còn lại bao nhiêu chiếc bánh rán?",
+    "gold_answer": "16",
+    "gold_full": "Một tá bằng 12, vậy 2 tá bằng 2 x 12 = 24 cái bánh rán. Nếu gia đình ăn 8 chiếc bánh rán thì còn lại 24 - 8 = 16 chiếc bánh rán. ####16 Đáp án là: 16",
+    "pred_number": "7",
+    "raw_output": "đáp án đúng là : ** số 7 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMaddie đến một cửa hàng làm đẹp và mua một số sản phẩm làm đẹp. Cô ấy mua x bảng màu trang điểm khác nhau có giá 15 đô la mỗi cái, 4 thỏi son có giá 2,50 đô la và 3 hộp màu tóc có giá 4 đô la mỗi hộp. Maddie đã trả tổng cộng 67.",
+    "question": "Maddie đến một cửa hàng làm đẹp và mua một số sản phẩm làm đẹp. Cô ấy mua x bảng màu trang điểm khác nhau có giá 15 đô la mỗi cái, 4 thỏi son có giá 2,50 đô la và 3 hộp màu tóc có giá 4 đô la mỗi hộp. Maddie đã trả tổng cộng 67.",
+    "gold_answer": "3",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số lượng bảng màu trang điểm khác nhau mà Maddie đã mua. Chúng ta hãy chia nhỏ thông tin đã cho: Giá của mỗi bảng màu trang điểm: $15 Số lượng bảng trang điểm: x Giá của mỗi thỏi son: $2,50 Số lượng son: 4 Giá của mỗi hộp màu tóc: $4 Số hộp màu tóc: 3 Tổng chi phí : $67 Chúng ta có thể thiết lập phương trình như sau: Chi phí của bảng trang điểm + Chi phí son môi + Chi phí hộp thuốc nhuộm tóc = Tổng chi phí $15x + $2,50 * 4 + $4 * 3 = $67 Hãy đơn giản hóa và giải tìm x: $15x + $10 + $12 = $67 $15x + $22 = $67 Để tách x, chúng ta trừ $22 từ cả hai vế của phương trình: $15x + $22 - $22 = $67 - $22 $15x = $45 Để tìm x, chúng ta chia cả hai vế của phương trình với $15: x = $45 / $15 x = 3 Giá trị của x là 3. #### 3 Câu trả lời là: 3",
+    "pred_number": "25",
+    "raw_output": "đáp án đúng là : - 25 đô la ** lý do : trong các lựa chọn được đưa ra , \" mad die \" không phải là thông tin cụ thể mà chỉ là mô tả chi tiết về thiết kế hoặc chất lượng của bộ sưu tập . vì vậy , đáp án phù hợp nhất để trả lời câu hỏi này là : ** 25 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Marie có 4 cuốn sổ, mỗi cuốn có 20 con tem và 2 cuốn sổ có 50 con tem, và cô ấy quyết định chỉ giữ lại 1/4 số con tem, hỏi cô ấy có thể cho đi bao nhiêu con tem?",
+    "question": "Nếu Marie có 4 cuốn sổ, mỗi cuốn có 20 con tem và 2 cuốn sổ có 50 con tem, và cô ấy quyết định chỉ giữ lại 1/4 số con tem, hỏi cô ấy có thể cho đi bao nhiêu con tem?",
+    "gold_answer": "135",
+    "gold_full": "Marie có 4 cuốn sổ, mỗi cuốn có 20 con tem, vậy cô ấy có tổng cộng 4 * 20 = 80 con tem trong những cuốn sổ. Cô ấy cũng có 2 bìa hồ sơ, mỗi bìa có 50 con tem, vậy cô ấy có tổng cộng 2 * 50 = 100 tem trong bìa hồ sơ. Tổng cộng cô ấy có 80 + 100 = 180 con tem. Nếu cô ấy quyết định chỉ giữ lại 1/4 số tem thì cô ấy có thể giữ 180 * 1/4 = 45 con tem. Như vậy cô có thể tặng 180 - 45 = 135 tem. ####135 Đáp án là: 135",
+    "pred_number": "3",
+    "raw_output": "câu trả lời đúng là : ** số 3 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nXác định số dư khi chia $8^6 + 7^7 + 6^8$ cho 5.",
+    "question": "Xác định số dư khi chia $8^6 + 7^7 + 6^8$ cho 5.",
+    "gold_answer": "3",
+    "gold_full": "Chúng ta có thể tìm phần còn lại của từng số hạng riêng biệt rồi cộng chúng lại với nhau. Đối với số hạng đầu tiên, $8^6$, chúng ta có thể lưu ý rằng $8\\equiv 3\\pmod{5}$, do đó $8^6\\equiv 3^6\\pmod{5}$. Tính toán điều này, chúng tôi thấy rằng $3^6\\equiv 729\\equiv 4\\pmod{5}$. Đối với số hạng thứ hai, $7^7$, chúng ta có thể lưu ý rằng $7\\equiv 2\\pmod{5}$, do đó $7^7\\equiv 2^7\\pmod{5}$. Tính toán điều này, chúng tôi thấy rằng $2^7\\equiv 128\\equiv 3\\pmod{5}$. Đối với số hạng thứ ba, $6^8$, chúng ta có thể lưu ý rằng $6\\equiv 1\\pmod{5}$, do đó $6^8\\equiv 1^8\\pmod{5}$. Tính toán điều này, chúng tôi thấy rằng $1^8\\equiv 1\\pmod{5}$. Cộng các số dư lại với nhau, chúng ta được $4+3+1=8$. Vì $8\\equiv 3\\pmod{5}$, phần còn lại là $\\boxed{3}$. Câu trả lời là: 3",
+    "pred_number": "0",
+    "raw_output": "ta có phương trình : \\ [ - 3 ^ 6 = - 7 ^ 2 + 6 \\ ] bước 1 : rút gọn các hạng tử chứa \\ ( a \\ ) ở vế trái : \\ (- 3 ^ 4 + 6 = 0 \\ ) vậy nghiệm của phương trình là \\ ( \\ bo xe d { a = 0 } \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nLiz đã bán chiếc xe của mình với giá 80% số tiền cô ấy trả ban đầu. Cô sử dụng số tiền thu được từ việc bán hàng đó và chỉ cần 4.000 đô la để mua cho mình một chiếc ô tô mới trị giá 30.000 đô la. Chiếc xe mới của cô ấy rẻ hơn bao nhiêu so với số tiền ban đầu cô ấy trả cho chiếc xe cũ?",
+    "question": "Liz đã bán chiếc xe của mình với giá 80% số tiền cô ấy trả ban đầu. Cô sử dụng số tiền thu được từ việc bán hàng đó và chỉ cần 4.000 đô la để mua cho mình một chiếc ô tô mới trị giá 30.000 đô la. Chiếc xe mới của cô ấy rẻ hơn bao nhiêu so với số tiền ban đầu cô ấy trả cho chiếc xe cũ?",
+    "gold_answer": "2500",
+    "gold_full": "Liz đã bán chiếc xe của mình với giá 80% số tiền cô ấy trả ban đầu nên cô ấy nhận được 80/100 * giá gốc = 0,8 * giá gốc. Cô ấy dùng số tiền bán được để mua một chiếc ô tô mới và chỉ cần thêm 4.000 đô la nữa nên giá của chiếc ô tô mới là 0,8 * giá gốc + 4.000 đô la. Giá của chiếc ô tô mới là 30.000 USD, vì vậy chúng ta có thể thiết lập phương trình 0,8 * giá gốc + 4.000 USD = 30.000 USD. Để giải quyết giá gốc, chúng tôi trừ 4.000 USD cho cả hai bên: 0,8 * giá gốc = 30.000 USD - 4.000 USD = 26.000 USD. Sau đó, chúng tôi chia cả hai vế cho 0,8 để tìm giá ban đầu: giá ban đầu = 26.000 USD / 0,8 = 32.500 USD. Để biết chiếc xe mới rẻ hơn bao nhiêu so với số tiền Liz trả ban đầu cho chiếc xe cũ của cô ấy, chúng tôi trừ giá ban đầu khỏi giá của chiếc xe mới: 30.000 USD - 32.500 USD = -2.500 USD. Chiếc xe mới rẻ hơn 2.500 USD so với số tiền ban đầu Liz trả cho chiếc xe cũ của cô ấy. #### 2500 Đáp án là: 2500",
+    "pred_number": "10",
+    "raw_output": "dựa trên đề bài , ta có thể suy luận về số tiền mà li z sẽ bán cho cô ấy khi cô mua chiếc xe này ( tức là số tiền còn lại ). ** câu trả lời đúng nhất là : ** số 10 **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMicah có thể gõ 20 từ mỗi phút và Isaiah có thể gõ 40 từ mỗi phút. Ê-sai có thể gõ nhiều hơn Mi-ca bao nhiêu từ trong một giờ?",
+    "question": "Micah có thể gõ 20 từ mỗi phút và Isaiah có thể gõ 40 từ mỗi phút. Ê-sai có thể gõ nhiều hơn Mi-ca bao nhiêu từ trong một giờ?",
+    "gold_answer": "1200",
+    "gold_full": "Micah có thể gõ 20 từ mỗi phút, vậy trong một giờ, anh ấy có thể gõ 20 x 60 = 1200 từ. Isaiah có thể gõ 40 từ mỗi phút, vậy trong một giờ, anh ấy có thể gõ 40 x 60 = 2400 từ. Do đó, Ê-sai có thể gõ nhiều hơn Micah 2400 - 1200 = 1200 từ trong một giờ. ####1200 Đáp án là: 1200",
+    "pred_number": "3",
+    "raw_output": "\\ [ 0 = 10 \\ times 5 + 7 \\ ] ** đáp án đúng là : ** 3",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nPhải thêm bao nhiêu ounce nước tinh khiết vào $30$ ounce dung dịch axit trị giá $30\\%$ để tạo ra dung dịch có trị giá $20\\%$ là axit?",
+    "question": "Phải thêm bao nhiêu ounce nước tinh khiết vào $30$ ounce dung dịch axit trị giá $30\\%$ để tạo ra dung dịch có trị giá $20\\%$ là axit?",
+    "gold_answer": "15",
+    "gold_full": "Gọi $x$ là số ounce nước được thêm vào. Trong dung dịch ban đầu, có $0,3(30) = 9$ ounce axit. Sau khi thêm $x$ ounce nước, tổng thể tích của dung dịch là $30 + x$ ounce. Lượng axit vẫn giữ nguyên ở mức 9 ounce. Chúng tôi muốn dung dịch mới là axit $20\\%$, vì vậy chúng tôi thiết lập phương trình $\\frac{9}{30 + x} = \\frac{20}{100}$. Đơn giản hóa, chúng ta nhận được $9(100) = 20(30 + x)$. Khai triển và sắp xếp lại các số hạng, chúng ta có $900 = 600 + 20x$. Trừ 600 từ cả hai vế, chúng ta nhận được $300 = 20x$. Chia cả hai vế cho 20, ta được $x = 15$. Do đó, phải thêm $\\boxed{15}$ ounce nước tinh khiết. Đáp án là: 15",
+    "pred_number": "7",
+    "raw_output": "** đáp án đúng là ( 1 ): ** $ 30 - $ 50 = > $ 15 - $ 5 = 7 $",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTính $\\sqrt{2^2\\cdot 3^4}$.",
+    "question": "Tính $\\sqrt{2^2\\cdot 3^4}$.",
+    "gold_answer": "18",
+    "gold_full": "Chúng ta có thể đơn giản hóa biểu thức bên trong căn bậc hai bằng cách sử dụng các tính chất của số mũ. $2^2\\cdot 3^4 = (2\\cdot 2)\\cdot (3\\cdot 3\\cdot 3\\cdot 3) = 2^2\\cdot 3^2\\cdot 3^2 = (2\\cdot 3^ 2)^2$ Lấy căn bậc hai của $(2\\cdot 3^2)^2$ ta có $2\\cdot 3^2 = 2\\cdot 9 = \\boxed{18}$. Đáp án là: 18",
+    "pred_number": "0",
+    "raw_output": "chúng ta có phương trình : \\ [ - \\ fra c { 2 _ 2 + 3 ^ 2 } = 1 \\ ] bước 1 : chuyển các hạng tử chứa \\ ( n \\ ) về một phía , hằng số về phía kia ở vế trái của phương trình đã cho là \\ (- 1 \\ ). bước 2 : chia hai vế cho 1 để tìm \\ ( a \\ ): \\ [ p = b \\ times 0 \\ ] ** kết luận : ** giá trị của \\ ( \\ bo xe d { a = 0 } \\ ) là \\ ( 0 \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột bộ bài tiêu chuẩn có 52 lá bài được chia thành 4 bộ, mỗi bộ có 13 lá bài. Hai trong số các bộ ($\\heartsuit$ và $\\diamondsuit$, được gọi là 'trái tim' và 'kim cương') có màu đỏ, hai bộ còn lại ($\\spadesuit$ và $\\clubsuit$, được gọi là 'bích' và 'câu lạc bộ') có màu đen. Các lá bài trong bộ bài được đặt theo thứ tự ngẫu nhiên (thường bằng một quá trình gọi là 'xáo bài'). Có bao nhiêu cách chọn được hai tấm thẻ khác nhau? (Vấn đề thứ tự, do đó, quân át bích theo sau là quân kim cương khác với quân kim cương theo sau là quân át bích.)",
+    "question": "Một bộ bài tiêu chuẩn có 52 lá bài được chia thành 4 bộ, mỗi bộ có 13 lá bài. Hai trong số các bộ ($\\heartsuit$ và $\\diamondsuit$, được gọi là 'trái tim' và 'kim cương') có màu đỏ, hai bộ còn lại ($\\spadesuit$ và $\\clubsuit$, được gọi là 'bích' và 'câu lạc bộ') có màu đen. Các lá bài trong bộ bài được đặt theo thứ tự ngẫu nhiên (thường bằng một quá trình gọi là 'xáo bài'). Có bao nhiêu cách chọn được hai tấm thẻ khác nhau? (Vấn đề thứ tự, do đó, quân át bích theo sau là quân kim cương khác với quân kim cương theo sau là quân át bích.)",
+    "gold_answer": "2652",
+    "gold_full": "Có 52 lựa chọn cho lá bài đầu tiên và 51 lựa chọn cho lá bài thứ hai. Vì vậy, có $52 \\times 51 = \\boxed{2652}$ cách để chọn hai quân bài khác nhau. Câu trả lời là: 2652",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : b",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Daphney mua 5 kg khoai tây ở siêu thị và 2 kg khoai tây có giá 6 USD thì tổng số tiền cô ấy phải trả là bao nhiêu?",
+    "question": "Nếu Daphney mua 5 kg khoai tây ở siêu thị và 2 kg khoai tây có giá 6 USD thì tổng số tiền cô ấy phải trả là bao nhiêu?",
+    "gold_answer": "15",
+    "gold_full": "Nếu 2 kg khoai tây có giá 6 USD thì 1 kg khoai tây sẽ có giá 6/2 = 3 USD. Vì Daphney mua 5 kg khoai tây nên tổng số tiền cô ấy trả sẽ là 5 * $3 = $15. ####15 Đáp án là: 15",
+    "pred_number": null,
+    "raw_output": "bạn vui lòng cung cấp thêm thông tin chi tiết về tài chính của người bán để tôi có thể đưa ra câu trả lời .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJudson, Camilo và Kenny quyết định đóng góp tiền để sơn ngôi nhà của họ. Judson đóng góp 500 đô la, Kenny đóng góp nhiều tiền hơn Judson 20% và Camilo đóng góp nhiều hơn Kenny x $. Chi phí sơn ngôi nhà là 1900. Giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Judson, Camilo và Kenny quyết định đóng góp tiền để sơn ngôi nhà của họ. Judson đóng góp 500 đô la, Kenny đóng góp nhiều tiền hơn Judson 20% và Camilo đóng góp nhiều hơn Kenny x $. Chi phí sơn ngôi nhà là 1900. Giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "200",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số tiền mà Camilo đóng góp thêm so với Kenny. Chúng tôi biết rằng Judson đã đóng góp 500 đô la. Kenny đóng góp số tiền nhiều hơn Judson 20%, nghĩa là Kenny đóng góp 500 USD + 20% của 500 USD. Hãy tính khoản đóng góp của Kenny: 20% của $500 = $500 * 0,20 = $100 Kenny đã đóng góp $500 + $100 = $600. Camilo đã đóng góp nhiều hơn Kenny $x, vì vậy khoản đóng góp của Camilo là $600 + $x. Tổng chi phí sơn ngôi nhà là $1900. Chúng ta có thể thiết lập phương trình như sau: Đóng góp của Judson + Đóng góp của Kenny + Đóng góp của Camilo = Tổng chi phí sơn nhà $500 + $600 + ($600 + $x) = $1900 Hãy đơn giản hóa và giải tìm x: $500 + $600 + $600 + $ x = $1900 $1700 + $x = $1900 Để tách x, chúng ta trừ $1700 từ cả hai vế của phương trình: $1700 + $x - $1700 = $1900 - $1700 $x = $200 Giá trị của x là $200. ####200 Đáp án là: 200",
+    "pred_number": "50",
+    "raw_output": "dựa trên đề bài đã cung cấp , ta có thể suy luận về các khoản chi tiêu trong hợp đồng xây dựng giữa hai ngôi nhà : - ** 1 . số tiền ban đầu ( thỏa thuận ) **: - ju de : 200 đô la - ken ny : 100 đô la + ken ny 2 : 300 đô la bước 1 : xác định số tiền được nhắc đến khi đóng góp : - ju di son : 400 đô la = 5 đô la vậy số tiền mà ju de đóng góp vào công trình này là 50 đô la .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTích của ước chung lớn nhất và bội số chung nhỏ nhất của 18 và 42 là bao nhiêu?",
+    "question": "Tích của ước chung lớn nhất và bội số chung nhỏ nhất của 18 và 42 là bao nhiêu?",
+    "gold_answer": "756",
+    "gold_full": "Để tìm ước chung lớn nhất (GCD) của 18 và 42, chúng ta có thể sử dụng thuật toán Euclide. Chúng ta có \\[ \\begin{array}{c|cc} \\multicolumn{1}{r}{42} & 18 & \\qquad\\qquad\\qquad \\\\ \\cline{2-2} \\multicolumn{1}{r }{42} & 18 \\\\ \\multicolumn{1}{r}{} & \\downarrow \\\\ \\multicolumn{1}{r}{} & 24 \\\\ \\end{array} \\] Vậy GCD của 18 và 42 bằng 6. Để tìm bội số chung nhỏ nhất (LCM) của 18 và 42, chúng ta có thể sử dụng phương pháp phân tích thừa số nguyên tố. Chúng ta có $18 = 2 \\cdot 3^2$ và $42 = 2 \\cdot 3 \\cdot 7$. LCM là tích của tất cả các thừa số nguyên tố có lũy thừa cao nhất, vì vậy \\[ \\text{LCM} = 2 \\cdot 3^2 \\cdot 7 = 2 \\cdot 9 \\cdot 7 = 126. \\] Tích của GCD và LCM khi đó là $6 \\cdot 126 = \\boxed{756}$. Đáp án là: 756",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** tích ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột con tàu rời cảng và hướng về phía tây, mang theo 400 pound lương thực để cung cấp cho chuyến hành trình. Sau một ngày ra khơi, 2/5 số vật dụng đã được các thủy thủ trên tàu sử dụng hết. Sau hai ngày ra khơi nữa, các thủy thủ đã sử dụng 3/5 số vật tư còn lại. Tính số lương thực còn lại trên tàu để đủ cho các thủy thủ cho đến khi cập bến.",
+    "question": "Một con tàu rời cảng và hướng về phía tây, mang theo 400 pound lương thực để cung cấp cho chuyến hành trình. Sau một ngày ra khơi, 2/5 số vật dụng đã được các thủy thủ trên tàu sử dụng hết. Sau hai ngày ra khơi nữa, các thủy thủ đã sử dụng 3/5 số vật tư còn lại. Tính số lương thực còn lại trên tàu để đủ cho các thủy thủ cho đến khi cập bến.",
+    "gold_answer": "96",
+    "gold_full": "Sau một ngày ra khơi, các thủy thủ đã sử dụng 2/5 * 400 pound = 160 pound vật tư. Vì vậy, còn lại 400 pound - 160 pound = 240 pound vật tư còn lại. Sau hai ngày ra khơi nữa, các thủy thủ đã sử dụng 3/5 * 240 pound = 144 pound vật tư. Vì vậy, còn lại 240 pound - 144 pound = 96 pound vật tư còn lại. Vì vậy, trên tàu còn lại 96 pound vật tư để đủ cho các thủy thủ cho đến khi họ cập bến. ####96 Đáp án là: 96",
+    "pred_number": null,
+    "raw_output": "dưới đây là đáp án chính xác của từng phương án dựa trên đề bài : ** a",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nDabbie mua 3 con gà tây để tạ ơn, con gà tây thứ nhất nặng 6 kg, con gà tây thứ hai nặng x kg, và con gà tây thứ ba nặng gấp đôi con gà tây thứ hai. Nếu giá một kg gà tây là 2 đô la thì Dabbie đã chi bao nhiêu cho tất cả số gà tây? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 66 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Dabbie mua 3 con gà tây để tạ ơn, con gà tây thứ nhất nặng 6 kg, con gà tây thứ hai nặng x kg, và con gà tây thứ ba nặng gấp đôi con gà tây thứ hai. Nếu giá một kg gà tây là 2 đô la thì Dabbie đã chi bao nhiêu cho tất cả số gà tây? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 66 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "9",
+    "gold_full": "Trọng lượng của con gà tây thứ nhất là 6 kg, vậy giá của con gà tây thứ nhất là 6 * 2 USD = 12 USD. Trọng lượng của con gà tây thứ hai là x kg, vậy giá của con gà tây thứ hai là x * $2 = $2x. Trọng lượng của con gà tây thứ ba gấp đôi trọng lượng của con gà tây thứ hai, do đó trọng lượng của con gà tây thứ ba là 2x kg và giá của con gà tây thứ ba là 2x * $2 = $4x. Tổng chi phí của tất cả các con gà tây là tổng chi phí của ba con gà tây: $12 + $2x + $4x. Chúng ta được biết rằng tổng chi phí là 66 đô la, vì vậy chúng ta có thể viết: $12 + $2x + $4x = $66. Kết hợp các số hạng tương tự, chúng ta có: $12 + $6x = $66. Trừ $12 từ cả hai vế, chúng ta nhận được: $6x = $54. Chia cả hai vế cho $6, ta được: x = $9. Giá trị của x là 9$. ####9 Đáp án là: 9",
+    "pred_number": "1",
+    "raw_output": "dựa vào thông tin bạn cung cấp trong đề bài : - giá gà tây ban đầu là 1 usd / kg ( khoảng 7 . 000 đồng việt nam ), còn hiện nay giá gà ngoại đang ở mức cao hơn nhiều so với trước đó do giá gà nội địa tăng mạnh từ các nước láng giềng như ấn độ , thái lan và indonesia . ** kết luận : ** giá gà tại thời điểm này dao động khoảng 1 usd đến 1 usd .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nEric, Ben và Jack có một số tiền. Eric có ít hơn Ben 10 đô la và Ben có ít hơn Jack x $. Nếu Jack có 26 đô la, thì tổng cộng cả 3 người họ có bao nhiêu tiền? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 50 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Eric, Ben và Jack có một số tiền. Eric có ít hơn Ben 10 đô la và Ben có ít hơn Jack x $. Nếu Jack có 26 đô la, thì tổng cộng cả 3 người họ có bao nhiêu tiền? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 50 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "9",
+    "gold_full": "Chúng ta được biết Jack có 26 đô la. Chúng ta cũng biết rằng Ben có $x ít hơn Jack, có nghĩa là Ben có $26 - $x. Và Eric có ít hơn Ben 10 USD, nghĩa là Eric có $26 - $x - $10 = $16 - $x. Tổng số tiền mà cả ba người họ có là tổng số tiền riêng của họ: $26 + ($26 - $x) + ($16 - $x). Chúng ta được biết tổng số tiền là $50, vì vậy chúng ta có thể viết: $26 + ($26 - $x) + ($16 - $x) = $50. Rút gọn vế trái, ta được: $68 - 2x = $50. Trừ $68 cho cả hai vế, chúng ta nhận được: -2x = -$18. Chia cả hai vế cho -2, ta được: x = 9. Giá trị của x là 9. #### 9 Đáp án là: 9",
+    "pred_number": "50",
+    "raw_output": "dựa vào đề bài đã cung cấp : - eric ( ben ) có nhiều tiền hơn ben 20 đô la so với ben 15 đô la . vậy giá trị hiện tại của cặp đôi này là 50 .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nDựa trên một trò chơi mà Diane cho Sarah xem, trò chơi xác định độ tuổi cô ấy sẽ kết hôn dựa trên tên và tuổi hiện tại, Sarah, hiện 9 tuổi, cần cộng số chữ cái trong tên của cô ấy cộng với gấp đôi tuổi của cô ấy. Trò chơi dự đoán Sarah sẽ kết hôn ở độ tuổi nào?",
+    "question": "Dựa trên một trò chơi mà Diane cho Sarah xem, trò chơi xác định độ tuổi cô ấy sẽ kết hôn dựa trên tên và tuổi hiện tại, Sarah, hiện 9 tuổi, cần cộng số chữ cái trong tên của cô ấy cộng với gấp đôi tuổi của cô ấy. Trò chơi dự đoán Sarah sẽ kết hôn ở độ tuổi nào?",
+    "gold_answer": "23",
+    "gold_full": "Sarah hiện 9 tuổi. Số chữ cái trong tên cô ấy là 5 (giả sử tên cô ấy là Sarah). Hai lần tuổi của cô ấy là 9 * 2 = 18. Để xác định tuổi dự đoán mà cô ấy sẽ kết hôn, cô ấy cần cộng số chữ cái trong tên mình cộng với hai lần tuổi của cô ấy: 5 + 18 = 23. Trò chơi dự đoán Sarah sẽ nhận được kết hôn ở tuổi 23. ####23 Đáp án là: 23",
+    "pred_number": "3",
+    "raw_output": "dựa vào thông tin bạn cung cấp : - năm sinh của sarah ( 9 tuổi ) từ ngày 1 tháng 4 năm 2001 đến 31 / 12 / 2004 : - lần đầu tiên kể từ khi ly thân ( 11 tuổi ). - lần thứ hai xảy ra trước đó ( 3 tuổi ), không phải lần đầu . vậy câu trả lời đúng nhất là : ** có ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nKhi trường chuẩn bị khai giảng năm học, lớp thể thao đang phân loại các thiết bị được quyên góp. Họ có tổng cộng 300 lượt quyên góp để tổ chức, trong đó có 60 vòng bóng rổ, một nửa trong số đó đi kèm với bóng rổ. Ngoài ra còn có 120 chiếc phao bơi nhưng 25% trong số đó đã bị hư hỏng và phải vứt đi trước khi lớp thể thao đến. Ngoài ra, còn có 50 quả bóng đá, 40 quả bóng tennis và số tiền quyên góp còn lại là bóng rổ. Tổng cộng có bao nhiêu quả bóng rổ đã được quyên góp?",
+    "question": "Khi trường chuẩn bị khai giảng năm học, lớp thể thao đang phân loại các thiết bị được quyên góp. Họ có tổng cộng 300 lượt quyên góp để tổ chức, trong đó có 60 vòng bóng rổ, một nửa trong số đó đi kèm với bóng rổ. Ngoài ra còn có 120 chiếc phao bơi nhưng 25% trong số đó đã bị hư hỏng và phải vứt đi trước khi lớp thể thao đến. Ngoài ra, còn có 50 quả bóng đá, 40 quả bóng tennis và số tiền quyên góp còn lại là bóng rổ. Tổng cộng có bao nhiêu quả bóng rổ đã được quyên góp?",
+    "gold_answer": "90",
+    "gold_full": "Có 60 vòng bóng rổ, và một nửa trong số đó có kèm theo quả bóng rổ, vậy có 60/2 = 30 quả bóng rổ. Có 120 chiếc phao bơi nhưng 25% trong số đó bị hư hỏng nên 120 * 25% = 30 chiếc phao phải vứt đi. Vậy còn lại 120 - 30 = 90 phao bơi. Có 50 quả bóng đá và 40 quả bóng tennis, vậy tổng cộng có 50 + 40 = 90 quả bóng. Số tiền quyên góp còn lại là bóng rổ nên có 300 - 30 - 90 - 90 = 90 quả bóng rổ được quyên góp. ####90 Đáp án là: 90",
+    "pred_number": "1",
+    "raw_output": "dưới đây là câu trả lời chi tiết từng bước dựa trên đề bài : ** * # # # giai đoạn 1 : xác định mục tiêu của đề bài - đề bài tập trung vào việc tìm kiếm thông tin về số lượng cầu thủ tham gia thi đấu tại các sân vận động lớn ( như olympic ). - nội dung chính liên quan trực tiếp tới việc huy động đội ngũ nhân viên y tế , giáo dục và truyền thông . - yêu cầu cụ thể hơn về số người tham dự thi đấu ở cấp độ tiểu bang hoặc quốc gia . - không chỉ đơn thuần liệt kê danh sách cầu thủ mà cần xem xét tính hợp lý của dữ liệu thu thập từ nhiều nguồn khác nhau : 1 . ** báo cáo tài chính ban đầu của trường đại học : ** - công ty cổ phần thể thao trường cao đẳng thể dục thể thao thành phố hồ chí minh ( thuộc sở hữu của bộ văn hóa thể thao và du lịch ) cung cấp các khoản đóng góp hàng tháng nhằm hỗ trợ đào tạo kỹ năng",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nLúc đầu có vài bông tuyết. Cứ sau 5 phút lại có thêm x bông tuyết rơi. Nếu có 58 bông tuyết sau 1 giờ thì lúc đầu có bao nhiêu bông tuyết? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 10 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Lúc đầu có vài bông tuyết. Cứ sau 5 phút lại có thêm x bông tuyết rơi. Nếu có 58 bông tuyết sau 1 giờ thì lúc đầu có bao nhiêu bông tuyết? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 10 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "4",
+    "gold_full": "Chúng tôi biết rằng cứ sau 5 phút trời lại có thêm x bông tuyết. Sau 1 giờ tức là 60 phút có 58 bông tuyết. Hãy tính xem tuyết rơi bao nhiêu lần trong 1 giờ. Vì cứ 5 phút lại có tuyết nên có 60/5 = 12 khoảng thời gian 5 phút trong 1 giờ. Vậy tổng số bông tuyết bổ sung là 12x. Cộng số bông tuyết bổ sung vào số bông tuyết ban đầu, chúng ta nhận được: 12x + số bông tuyết ban đầu = 58. Chúng ta biết rằng số bông tuyết ban đầu là 10, vì vậy chúng ta có thể viết: 12x + 10 = 58. Cả hai đều trừ 10 cạnh, ta được: 12x = 48. Chia cả hai vế cho 12, ta được: x = 4. Giá trị của x là 4. #### 4 Đáp án là: 4",
+    "pred_number": null,
+    "raw_output": "bạn vui lòng cung cấp thông tin về biến x để tôi có thể đưa ra kết luận chính xác hơn nhé !",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nPhân tích nhân tử của biểu thức sau: $37a^2 +111a$.",
+    "question": "Phân tích nhân tử của biểu thức sau: $37a^2 +111a$.",
+    "gold_answer": "3",
+    "gold_full": "Đầu tiên, chúng ta có thể phân tích ước chung lớn nhất, đó là $37a$. Vậy chúng ta có $37a(a+3)$. Do đó, biểu thức $37a^2+111a$ phân tích thành $\\boxed{37a(a+3)}$. Câu trả lời là: 37a(a+3)",
+    "pred_number": "0",
+    "raw_output": "phương trình : \\ [ 36 a - 11 1a = 11 1a \\ ] bước 1 : chuyển các hạng tử chứa \\ ( a \\ ) về một bên , các hằng số về phía kia ở vế trái : \\ (- 112 2 + 10 1a = - 11 2a \\ ) vậy nghiệm của phương trình là \\ ( b \\ ). ** đáp án đúng là : ** \\ [ \\ bo xe d { a = 0 } \\ ]",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNgười giữ trẻ của Milly tính phí 16 USD/giờ. Milly đang cân nhắc chuyển sang một người giữ trẻ mới với mức phí 12 USD/giờ, nhưng cũng tính thêm 3 USD cho mỗi lần bọn trẻ la mắng cô. Nếu Milly thường thuê người giữ trẻ trong 6 giờ và các con của cô ấy thường la hét hai lần trong một lần trông trẻ, thì chi phí cho người giữ trẻ mới sẽ ít hơn bao nhiêu?",
+    "question": "Người giữ trẻ của Milly tính phí 16 USD/giờ. Milly đang cân nhắc chuyển sang một người giữ trẻ mới với mức phí 12 USD/giờ, nhưng cũng tính thêm 3 USD cho mỗi lần bọn trẻ la mắng cô. Nếu Milly thường thuê người giữ trẻ trong 6 giờ và các con của cô ấy thường la hét hai lần trong một lần trông trẻ, thì chi phí cho người giữ trẻ mới sẽ ít hơn bao nhiêu?",
+    "gold_answer": "18",
+    "gold_full": "Nếu Milly thường thuê người giữ trẻ trong 6 giờ thì người giữ trẻ hiện tại sẽ tính phí 6 x 16 USD = 96 USD. Người giữ trẻ mới tính phí 12 USD/giờ, vậy trong 6 giờ, chi phí sẽ là 6 x 12 USD = 72 USD. Người giữ trẻ mới cũng tính thêm $3 cho mỗi lần bọn trẻ la hét với cô ấy và bọn trẻ thường hét hai lần cho mỗi lần trông trẻ, vì vậy khoản phụ phí sẽ là 2 x $3 = $6. Do đó, tổng chi phí cho người trông trẻ mới sẽ là $72 + $6 = $78. Người giữ trẻ mới sẽ có giá $96 - $78 = thấp hơn $18 so với người giữ trẻ hiện tại. ####18 Đáp án là: 18",
+    "pred_number": "1",
+    "raw_output": "dựa trên đề bài đã cung cấp , có thể suy ra rằng người duy nhất được hưởng lợi từ việc giữ trẻ là mil ly ( 4 tuổi ). vậy câu trả lời đúng là : ** 1 **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nCó 141 quả bóng vàng và số quả bóng bạc nhiều gấp đôi. Nếu thêm những quả bóng vàng và bạc vào x quả bóng đen thì có tổng cộng bao nhiêu quả bóng bay? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 573 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Có 141 quả bóng vàng và số quả bóng bạc nhiều gấp đôi. Nếu thêm những quả bóng vàng và bạc vào x quả bóng đen thì có tổng cộng bao nhiêu quả bóng bay? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 573 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "150",
+    "gold_full": "Chúng ta được biết rằng có 141 quả bóng vàng và gấp đôi số quả bóng bạc, nghĩa là có 2 * 141 = 282 quả bóng bạc. Nếu cộng các quả bóng vàng và bạc lại với nhau, chúng ta sẽ có tổng cộng 141 + 282 = 423 quả bóng bay. Chúng ta cũng được biết rằng những quả bóng này đã được thêm vào x quả bóng bay màu đen. Tổng số bong bóng bằng tổng số bong bóng vàng, bạc và đen: 423 + x. Cho rằng tổng số bóng bay là 573 nên ta viết: 423 + x = 573. Giải x, ta được: x = 150. Giá trị của x là 150. #### 150 Đáp án là: 150",
+    "pred_number": "3",
+    "raw_output": "giá trị hiện tại của \" ước lượng \" ( ước tính ) về mặt giá trị này là 56 3 , nên nó không phải là một con số cụ thể mà chỉ là sự chênh lệch nhỏ giữa các lần phát hành . tuy nhiên , để xác định chính xác hơn , cần xem xét các yếu tố khác như thời gian diễn ra trận đấu , thành tích cá nhân trong từng năm hoặc tình hình kinh tế của đội tuyển quốc gia đó . ** * # # # lựa chọn 1 : so sánh và kết luận - giá trị lớn nhất được đề cập đến là \" 56 3 \". đây là thông tin rất rõ ràng vì nó cung cấp dữ liệu chi tiết về mức độ phổ biến và tầm quan trọng của các cầu thủ nổi tiếng trong lịch sử bóng đá thế giới khi họ trở lại thi đấu ở các vị trí cao nhất .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nCersei mua x kẹo bông. Cô đưa cho anh trai và em gái mỗi người 5 chiếc kẹo bông, sau đó đưa 1/4 còn lại cho anh họ của mình. Nếu cô ấy ăn 12 chiếc kẹo bông thì còn lại bao nhiêu chiếc kẹo bông? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 18 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Cersei mua x kẹo bông. Cô đưa cho anh trai và em gái mỗi người 5 chiếc kẹo bông, sau đó đưa 1/4 còn lại cho anh họ của mình. Nếu cô ấy ăn 12 chiếc kẹo bông thì còn lại bao nhiêu chiếc kẹo bông? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 18 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "50",
+    "gold_full": "Cersei mua x kẹo bông. Cô cho mỗi anh chị em 5 chiếc kẹo bông, nghĩa là cô đã cho đi 2 * 5 = 10 chiếc kẹo bông. Số kẹo bông còn lại sau khi đưa cho anh chị em một ít là x - 10. Sau đó cô đưa 1/4 số kẹo bông còn lại cho anh họ, tức là cô đã cho đi (1/4)*(x - 10) kẹo bông. Số kẹo bông còn lại sau khi đưa cho em họ của cô ấy một ít là x - 10 - (1/4)*(x - 10) = x - 10 - (x - 10)/4 = (3/4)*(x - 10). Cô ấy đã ăn 12 chiếc kẹo bông nên số kẹo bông còn lại là (3/4)*(x - 10) - 12. Biết số kẹo bông còn lại là 18 nên ta có thể viết: (3/4 )*(x - 10) - 12 = 18. Rút gọn vế trái, ta được: (3/4)*(x - 10) = 30. Nhân cả hai vế với 4/3, ta được: x - 10 = 40 . Cộng 10 vào cả hai vế, ta được: x = 50. Giá trị của x là 50. #### 50 Đáp án là: 50",
+    "pred_number": "18",
+    "raw_output": "** đáp án đúng là ( 18 ) **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTiffany đang nhìn một cái hồ đầy rùa. Rùa có x% nữ và còn lại là nam. Trong số những con đực, cứ 4 con thì có 1 con có sọc. Trong số những con có sọc, có 4 con là rùa con. Trong hồ có 100 con rùa và 60% là rùa trưởng thành.",
+    "question": "Tiffany đang nhìn một cái hồ đầy rùa. Rùa có x% nữ và còn lại là nam. Trong số những con đực, cứ 4 con thì có 1 con có sọc. Trong số những con có sọc, có 4 con là rùa con. Trong hồ có 100 con rùa và 60% là rùa trưởng thành.",
+    "gold_answer": "60",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho tỷ lệ phần trăm số rùa cái trong hồ. Hãy phân tích thông tin đã cho: Tổng số rùa: 100 Tỷ lệ rùa trưởng thành: 60% Tỷ lệ rùa đực có sọc: 1/4 Số rùa con có sọc: 4 Ta có thể thiết lập phương trình như sau: Số lượng rùa trưởng thành rùa + Số rùa con = Tổng số rùa (Số rùa trưởng thành/100) * 100 + (Số rùa con/100) * 100 = 100 Hãy rút gọn và giải x: (60/100) * 100 + ( 40/100) * 100 = 100 60 + 40 = 100 Do đó, giá trị của biến x chưa biết là 60. 60% số rùa là con cái. ####60 Đáp án là: 60",
+    "pred_number": "50",
+    "raw_output": "đáp án đúng là : ** 50 %. **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột chuỗi cửa hàng thức ăn nhanh cung cấp dịch vụ giao hàng miễn phí cho đơn hàng tối thiểu 18 USD. Danny đặt mua 2 chiếc bánh mì kẹp thịt nặng 1/4 pound với giá 3,2 đô la mỗi chiếc, 2 củ khoai tây chiên lớn có giá 1,90 đô la mỗi chiếc và 2 ly sữa lắc có giá 2,40 đô la mỗi chiếc. Anh ta nên đặt thêm bao nhiêu món ăn để được giao hàng miễn phí?",
+    "question": "Một chuỗi cửa hàng thức ăn nhanh cung cấp dịch vụ giao hàng miễn phí cho đơn hàng tối thiểu 18 USD. Danny đặt mua 2 chiếc bánh mì kẹp thịt nặng 1/4 pound với giá 3,2 đô la mỗi chiếc, 2 củ khoai tây chiên lớn có giá 1,90 đô la mỗi chiếc và 2 ly sữa lắc có giá 2,40 đô la mỗi chiếc. Anh ta nên đặt thêm bao nhiêu món ăn để được giao hàng miễn phí?",
+    "gold_answer": "3",
+    "gold_full": "Danny đã đặt mua 2 chiếc bánh mì kẹp thịt nặng 1/4 pound với giá 3,20 đô la mỗi chiếc, vì vậy tổng chi phí cho chiếc bánh mì kẹp thịt là 2 * 3,20 đô la = 6,40 đô la. Anh ấy cũng đặt mua 2 củ khoai tây chiên lớn có giá 1,90 USD mỗi chiếc, vì vậy tổng chi phí cho khoai tây chiên là 2 * 1,90 USD = 3,80 USD. Anh ấy cũng đặt mua 2 ly sữa lắc có giá 2,40 USD mỗi ly, vì vậy tổng chi phí cho sữa lắc là 2 * 2,40 USD = 4,80 USD. Tổng chi phí cho đơn đặt hàng của Danny là $6,40 + $3,80 + $4,80 = $15. Để được giao hàng miễn phí, Danny cần đạt mức mua tối thiểu là 18 USD. Vì vậy, Danny cần đặt món ăn trị giá $18 - $15 = $3 để được giao hàng miễn phí. ####3 Đáp án là: 3",
+    "pred_number": "1",
+    "raw_output": "1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJames có 3 bể cá. Một trong những bể có 20 con cá trong đó và hai bể còn lại có số cá gấp đôi so với bể đầu tiên. Họ có tổng cộng bao nhiêu con cá?",
+    "question": "James có 3 bể cá. Một trong những bể có 20 con cá trong đó và hai bể còn lại có số cá gấp đôi so với bể đầu tiên. Họ có tổng cộng bao nhiêu con cá?",
+    "gold_answer": "100",
+    "gold_full": "Bể thứ nhất có 20 con cá. Bể thứ hai có 20 x 2 = 40 con cá. Bể thứ ba có 20 x 2 = 40 con cá. Tổng số cá họ có là 20 + 40 + 40 = 100 con. #### 100 Đáp án là: 100",
+    "pred_number": "1",
+    "raw_output": "câu trả lời đúng là : 1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJeff đang lái xe đến thủ đô để tham dự một hội nghị. Lúc đầu, anh ta lái xe với tốc độ x dặm/giờ trong khoảng 6 giờ, sau đó tốc độ giới hạn thay đổi và anh ta phải giảm tốc độ xuống 60 dặm/giờ, và như vậy anh ta đã lái xe với tốc độ này trong 4 giờ. Sau đó anh ta dừng lại ở một trạm xăng. Khi xe đã đổ đầy xăng, anh ta lái xe với vận tốc 40 dặm/giờ trong suốt quãng đường còn lại trong 2 giờ. Anh ấy đã đi 800 dặm.",
+    "question": "Jeff đang lái xe đến thủ đô để tham dự một hội nghị. Lúc đầu, anh ta lái xe với tốc độ x dặm/giờ trong khoảng 6 giờ, sau đó tốc độ giới hạn thay đổi và anh ta phải giảm tốc độ xuống 60 dặm/giờ, và như vậy anh ta đã lái xe với tốc độ này trong 4 giờ. Sau đó anh ta dừng lại ở một trạm xăng. Khi xe đã đổ đầy xăng, anh ta lái xe với vận tốc 40 dặm/giờ trong suốt quãng đường còn lại trong 2 giờ. Anh ấy đã đi 800 dặm.",
+    "gold_answer": "80",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho tốc độ ban đầu của xe Jeff tính bằng dặm một giờ. Hãy chia nhỏ thông tin đã cho: Phần đầu của chuyến đi: x dặm/giờ trong 6 giờ Phần thứ hai của chuyến đi: 60 dặm/giờ trong 4 giờ Phần thứ ba của chuyến đi: 40 dặm/giờ trong 2 giờ Tổng quãng đường đã đi: 800 dặm Ta có thể thiết lập phương trình như sau: Quãng đường đi được trong phần đầu của chuyến đi + Quãng đường đi được trong phần thứ hai của chuyến đi + Quãng đường đi được trong phần thứ ba của chuyến đi = Tổng quãng đường đi được (x * 6) + (60 * 4) + (40 * 2) = 800 Hãy đơn giản hóa và giải x: 6x + 240 + 80 = 800 6x + 320 = 800 Để tách x, chúng ta trừ 320 từ cả hai vế của phương trình: 6x + 320 - 320 = 800 - 320 6x = 480 Để giải x ta chia cả hai vế của phương trình cho 6: x = 480 / 6 x = 80 Giá trị của x là 80. #### 80 Đáp án là: 80",
+    "pred_number": null,
+    "raw_output": "** đáp án chính xác nhất là ( a ) \" về mặt kỹ thuật \" ** câu trả lời đúng là : d ). - - - # # đáp án : d",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nLee cắt một bãi cỏ và tính phí 33 USD. Tuần trước, anh đã cắt cỏ 16 bãi cỏ và mỗi người có ba khách hàng boa cho anh 10 USD. Lee đã kiếm được bao nhiêu đô la khi cắt cỏ vào tuần trước?",
+    "question": "Lee cắt một bãi cỏ và tính phí 33 USD. Tuần trước, anh đã cắt cỏ 16 bãi cỏ và mỗi người có ba khách hàng boa cho anh 10 USD. Lee đã kiếm được bao nhiêu đô la khi cắt cỏ vào tuần trước?",
+    "gold_answer": "558",
+    "gold_full": "Lee kiếm được 33 đô la cho mỗi bãi cỏ và anh ấy đã cắt tổng cộng 16 bãi cỏ, vì vậy anh ấy kiếm được 16 * 33 đô la = 528 đô la từ việc cắt cỏ. Ba khách hàng mỗi người đưa cho anh ta số tiền boa 10 đô la, vì vậy anh ta kiếm được 3 * 10 đô la = 30 đô la tiền boa. Do đó, Lee kiếm được tổng cộng $528 + $30 = $558 khi cắt cỏ vào tuần trước. ####558 Đáp án là: 558",
+    "pred_number": "3",
+    "raw_output": "lee cắt cỏ 15 đô la trong tuần trước . đáp án đúng là : 3",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nSheila đã được mời đi dã ngoại vào ngày mai. Chuyến dã ngoại sẽ diễn ra, dù mưa hay nắng. Nếu trời mưa, có xác suất $20\\%$ rằng Sheila sẽ quyết định đi, nhưng nếu trời nắng, có xác suất $80\\%$ rằng Sheila sẽ quyết định đi. Dự báo ngày mai cho biết khả năng có mưa là X. Xác suất để Sheila tham dự chuyến dã ngoại là bao nhiêu? Thể hiện câu trả lời của bạn dưới dạng phần trăm. Câu trả lời là 56. Giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Sheila đã được mời đi dã ngoại vào ngày mai. Chuyến dã ngoại sẽ diễn ra, dù mưa hay nắng. Nếu trời mưa, có xác suất $20\\%$ rằng Sheila sẽ quyết định đi, nhưng nếu trời nắng, có xác suất $80\\%$ rằng Sheila sẽ quyết định đi. Dự báo ngày mai cho biết khả năng có mưa là X. Xác suất để Sheila tham dự chuyến dã ngoại là bao nhiêu? Thể hiện câu trả lời của bạn dưới dạng phần trăm. Câu trả lời là 56. Giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "40",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho khả năng ngày mai sẽ mưa. Chúng ta biết rằng nếu trời mưa thì có 20% khả năng Sheila sẽ quyết định đi dã ngoại, và nếu trời nắng thì có 80% khả năng cô ấy sẽ quyết định đi dã ngoại. Dự báo ngày mai cho biết khả năng có mưa là X. Chúng ta có thể thiết lập phương trình như sau: Xác suất Sheila tham dự chuyến dã ngoại = (Xác suất trời mưa * Xác suất đi nếu trời mưa) + (Xác suất trời * Xác suất đi nếu trời nắng) Để biểu thị câu trả lời dưới dạng phần trăm, chúng ta cần nhân kết quả với 100. Hãy tính xác suất Sheila sẽ tham dự buổi dã ngoại: Xác suất Sheila tham dự buổi dã ngoại = (X * 0,20) + ((1 - X) * 0,80) Chúng ta có xác suất Sheila tham dự sẽ tham gia dã ngoại là 56%. 0,56 = (X * 0,20) + ((1 - X) * 0,80) 0,56 = 0,20X + 0,80 - 0,80X 0,56 - 0,80 = -0,60X -0,24 = -0,60X Để giải X, chúng ta chia cả hai vế của phương trình với -0,60: -0,24 / -0,60 = X 0,40 = X Giá trị của X là 0,40, hay 40%. Đáp án là: 40",
+    "pred_number": "56",
+    "raw_output": "đáp án đúng là : - 56 .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTrên một trục số, có bao nhiêu số nguyên nằm giữa $\\sqrt5$ và $\\sqrt{50}$?",
+    "question": "Trên một trục số, có bao nhiêu số nguyên nằm giữa $\\sqrt5$ và $\\sqrt{50}$?",
+    "gold_answer": "5",
+    "gold_full": "Chúng ta biết rằng $\\sqrt5$ nằm trong khoảng từ 2 đến 3 và $\\sqrt{50}$ nằm trong khoảng từ 7 đến 8. Vì vậy, các số nguyên giữa $\\sqrt5$ và $\\sqrt{50}$ là 3, 4, 5 , 6 và 7. Có các số nguyên $\\boxed{5}$ nằm giữa $\\sqrt5$ và $\\sqrt{50}$. Câu trả lời là: 5",
+    "pred_number": "10",
+    "raw_output": "dưới đây là đáp án chính xác của phương trình đã cho . ** * # # # bước 1 : chuyển các hạng tử chứa $ \\ ri ght ar row $ về hai vế để đưa hằng số sang vế trái : \\ [ - \\ fra c { 2 } { 4 } = 3 \\ ] trong đó \\ ( r \\ ) là hệ số của \\ (- 3 \\ ), còn \\ ( 20 \\ ) ở vế phải là \\ ( 6 \\ ). ta cần tìm giá trị của \\ ( x \\ ): \\ [ \\ bo xe d { m = 3 } \\ app ro x + 7 \\ ] thay vào phương trình này , chúng ta chia cả hai vế cho \\ (- 8 \\ ) để tìm \\ ( w \\ ): ** \\ [ z = \\ fra ction { 3 } { 9 } = 0 \\ im p li es 4 \\ ] vậy nghiệm của phương pháp tính là \\ [ f = 4 \\ times 10 \\ ]",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nKhi trời mưa, ba lỗ trên mái gara rò rỉ nước với tốc độ khác nhau. Lỗ lớn nhất rò rỉ nước với tốc độ 3 ounce mỗi phút. Lỗ cỡ trung bình rò rỉ nước với tốc độ bằng một nửa lỗ lớn nhất và lỗ nhỏ nhất rò rỉ nước với tốc độ bằng 1/3 lỗ cỡ trung bình. Trong khoảng thời gian 2 giờ, tổng lượng nước, tính bằng ounce, rò rỉ từ cả ba lỗ cộng lại là bao nhiêu?",
+    "question": "Khi trời mưa, ba lỗ trên mái gara rò rỉ nước với tốc độ khác nhau. Lỗ lớn nhất rò rỉ nước với tốc độ 3 ounce mỗi phút. Lỗ cỡ trung bình rò rỉ nước với tốc độ bằng một nửa lỗ lớn nhất và lỗ nhỏ nhất rò rỉ nước với tốc độ bằng 1/3 lỗ cỡ trung bình. Trong khoảng thời gian 2 giờ, tổng lượng nước, tính bằng ounce, rò rỉ từ cả ba lỗ cộng lại là bao nhiêu?",
+    "gold_answer": "600",
+    "gold_full": "Lỗ lớn nhất rò rỉ nước với tốc độ 3 ounce mỗi phút. Lỗ cỡ trung bình rò rỉ nước với tốc độ bằng một nửa lỗ lớn nhất, do đó nó rò rỉ nước với tốc độ 3/2 = 1,5 ounce mỗi phút. Lỗ nhỏ nhất rò rỉ nước với tốc độ bằng một phần ba tốc độ của lỗ cỡ trung bình, do đó nó rò rỉ nước với tốc độ 1,5/3 = 0,5 ounce mỗi phút. Tổng cộng, cả ba lỗ kết hợp đều rò rỉ nước với tốc độ 3 + 1,5 + 0,5 = 5 ounce mỗi phút. Một giờ có 60 phút, vậy trong khoảng thời gian 2 giờ, có 60 * 2 = 120 phút. Do đó, tổng lượng nước rò rỉ từ cả ba lỗ cộng lại trong khoảng thời gian 2 giờ là 5 * 120 = 600 ounce. ####600 Đáp án là: 600",
+    "pred_number": "6",
+    "raw_output": "để trả lời câu hỏi này , ta cần thực hiện các bước phân tích như sau : ** bước 1 : xác định thông tin liên quan đến sự thay đổi áp suất khí quyển giữa hai khu vực **: - nhiệt độ bề mặt sàn hầm rò rỉ ( mức áp suất thấp ) ở tầng dưới của tòa nhà xảy ra sự chênh lệch áp suất rất lớn so với chiều cao ban đầu . - do đó , áp suất càng lớn thì không khí xung quanh khu vực bị ảnh hưởng sẽ có xu hướng di chuyển nhanh hơn về phía khu vực nguy hiểm . ** bước 2 : tìm hiểu nguyên nhân gây biến động áp suất tại khu vực rò rỉ ** - áp suất tăng lên theo chu kỳ tuần hoàn ( tuần hoàn máu ). - nếu áp suất giảm xuống quá nhiều lần ( thường là 4 - 6 gram ), hệ thống lưu trữ năng lượng ( energy re cover y system - ers ) sẽ tiết kiệm điện năng đáng kể . - tuy nhiên , hiệu ứng co rio lis làm chậm dòng chảy trực tiếp",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nVới bao nhiêu giá trị của $k$ thì $12^{12}$ là bội số chung nhỏ nhất của các số nguyên dương $6^6$, $8^8$ và $k$?",
+    "question": "Với bao nhiêu giá trị của $k$ thì $12^{12}$ là bội số chung nhỏ nhất của các số nguyên dương $6^6$, $8^8$ và $k$?",
+    "gold_answer": "25",
+    "gold_full": "Chúng ta có thể viết $6^6 = 2^6 \\cdot 3^6$ và $8^8 = 2^{24}$. Bội số chung nhỏ nhất của $6^6$ và $8^8$ là $2^{24} \\cdot 3^6$. Để tìm bội số chung nhỏ nhất của $2^{24} \\cdot 3^6$ và $k$, chúng ta cần bao gồm mọi thừa số bổ sung của $2$ hoặc $3$ có trong $k$. Vì $12^{12} = 2^{24} \\cdot 3^{12}$, nên chúng ta thấy rằng $k$ phải chia hết cho $3^6$. Vì vậy, $k$ phải có dạng $2^a \\cdot 3^6$, trong đó $0 \\leq a \\leq 24$. Có $\\boxed{25}$ giá trị có thể có của $k$. Đáp án là: 25",
+    "pred_number": "2",
+    "raw_output": "\\ [ - \\ fra c { 1 } { 4 } = 2 \\ ] ** đáp án đúng là ( a ) $ \\ tex t { số lớn nhất } **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nJimmy mua 3 chiếc bút đi học với giá 1 đô la mỗi chiếc, 4 cuốn sổ tay giá 3 đô la mỗi chiếc và x bìa hồ sơ giá 5 đô la mỗi chiếc. Nếu anh ta thanh toán bằng tờ 50 đô la, anh ta sẽ nhận lại 25 đô la tiền lẻ.",
+    "question": "Jimmy mua 3 chiếc bút đi học với giá 1 đô la mỗi chiếc, 4 cuốn sổ tay giá 3 đô la mỗi chiếc và x bìa hồ sơ giá 5 đô la mỗi chiếc. Nếu anh ta thanh toán bằng tờ 50 đô la, anh ta sẽ nhận lại 25 đô la tiền lẻ.",
+    "gold_answer": "2",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, đại diện cho số lượng thư mục mà Jimmy đã mua. Hãy chia nhỏ thông tin đã cho: Số lượng bút: 3 Chi phí mỗi cây bút: $1 Số lượng sổ ghi chép: 4 Chi phí mỗi cuốn sổ: $3 Số lượng thư mục: x Chi phí mỗi thư mục: $5 Tổng số tiền đã trả: $50 Thay đổi nhận được: $25 Chúng ta có thể thiết lập phương trình như sau: (Số bút * Chi phí mỗi cây bút) + (Số vở * Chi phí mỗi cuốn) + (Số thư mục * Chi phí mỗi thư mục) + Thay đổi nhận được = Tổng số tiền đã trả (3 * $1) + (4 * $3) + (x * $5) + $25 = $50 Hãy đơn giản hóa và giải tìm x: $3 + $12 + $5x + $25 = $50 $40 + $5x = $50 Để tách x, chúng ta trừ $40 từ cả hai vế của phương trình: $40 - $40 + $5x = $50 - $40 $5x = $10 Để giải x, chúng ta chia cả hai vế của phương trình cho $5: x = $10 / $5 x = 2 Giá trị của x là 2. #### 2 Đáp án là: 2",
+    "pred_number": null,
+    "raw_output": "chọn đáp án đúng nhất là d",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nOliver tự hỏi bồn tắm của mình có thể chứa được bao nhiêu nước. Vì vậy, anh ta lấy một cái xô chứa 120 ounce và bắt đầu đổ đầy nước vào bồn tắm. Khi nó lên đến đỉnh, anh ta thấy mình đã lấp đầy nó 14 lần. Sau đó, anh ấy tự hỏi mình sử dụng bao nhiêu nước tắm, vì vậy anh ấy bắt đầu lấy đi các xô cho đến khi đạt đến mức anh ấy đặt. Anh ta cần phải lấy đi 3 thùng để làm việc này. Cuối cùng, anh ấy tự hỏi mình sử dụng bao nhiêu nước trong một tuần để tắm, lượng nước mà anh ấy sử dụng hàng ngày. Anh ấy sử dụng bao nhiêu nước mỗi tuần?",
+    "question": "Oliver tự hỏi bồn tắm của mình có thể chứa được bao nhiêu nước. Vì vậy, anh ta lấy một cái xô chứa 120 ounce và bắt đầu đổ đầy nước vào bồn tắm. Khi nó lên đến đỉnh, anh ta thấy mình đã lấp đầy nó 14 lần. Sau đó, anh ấy tự hỏi mình sử dụng bao nhiêu nước tắm, vì vậy anh ấy bắt đầu lấy đi các xô cho đến khi đạt đến mức anh ấy đặt. Anh ta cần phải lấy đi 3 thùng để làm việc này. Cuối cùng, anh ấy tự hỏi mình sử dụng bao nhiêu nước trong một tuần để tắm, lượng nước mà anh ấy sử dụng hàng ngày. Anh ấy sử dụng bao nhiêu nước mỗi tuần?",
+    "gold_answer": "9240",
+    "gold_full": "Oliver đổ đầy bồn tắm 14 lần bằng một cái xô chứa 120 ounce nước, vì vậy anh ta dùng 14 * 120 = 1680 ounce nước. Sau đó anh ta lấy đi 3 xô, tức là 3 * 120 = 360 ounce nước. Vì vậy, anh ấy sử dụng 1680 - 360 = 1320 ounce nước cho mỗi lần tắm. Nếu Oliver tắm hàng ngày trong một tuần thì anh ấy sẽ dùng 1320 * 7 = 9240 ounce nước trong một tuần. ####9240 Đáp án là: 9240",
+    "pred_number": "2",
+    "raw_output": "dựa trên câu trả lời cuối cùng về khối lượng và thời gian sử dụng nước , người dùng muốn tìm hiểu thêm thông tin liên quan đến kích thước và trọng lượng của bể bơi . ** * # # # lựa chọn 1 ( phù hợp nhất ) nếu bạn đang đề cập đến \" bể bơi \", thì đây không phải là dữ liệu đơn thuần . tuy nhiên , theo kiến thức phổ biến hiện nay , bể bơi thường được thiết kế đặc biệt với dung tích từ khoảng 2 lít trở xuống . - ** bể bơi chuyên dụng **: bể bơi công cộng hoặc khu vực dành riêng cho vận động viên bơi lội , nhưng chúng chỉ tập trung vào việc cung cấp đủ nước sạch ở giai đoạn chuẩn bị trước khi thi đấu . do đó , không rõ ràng rằng bể bơi hoạt động như thế nào .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột cây bút và việc đổ mực cùng nhau có giá $\\;\\$1,10$. Chiếc bút có giá X nhiều hơn số lần đổ mực. Giá của chiếc bút tính bằng đô la là 1,05. Giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Một cây bút và việc đổ mực cùng nhau có giá $\\;\\$1,10$. Chiếc bút có giá X nhiều hơn số lần đổ mực. Giá của chiếc bút tính bằng đô la là 1,05. Giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "1",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, giá trị này thể hiện chi phí tăng thêm của chiếc bút so với việc đổ mực. Hãy chia nhỏ thông tin đã cho: Chi phí của chiếc bút: $1,05 Chi phí đổ mực: $1,10 - $1,05 = $0,05 Chúng ta biết rằng chiếc bút có giá X nhiều hơn số lần đổ mực. Do đó, chi phí của chiếc bút là 0,05 USD + X. Chúng ta có thể thiết lập phương trình như sau: Chi phí của chiếc bút + Chi phí đổ mực = Tổng chi phí 0,05 USD + X + 0,05 USD = 1,10 USD Hãy đơn giản hóa và giải tìm x: 0,10 USD + X = 1,10 USD Để tách X, chúng tôi trừ 0,10 USD từ cả hai vế của phương trình: 0,10 USD + X - 0,10 USD = 1,10 USD - 0,10 USD X = 1,00 USD Giá trị của x là 1,00 USD. Câu trả lời là: 1",
+    "pred_number": "2",
+    "raw_output": "** đáp án đúng là ( 2 ) số **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu ban đầu Bingley có 5 chiếc vòng tay và nhận được 1/4 trong số 16 chiếc vòng tay của Kelly, sau đó tặng 1/3 số vòng tay của mình cho em gái thì Bingley còn lại bao nhiêu chiếc vòng tay?",
+    "question": "Nếu ban đầu Bingley có 5 chiếc vòng tay và nhận được 1/4 trong số 16 chiếc vòng tay của Kelly, sau đó tặng 1/3 số vòng tay của mình cho em gái thì Bingley còn lại bao nhiêu chiếc vòng tay?",
+    "gold_answer": "6",
+    "gold_full": "Một phần tư trong số 16 chiếc vòng tay của Kelly là 16/4 = 4 chiếc vòng tay. Bingley nhận được 4 chiếc vòng tay từ Kelly nên hiện tại anh ấy có 5 + 4 = 9 chiếc vòng tay. Một phần ba trong số 9 chiếc vòng tay của Bingley là 9/3 = 3 chiếc vòng tay. Bingley đã tặng 3 chiếc vòng tay cho em gái của mình nên hiện giờ anh ấy còn lại 9 - 3 = 6 chiếc vòng tay. ####6 Đáp án là: 6",
+    "pred_number": "2",
+    "raw_output": "câu trả lời đúng là : 2",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu có ba con chó ở sân sau lần lượt thích táo, quả việt quất và thỏ con, và con chó thứ nhất ăn số táo gấp ba lần con chó thứ hai ăn quả việt quất, và con chó thứ hai ăn số quả việt quất bằng 3/4 con chó thứ ba ăn bonnies (con chó thứ ba ăn 60 con bonnies), tổng số trái cây mà ba con chó đã ăn là bao nhiêu?",
+    "question": "Nếu có ba con chó ở sân sau lần lượt thích táo, quả việt quất và thỏ con, và con chó thứ nhất ăn số táo gấp ba lần con chó thứ hai ăn quả việt quất, và con chó thứ hai ăn số quả việt quất bằng 3/4 con chó thứ ba ăn bonnies (con chó thứ ba ăn 60 con bonnies), tổng số trái cây mà ba con chó đã ăn là bao nhiêu?",
+    "gold_answer": "240",
+    "gold_full": "Nếu con chó thứ ba ăn 60 con thỏ thì con chó thứ hai ăn 3/4 * 60 = 45 quả việt quất. Và nếu con chó thứ nhất ăn số táo gấp ba lần con chó thứ hai ăn quả việt quất thì con chó thứ nhất ăn 3 * 45 = 135 quả táo. Vậy tổng số quả mà 3 chú chó ăn là 135 quả táo + 45 quả việt quất + 60 quả bonnies = 240 quả. ####240 Đáp án là: 240",
+    "pred_number": "2",
+    "raw_output": "câu trả lời đúng là : 2",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\n20% bác sĩ thú y trong tiểu bang giới thiệu Puppy Kibble. 30% giới thiệu Yummy Dog Kibble. Nếu có x bác sĩ thú y trong tiểu bang, có bao nhiêu người giới thiệu Yummy Dog Kibble nhiều hơn Puppy Kibble? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 100 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "20% bác sĩ thú y trong tiểu bang giới thiệu Puppy Kibble. 30% giới thiệu Yummy Dog Kibble. Nếu có x bác sĩ thú y trong tiểu bang, có bao nhiêu người giới thiệu Yummy Dog Kibble nhiều hơn Puppy Kibble? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 100 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "1000",
+    "gold_full": "Chúng tôi biết rằng 20% ​​bác sĩ thú y khuyên dùng Puppy Kibble và 30% khuyên dùng Yummy Dog Kibble. Để biết có bao nhiêu bác sĩ thú y giới thiệu Puppy Kibble, chúng ta có thể tính 20% của x bằng cách nhân x với 0,20: 0,20x. Tương tự, để biết có bao nhiêu bác sĩ thú y giới thiệu Yummy Dog Kibble, chúng ta có thể tính 30% của x bằng cách nhân x với 0,30: 0,30x. Sự khác biệt giữa số bác sĩ thú y giới thiệu Yummy Dog Kibble và Puppy Kibble là: 0,30x - 0,20x = 0,10x. Cho rằng hiệu là 100 nên ta có thể viết: 0,10x = 100. Chia cả hai vế cho 0,10, ta được: x = 1000. Giá trị của x là 1000. #### 1000 Đáp án là: 1000",
+    "pred_number": "50",
+    "raw_output": "50 %.",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nHuấn luyện viên Grunt cần chọn đội hình xuất phát gồm 5 người cho đội bóng rổ của mình, Grunt, từ nhóm 12 cầu thủ. Hai trong số những người chơi, Ace và Zeppo, là All-Stars của giải đấu và chắc chắn sẽ có tên trong đội hình. Huấn luyện viên Grunt có thể tạo ra bao nhiêu đội hình xuất phát khác nhau? (Lưu ý: Thứ tự các cầu thủ trong đội hình không quan trọng.)",
+    "question": "Huấn luyện viên Grunt cần chọn đội hình xuất phát gồm 5 người cho đội bóng rổ của mình, Grunt, từ nhóm 12 cầu thủ. Hai trong số những người chơi, Ace và Zeppo, là All-Stars của giải đấu và chắc chắn sẽ có tên trong đội hình. Huấn luyện viên Grunt có thể tạo ra bao nhiêu đội hình xuất phát khác nhau? (Lưu ý: Thứ tự các cầu thủ trong đội hình không quan trọng.)",
+    "gold_answer": "120",
+    "gold_full": "Vì Ace và Zeppo đã có tên trong đội hình nên HLV Grunt cần chọn thêm 3 cầu thủ nữa trong số 10 cầu thủ còn lại. Số cách chọn 3 người chơi trong số 10 người được đưa ra bởi tổ hợp $\\binom{10}{3} = \\frac{10!}{3!7!} = \\frac{10\\times9\\times8}{3\\ lần2\\time1} = 120$. Do đó, Huấn luyện viên Grunt có thể tạo $\\boxed{120}$ đội hình xuất phát khác nhau. Câu trả lời là: 120",
+    "pred_number": null,
+    "raw_output": "câu trả lời đúng nhất là : ** pre p ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nRachel 12 tuổi và ông nội gấp 7 lần tuổi cô. Mẹ cô bằng nửa tuổi ông nội, bố hơn mẹ cô 5 tuổi. Cha của Rachel sẽ bao nhiêu tuổi khi cô ấy x tuổi? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 60 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Rachel 12 tuổi và ông nội gấp 7 lần tuổi cô. Mẹ cô bằng nửa tuổi ông nội, bố hơn mẹ cô 5 tuổi. Cha của Rachel sẽ bao nhiêu tuổi khi cô ấy x tuổi? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 60 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "25",
+    "gold_full": "Ông của Rachel gấp 7 lần tuổi cô, nghĩa là ông 7 * 12 = 84 tuổi. Mẹ cô ấy bằng nửa tuổi ông nội, nghĩa là cô ấy 84/2 = 42 tuổi. Bố hơn mẹ 5 tuổi nên 42 + 5 = 47 tuổi. Để biết bố của Rachel sẽ bao nhiêu tuổi khi cô ấy x tuổi, chúng ta cần tính chênh lệch tuổi tác giữa họ. Sự chênh lệch tuổi tác giữa Rachel và bố cô là 47 - 12 = 35 tuổi. Vậy khi Rachel x tuổi thì bố cô ấy sẽ là x + 35 tuổi. Biết rằng khi Rachel x tuổi thì bố cô ấy sẽ 60 tuổi nên ta viết: x + 35 = 60. Giải x, ta được: x = 25. Giá trị của x là 25. ## ##25 Đáp án là: 25",
+    "pred_number": "60",
+    "raw_output": "dựa vào đề bài đã cung cấp , có thể suy ra rằng : - người kể chuyện nói về một cậu bé 13 tuổi ( độ tuổi trung bình ) với chiều cao khoảng 1 , 75 m ( ước tính ban đầu ). - tuy nhiên , thông tin này không được nêu rõ trong đoạn văn mà chỉ mô tả một tình huống cụ thể liên quan đến việc đứa trẻ đó lớn lên như thế nào trước khi trưởng thành . vì vậy , đáp án đúng nhất là : ** 60 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nHaley, Michael và Brandon đang thử thách kẹo dẻo để xem ai có thể ngậm được nhiều kẹo dẻo hơn trong miệng. Haley có thể ngậm 8 viên kẹo dẻo trong miệng. Michael có thể giữ số kẹo dẻo gấp 3 lần Haley. Brandon có thể nắm giữ x% nhiều như Michael. Tổng cộng ba đứa trẻ đã ngậm trong miệng bao nhiêu viên kẹo dẻo? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 44 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Haley, Michael và Brandon đang thử thách kẹo dẻo để xem ai có thể ngậm được nhiều kẹo dẻo hơn trong miệng. Haley có thể ngậm 8 viên kẹo dẻo trong miệng. Michael có thể giữ số kẹo dẻo gấp 3 lần Haley. Brandon có thể nắm giữ x% nhiều như Michael. Tổng cộng ba đứa trẻ đã ngậm trong miệng bao nhiêu viên kẹo dẻo? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 44 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "50",
+    "gold_full": "Haley có thể ngậm 8 viên kẹo dẻo trong miệng. Michael có thể ngậm số kẹo dẻo nhiều gấp 3 lần Haley, nghĩa là anh ấy có thể ngậm 3 * 8 = 24 viên kẹo dẻo trong miệng. Brandon có thể ngậm x% số kẹo dẻo như Michael, nghĩa là anh ấy có thể ngậm (x/100) * 24 viên kẹo dẻo trong miệng. Tổng số kẹo dẻo mà cả ba đứa trẻ có thể cầm được là tổng số kẹo dẻo mà mỗi đứa có thể cầm được: 8 + 24 + (x/100) * 24. Ta được rằng tổng số kẹo dẻo mà chúng cầm được là 44, vậy ta có thể viết: 8 + 24 + (x/100) * 24 = 44. Rút gọn vế trái, ta được: 32 + (x/100) * 24 = 44. Trừ 32 ở cả hai vế, ta được: (x/ 100) * 24 = 12. Chia cả hai vế cho 24, ta được: (x/100) = 12/24. Rút gọn vế phải, ta được: (x/100) = 1/2. Nhân cả hai vế với 100, ta được: x = 50. Giá trị của x là 50. #### 50 Đáp án là: 50",
+    "pred_number": "44",
+    "raw_output": "dựa vào đoạn mô tả về khả năng chịu đựng lâu dài ( tăng trưởng lượng kẹo dẻo ), không có thông tin rõ ràng rằng mức độ nhạy cảm với kẹo dẻo sẽ thay đổi theo thời gian hay hoàn cảnh cụ thể . vì vậy , đáp án đúng nhất là ** 44 ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nGiá trị của $x$ là bao nhiêu nếu $|x-1| = |x-2|$? Thể hiện câu trả lời của bạn như là một phần chung.",
+    "question": "Giá trị của $x$ là bao nhiêu nếu $|x-1| = |x-2|$? Thể hiện câu trả lời của bạn như là một phần chung.",
+    "gold_answer": "2",
+    "gold_full": "Chúng ta có thể viết lại phương trình dưới dạng $\\sqrt{(x-1)^2} = \\sqrt{(x-2)^2}$. Vì căn bậc hai của một số luôn không âm nên chúng ta có thể bỏ căn bậc hai và đơn giản hóa phương trình thành $(x-1)^2 = (x-2)^2$. Khai triển cả hai vế, ta được $x^2 - 2x + 1 = x^2 - 4x + 4$. Đơn giản hóa hơn nữa, chúng ta có $-2x + 1 = -4x + 4$. Cộng $4x$ vào cả hai vế và trừ $1$ ở cả hai vế, chúng ta được $2x = 3$. Chia cả hai vế cho $2$, ta tìm được $x = \\boxed{\\frac{3}{2}}$. Câu trả lời là: \\frac{3}{2}",
+    "pred_number": null,
+    "raw_output": "** đáp án chính xác là ( a ) $ \\ ri ght ar row $ **",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTrong game show thực tế Survivor, có 16 người được chia thành hai bộ tộc 8 người. Trong tập đầu tiên, có hai người bỏ cuộc vì nhớ nhà. Nếu mỗi người có cơ hội ngang nhau để trở thành một trong những người bỏ cuộc và xác suất để một người bỏ cuộc không phụ thuộc vào bất kỳ người nào khác bỏ cuộc thì xác suất để cả hai người bỏ cuộc đều thuộc cùng một bộ tộc là bao nhiêu?",
+    "question": "Trong game show thực tế Survivor, có 16 người được chia thành hai bộ tộc 8 người. Trong tập đầu tiên, có hai người bỏ cuộc vì nhớ nhà. Nếu mỗi người có cơ hội ngang nhau để trở thành một trong những người bỏ cuộc và xác suất để một người bỏ cuộc không phụ thuộc vào bất kỳ người nào khác bỏ cuộc thì xác suất để cả hai người bỏ cuộc đều thuộc cùng một bộ tộc là bao nhiêu?",
+    "gold_answer": "15",
+    "gold_full": "Có tổng cộng $\\binom{16}{2}=120$ cách để chọn hai người bỏ cuộc. Nếu cả hai người bỏ cuộc đều cùng một bộ tộc thì chúng ta cần chọn hai người cùng bộ tộc và chia cho tổng số cách chọn hai người. Có $\\binom{8}{2}=28$ cách để chọn hai người từ nhóm thứ nhất và $\\binom{8}{2}=28$ cách để chọn hai người từ nhóm thứ hai. Vì vậy, xác suất để cả hai người bỏ cuộc đều đến từ cùng một bộ tộc là $\\frac{28+28}{120}=\\boxed{\\frac{7}{15}}$. Câu trả lời là: \\frac{7}{15}",
+    "pred_number": "1",
+    "raw_output": "câu trả lời đúng nhất là : 1",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nĐể làm cà chua xanh chiên, Thelma cắt từng quả cà chua xanh thành x lát trước khi nấu chín. Nếu 20 lát cà chua xanh chiên làm thành một bữa ăn cho một người, Thelma sẽ cần bao nhiêu quả cà chua để làm đủ cà chua xanh chiên cho một gia đình 8 người trong một bữa ăn? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 20 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Để làm cà chua xanh chiên, Thelma cắt từng quả cà chua xanh thành x lát trước khi nấu chín. Nếu 20 lát cà chua xanh chiên làm thành một bữa ăn cho một người, Thelma sẽ cần bao nhiêu quả cà chua để làm đủ cà chua xanh chiên cho một gia đình 8 người trong một bữa ăn? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 20 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "8",
+    "gold_full": "Để làm đủ cà chua xanh chiên cho một gia đình 8 người trong một bữa ăn, Thelma cần 8 * 20 = 160 lát cà chua xanh chiên. Nếu Thelma cắt mỗi quả cà chua xanh thành x lát thì số cà chua cô ấy cần là 160/x. Cho số cà chua cần thiết là 20 nên viết: 160/x = 20. Nhân cả hai vế với x, ta được: 160 = 20x. Chia cả hai vế cho 20, ta được: x = 8. Giá trị của x là 8. #### 8 Đáp án là: 8",
+    "pred_number": null,
+    "raw_output": "giá cả thay đổi theo thời gian do sự khác biệt về nguyên liệu và cách thức chế biến giữa các gia vị ( như tỏi , hành tây , gừng , ớt ), nên giá cả có thể dao động tùy thuộc vào sở thích cá nhân cũng như nhu cầu sử dụng thực phẩm của bạn .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTổng diện tích cỏ, tính bằng thước vuông mà Archie cần cho sân sau của mình, có kích thước 20 thước x 13 thước, không bao gồm diện tích chiếm dụng của nhà kho có kích thước 3 thước x 5 thước?",
+    "question": "Tổng diện tích cỏ, tính bằng thước vuông mà Archie cần cho sân sau của mình, có kích thước 20 thước x 13 thước, không bao gồm diện tích chiếm dụng của nhà kho có kích thước 3 thước x 5 thước?",
+    "gold_answer": "245",
+    "gold_full": "Tổng diện tích của sân sau được tính bằng cách nhân chiều dài với chiều rộng, do đó 20 thước x 13 thước = 260 thước vuông. Diện tích của nhà kho được tính bằng cách nhân chiều dài với chiều rộng, do đó 3 thước x 5 thước = 15 thước vuông. Để tìm tổng diện tích cỏ cần thiết cho sân sau, chúng ta lấy tổng diện tích sân sau trừ diện tích của nhà kho, do đó 260 thước vuông - 15 thước vuông = 245 thước vuông. Vì vậy, Archie cần 245 thước vuông cỏ cho sân sau của mình. ####245 Đáp án là: 245",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** số diện tích đất ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTìm giá trị lớn nhất của \\[f(x) = 3x - x^3\\]với $0 \\le x \\le \\sqrt{3}.$",
+    "question": "Tìm giá trị lớn nhất của \\[f(x) = 3x - x^3\\]với $0 \\le x \\le \\sqrt{3}.$",
+    "gold_answer": "2",
+    "gold_full": "Đầu tiên, chúng ta tìm các điểm tới hạn của $f(x)$ bằng cách đặt $f'(x) = 0$: \\[f'(x) = 3 - 3x^2.\\]Đặt giá trị này bằng 0, chúng ta nhận được $x = \\pm 1.$ Tiếp theo, chúng tôi đánh giá $f(x)$ tại các điểm tới hạn và các ranh giới của khoảng: \\[f(-1) = -2,\\] \\[f(1) = 2 ,\\] \\[f(0) = 0,\\] \\[f(\\sqrt{3}) = 3\\sqrt{3} - 3\\sqrt{3} = 0.\\]Giá trị tối đa của $f( x)$ là $\\boxed{2}$ (xảy ra ở $x = 1$). Câu trả lời là: 2",
+    "pred_number": "6",
+    "raw_output": "để giải phương trình này , ta làm theo các bước sau đây một cách chi tiết : ** bước 1 : viết lại phương trình ** \\ [ \\ bo xe d { f = \\ fra c { 3 x + 2 ^ 3 } { r } = 4 \\ ] ** bước 2 : chuyển tất cả các hạng tử chứa \\ ( n \\ ) về một phía , hằng số về phía kia : \\ [ p ( x ^ 2 ) = 5 \\ im p li es 9 \\ ] vậy nghiệm của phương trình là \\ (- 6 \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nPauline đang mua đồ dùng học tập. Tổng số tiền của tất cả các mặt hàng cô ấy muốn mua cộng lại lên tới 150 USD trước thuế bán hàng. Thuế bán hàng là 8% trên tổng số tiền mua. Pauline sẽ chi bao nhiêu cho tất cả các mặt hàng, bao gồm cả thuế bán hàng?",
+    "question": "Pauline đang mua đồ dùng học tập. Tổng số tiền của tất cả các mặt hàng cô ấy muốn mua cộng lại lên tới 150 USD trước thuế bán hàng. Thuế bán hàng là 8% trên tổng số tiền mua. Pauline sẽ chi bao nhiêu cho tất cả các mặt hàng, bao gồm cả thuế bán hàng?",
+    "gold_answer": "162",
+    "gold_full": "Thuế bán hàng là 8% trên tổng số tiền mua, do đó số tiền thuế bán hàng là 8/100 * 150 USD = 12 USD. Do đó, Pauline sẽ chi $150 + $12 = $162 cho tất cả các mặt hàng, bao gồm cả thuế bán hàng. ####162 Đáp án là: 162",
+    "pred_number": "2024",
+    "raw_output": "pau line đã chi hơn 200 triệu đô la mỹ để mua sắm máy tính cá nhân ( pc ), điện thoại thông minh , thiết bị gia dụng và nhiều sản phẩm công nghệ khác trong năm tài chính kết thúc vào tháng 6 / 2024 .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nWilliam là một tay đua ngựa. Anh ta có thể cưỡi ngựa x giờ mỗi ngày. Trong 6 ngày, anh chỉ sử dụng thời gian cưỡi tối đa hai lần. Trong hai ngày, anh ta cưỡi ngựa chỉ 1,5 giờ mỗi ngày và một nửa thời gian tối đa trong hai ngày tiếp theo. William đã cưỡi ngựa suốt 21 giờ trong 6 ngày đó.",
+    "question": "William là một tay đua ngựa. Anh ta có thể cưỡi ngựa x giờ mỗi ngày. Trong 6 ngày, anh chỉ sử dụng thời gian cưỡi tối đa hai lần. Trong hai ngày, anh ta cưỡi ngựa chỉ 1,5 giờ mỗi ngày và một nửa thời gian tối đa trong hai ngày tiếp theo. William đã cưỡi ngựa suốt 21 giờ trong 6 ngày đó.",
+    "gold_answer": "6",
+    "gold_full": "Để giải quyết vấn đề này, chúng ta cần xác định giá trị của x, biểu thị thời gian cưỡi ngựa tối đa tính bằng giờ mà William có thể cưỡi ngựa trong một ngày. Hãy chia nhỏ thông tin đã cho: Số ngày William sử dụng thời gian cưỡi ngựa tối đa: 2 Số ngày William cưỡi ngựa trong 1,5 giờ: 2 Số ngày William cưỡi ngựa trong một nửa thời gian tối đa: 2 Tổng thời gian cưỡi ngựa trong 6 ngày : 21 giờ Chúng ta có thể thiết lập phương trình như sau: (Số ngày William sử dụng thời gian cưỡi ngựa tối đa * Thời gian cưỡi ngựa tối đa) + (Số ngày William cưỡi ngựa trong 1,5 giờ * 1,5) + (Số ngày William cưỡi ngựa của mình ngựa trong một nửa thời gian tối đa * (1/2) * Thời gian cưỡi tối đa) = Tổng thời gian cưỡi ngựa trong 6 ngày (2 * x) + (2 * 1.5) + (2 * (1/2) * x) = 21 Hãy đơn giản hóa và giải tìm x: 2x + 3 + x = 21 Để cô lập x, chúng ta kết hợp các số hạng tương tự ở vế trái của phương trình: 3x + 3 = 21 Để cô lập x, chúng ta trừ 3 từ cả hai vế của phương trình: 3x + 3 - 3 = 21 - 3 3x = 18 Để giải x, ta chia cả hai vế của phương trình cho 3: x = 18 / 3 x = 6 Giá trị của x là 6. #### 6 Đáp án là: 6",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ( a ) william",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Billy Goats đầu tư tổng cộng 165.000 USD vào cổ phiếu và trái phiếu, và anh ấy đầu tư vào cổ phiếu nhiều hơn 4,5 lần so với trái phiếu, thì tổng số tiền đầu tư vào cổ phiếu của anh ấy là bao nhiêu?",
+    "question": "Nếu Billy Goats đầu tư tổng cộng 165.000 USD vào cổ phiếu và trái phiếu, và anh ấy đầu tư vào cổ phiếu nhiều hơn 4,5 lần so với trái phiếu, thì tổng số tiền đầu tư vào cổ phiếu của anh ấy là bao nhiêu?",
+    "gold_answer": "135.000",
+    "gold_full": "Gọi $x$ là số tiền Billy Goats đầu tư vào trái phiếu. Khi đó, số tiền anh ấy đầu tư vào cổ phiếu là $4,5x$. Tổng số tiền đầu tư là $x + 4,5x = 5,5x$. Chúng tôi biết rằng 5,5 đô la x = 165.000 đô la. Chia cả hai vế cho 5,5, chúng ta được $x = \\frac{165,000}{5.5} = 30,000$. Vì vậy, Billy Goats đã đầu tư $4,5x = 4,5(30.000) = \\boxed{135.000}$ vào cổ phiếu. Đáp án là: 135.000",
+    "pred_number": "8",
+    "raw_output": "dựa trên đề bài đã cung cấp , ta có thể suy luận về giá trị tài sản ròng ( $ \\ tex t { cổ phiếu } = \\ fra c { 1 } { 2 } + 3 ^ 2 } ** bước 1 : xác định các khoản đầu tư được nhắc đến trong câu hỏi ** - vốn chủ sở hữu : $ \\ ri ght ar row $ $ \\ le ft $ $ tính chi phí lãi vay / lãi suất * lãi suất $ \\ re p li ed $ $ $ áp dụng phương pháp này : $ 1 $ = 0 , 25 $ $ vậy , giá trị hiện tại của một cổ phiếu là $ \\ ro q 8 $",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nConnor đang hẹn hò đi xem phim. Mỗi vé có giá x $. Họ quyết định mua combo bắp rang lớn và 2 đồ uống với giá $11,00 và mỗi người lấy một hộp kẹo với giá $2,50 mỗi chiếc. Connor sẽ chi bao nhiêu cho buổi hẹn hò của mình? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 36 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "question": "Connor đang hẹn hò đi xem phim. Mỗi vé có giá x $. Họ quyết định mua combo bắp rang lớn và 2 đồ uống với giá $11,00 và mỗi người lấy một hộp kẹo với giá $2,50 mỗi chiếc. Connor sẽ chi bao nhiêu cho buổi hẹn hò của mình? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 36 thì giá trị của biến x chưa biết là bao nhiêu?",
+    "gold_answer": "10",
+    "gold_full": "Mỗi vé có giá x $, vì vậy Connor sẽ chi gấp đôi đô la cho vé. Combo bắp rang lớn và 2 đồ uống có giá 11 USD. Mỗi hộp kẹo có giá 2,50 USD, vì vậy Connor sẽ chi 2 * 2,50 USD = 5,00 USD cho kẹo. Tổng số tiền Connor sẽ chi cho buổi hẹn hò của mình là tổng chi phí vé, combo bữa ăn và kẹo: 2x + $11,00 + $5,00. Chúng ta được biết rằng tổng số tiền Connor sẽ chi là $36,00, vì vậy chúng ta có thể viết: 2x + $11,00 + $5,00 = $36,00. Rút gọn vế trái, chúng ta có: 2x + $16,00 = $36,00. Trừ $16,00 từ cả hai vế, chúng ta nhận được: 2x = $20,00. Chia cả hai vế cho 2, chúng ta có: x = $10,00. Giá trị của x là $10,00. ####10 Đáp án là: 10",
+    "pred_number": null,
+    "raw_output": "dựa vào ngữ cảnh đã cung cấp trong đề bài : \" con nor muốn gặp gỡ bạn bè tại rạp hát để tìm hiểu thêm về các hoạt động liên quan đến nghệ thuật biểu diễn .\" điều này cho thấy con nor dự định tham gia chương trình truyền hình thực tế hoặc trò chơi điện tử mà anh ấy vừa tham gia .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nNếu Solomon thu thập được 66 lon, gấp ba lần số lon Juwan thu được và Levi thu được một nửa số lon Juwan thu được thì tổng số lon mà các cậu bé thu được là bao nhiêu?",
+    "question": "Nếu Solomon thu thập được 66 lon, gấp ba lần số lon Juwan thu được và Levi thu được một nửa số lon Juwan thu được thì tổng số lon mà các cậu bé thu được là bao nhiêu?",
+    "gold_answer": "99",
+    "gold_full": "Nếu Solomon thu thập được 66 lon, gấp ba lần số Juwan thu được, thì Juwan thu được 66/3 = <<66/3=22>>22 lon. Nếu Levi thu được một nửa số Juwan thu được thì Levi thu được 22/2 = <<22/2=11>>11 lon. Tổng số lon các em thu được là 66 + 22 + 11 = <<66+22+11=99>>99 lon. ####99 Đáp án là: 99",
+    "pred_number": null,
+    "raw_output": "đáp án đúng là : ** số lượng lon ju lan thu được ** .",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nMột đoạn dây dài X inch và một đoạn dây khác dài 4,5 inch. Chiều dài trung bình, tính bằng inch, của hai đoạn dây này là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 3 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "question": "Một đoạn dây dài X inch và một đoạn dây khác dài 4,5 inch. Chiều dài trung bình, tính bằng inch, của hai đoạn dây này là bao nhiêu? Nếu chúng ta biết câu trả lời cho câu hỏi trên là 3 thì giá trị của biến X chưa biết là bao nhiêu?",
+    "gold_answer": "15",
+    "gold_full": "Chúng ta muốn tìm giá trị của $X$ trong tình huống đã cho. Để tìm độ dài trung bình của hai đoạn dây, chúng ta cần tính tổng độ dài của hai đoạn đó rồi chia cho 2. Phương trình có thể viết là: Độ dài trung bình = ($X$ + 4,5) / 2 Ta được độ dài trung bình là 3, vì vậy chúng ta có thể viết: 3 = ($X$ + 4,5) / 2 Để giải $X$, chúng ta có thể nhân cả hai vế của phương trình với 2 để loại bỏ phân số: 6 = $X$ + 4.5 Trừ 4,5 từ cả hai vế của phương trình, ta thấy: $X$ = 1,5 Giá trị của $X$ là 1,5. Đáp án là: 1,5",
+    "pred_number": "8",
+    "raw_output": "có thể đề bài đã nhầm lẫn giữa \" chiều dài \" ( x ) và \" chiều rộng \" ( r ), nhưng về cơ bản ý nghĩa không phải lúc nào cũng đúng theo các phương trình thông thường mà chỉ dựa vào kiến thức khoa học phổ biến trong lĩnh vực vật lý hiện đại như định luật ii newton . - - - # # # bước 1 : xác định các phần tử cần tìm - ** độ dài đầu tiên **: \\ [ p = m ² + s ^ 2 \\ times l _ { 0 } = \\ fra c { 6 } { 2 } = 8 \\ ] - ** chiều dài thứ hai **: \\ (- 8 \\ times 9 = 7 \\ ) - ** kết quả : ** \\ [ \\ bo xe d { l = 7 } { 8 } \\ ]",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nTính $\\tan 60^\\circ$.",
+    "question": "Tính $\\tan 60^\\circ$.",
+    "gold_answer": "3",
+    "gold_full": "Chúng ta biết rằng $\\tan 60^\\circ = \\frac{\\sin 60^\\circ}{\\cos 60^\\circ}$. Sử dụng các giá trị của sin và cos cho $60^\\circ$ từ vòng tròn đơn vị, chúng ta có $\\sin 60^\\circ = \\frac{\\sqrt{3}}{2}$ và $\\cos 60^\\circ = \\frac{1}{2}$. Do đó, $\\tan 60^\\circ = \\frac{\\frac{\\sqrt{3}}{2}}{\\frac{1}{2}} = \\boxed{\\sqrt{3}}$. Câu trả lời là: \\sqrt{3}",
+    "pred_number": "0",
+    "raw_output": "phương trình trở thành : \\ [ - \\ fra c { 3 } { 6 } = 5 \\ ] bước 1 : chuyển các hạng tử chứa \\ ( n \\ ) về một phía , các hằng số về phía kia ở vế trái của phương trình đã cho là \\ (- 4 \\ times 10 + 7 \\ ). bước 2 : chia hai vế cho 9 để tìm \\ ( o \\ ): \\ [ p = \\ bo xe d { a = 0 } \\ ] ** kết luận : ** giá trị của \\ ( a \\ ) tại \\ ( p \\ ) được giữ nguyên là \\ ( t \\ ).",
+    "correct": false
+  },
+  {
+    "prompt": "Hãy giải bài toán sau và cho biết đáp án cuối cùng là số nào:\nHai hình nón bằng nhau có bán kính 12 cm và chiều cao 12 cm đặt trong một hình trụ. Đáy của mỗi hình nón là đáy của hình trụ và chiều cao của hình trụ là 24 cm. Thể tích của hình trụ không bị hình nón chiếm là bao nhiêu cm khối? Hãy thể hiện câu trả lời của bạn dưới dạng $\\pi$.",
+    "question": "Hai hình nón bằng nhau có bán kính 12 cm và chiều cao 12 cm đặt trong một hình trụ. Đáy của mỗi hình nón là đáy của hình trụ và chiều cao của hình trụ là 24 cm. Thể tích của hình trụ không bị hình nón chiếm là bao nhiêu cm khối? Hãy thể hiện câu trả lời của bạn dưới dạng $\\pi$.",
+    "gold_answer": "2304",
+    "gold_full": "Thể tích của hình nón là $\\frac{1}{3}\\pi r^2 h$, vậy thể tích của mỗi hình nón là $\\frac{1}{3}\\pi(12^2)(12)= \\frac{1}{3}\\cdot144\\pi\\cdot 12 = 576\\pi$ centimet khối. Thể tích của hình trụ là $\\pi r^2 h = \\pi(12^2)(24) = 12^2\\cdot 24\\pi = 3456\\pi$ cm khối. Vì có hai hình nón nên tổng thể tích của hai hình nón là $2\\cdot576\\pi=1152\\pi$ cm khối. Do đó, thể tích của hình trụ không bị hình nón chiếm giữ là $3456\\pi - 1152\\pi = \\boxed{2304\\pi}$ cm khối. Đáp án là: 2304\\pi",
+    "pred_number": null,
+    "raw_output": "** đáp án đúng là ( a ) b ). **",
+    "correct": false
+  }
+]

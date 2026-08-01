@@ -223,6 +223,7 @@ cái
 cãi
 cải
 cãi vã
+cặm cụi
 cam
 cám
 cạm
@@ -388,6 +389,7 @@ chối
 chồi
 chổi
 chơi bời
+chơi vơi
 chòm
 chôm
 chôn
@@ -617,13 +619,16 @@ dính
 dịp
 dìu
 dịu
+dịu dàng
 do
 dò
 dỗ
 dở
+xâm lược
 dỡ
 doạ
 doạ dẫm
+oanh tạc
 doanh
 dọc
 dốc
@@ -792,6 +797,9 @@ gọi
 gỏi
 gối
 gội
+gồ ghề
+gập ghềnh
+ngó nghiêng
 gợi
 gom
 gốm
@@ -975,6 +983,7 @@ hương
 hướng
 hường
 hưởng
+bất thình lình
 hươu
 hút
 hụt
@@ -984,12 +993,16 @@ huy
 huỷ
 huyền
 huyễn
+huyễn hoặc
 huyện
 huyết
 huynh
 huỳnh
 hy
 hỷ
+hoan hỷ
+hoan nghênh
+nghênh đón
 ích
 im
 im ắng
@@ -1004,6 +1017,7 @@ kế
 kể
 kem
 kèm
+kệch cỡm
 kém
 kẽm
 kém cỏi
@@ -1045,6 +1059,7 @@ khao
 khảo
 khắp
 khát
+tinh nghịch
 khắt khe
 khâu
 khấu
@@ -1089,6 +1104,7 @@ khoan
 khoán
 khoản
 khoáng
+khoáng sản
 khoảng
 khoanh
 khoảnh khắc
@@ -1117,23 +1133,32 @@ khử
 khuẩn
 khuất
 khúc
+khúc mắc
 khuê
+khuê các
 khuếch
+khuếch tán
+khuếch đại
 khung
 khủng
 khuôn
 khương
 khứu
+khứu giác
 khuya
+khuya khoắt
 khuyên
-khuyến
+khuyên nhủ
+khuyến khích
 khuyết
 khuynh
+khuynh đảo
 kì
 kỉ
 kị
 kích
 kịch
+kịch tính
 kiêm
 kiếm
 kiềm
@@ -1141,15 +1166,23 @@ kiểm
 kiệm
 kiên
 kiến
-kiền
 kiện
 kiêng
+kiêng kị
 kiểng
+liểng xiểng
 kiếp
 kiệt
+kiệt xuất
+kiệt tác
 kiêu
+kiêu sa
 kiều
+mĩ miều
+mỹ miều
 kiểu
+điệu đà
+kiểu cách
 kiệu
 kim
 kìm
@@ -1170,6 +1203,7 @@ lạ lẫm
 lạc
 lạc lõng
 lách
+lác đác
 lách tách
 lai
 lái
@@ -1207,6 +1241,7 @@ lành
 lánh
 lãnh
 lạnh
+lạnh lùng
 lạnh lẽo
 lanh lợi
 lao
@@ -1215,6 +1250,7 @@ lao đao
 lạp
 lấp
 lập
+lập bập
 lắp
 lặp
 lấp lánh
@@ -1289,15 +1325,25 @@ loãng
 loạt
 lóc
 lọc
+lọc lõi
 lốc
+cộc lốc
 lộc
 lôi
+lôi thôi
+thô lỗ
 lõi
 lối
 lỗi
 lội
 lời
 lợi
+lợi ích
+ích lợi
+lợi dụng
+kiên định
+kiên trì
+kiên cường
 lõm
 lon
 lộn
@@ -1310,6 +1356,7 @@ lòng
 lông
 lỏng
 lồng
+lông lộn
 lộng
 long lanh
 lộng lẫy
@@ -1322,18 +1369,25 @@ lốt
 lột
 lũ
 lư
+từa lưa
 lữ
 lúa
 lụa
 lứa
 lừa
 lửa
+bừa phứa
 lựa
+chọn lựa
+lựa chọn
 lụa là
 luân
+lúi húi
+luân phiên
 luận
+bất luận
 luẩn quẩn
-luang
+loang lổ
 luật
 lúc
 lục
@@ -1356,6 +1410,7 @@ lưới
 lười
 lưỡi
 lượm
+lượm nhặt
 luôn
 lươn
 lườn
@@ -1398,16 +1453,20 @@ màn
 mán
 mân
 mãn
+mãn nguyện
+thoả mãn
 mạn
 mẫn
 mận
 mặn
 mặn mà
 mang
+hoang mang
 màng
 mãng
 măng
 mạng
+mảnh khảnh
 mảng
 manh
 mãnh
@@ -1440,9 +1499,11 @@ may mắn
 máy móc
 mè
 mê
+mê hoặc
 mẹ
 mẻ
 mễ
+mênh mông
 mềm
 mềm mại
 men
@@ -1458,6 +1519,7 @@ mì
 mĩ
 mỉ
 mía
+chúm chím
 miên
 miến
 miền
@@ -1493,7 +1555,9 @@ mọc
 mốc
 mộc
 moi
+tọc mạch
 mòi
+mặn mòi
 môi
 mọi
 mỏi
@@ -1520,6 +1584,7 @@ một
 mù
 mú
 mũ
+mũm mĩm
 mủ
 mua
 mùa
@@ -1577,6 +1642,7 @@ nản
 nang
 nàng
 nâng
+
 năng
 nắng
 nặng
@@ -1732,6 +1798,7 @@ nguyệt
 nha
 nhà
 nhã
+nhã nhặn
 nhạc
 nhắc
 nhắc nhở
@@ -1792,6 +1859,7 @@ nhịn
 nhịp
 nhịp nhàng
 nho
+nhõng nhẽo
 nhọ
 nhỏ
 nhớ
@@ -1856,6 +1924,7 @@ nở
 nợ
 nợ nần
 no nê
+nết na
 noãn
 nóc
 noi
@@ -1881,6 +1950,7 @@ nông
 nồng
 nóng hổi
 nồng nàn
+nơm nớp
 nộp
 nốt
 nụ
@@ -2482,6 +2552,7 @@ thiểu
 thiệu
 thìn
 thính
+nhếch nhác
 thịnh
 thỉnh thoảng
 thịt
@@ -2547,6 +2618,8 @@ thuốc
 thuộc
 thước
 thương
+thương lượng
+thúc giục
 thường
 thưởng
 thượng
@@ -2555,6 +2628,7 @@ thuý
 thuỵ
 thuỷ
 thuyên
+thuỳ mị
 thuyền
 thuyết
 tỉ
@@ -3215,6 +3289,7 @@ yếu
 đón
 đôn
 đơn
+đơn côi
 đốn
 đồn
 đớn

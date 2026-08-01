@@ -17,15 +17,12 @@ def build_input(user_input, tokenizer):
     input_ids  = [BOS, USER] + prompt_ids + [SAI]
     return input_ids, len(input_ids), EOS, PAD
 
-
 def decode_output(best, start, EOS, PAD, tokenizer):
     output_tokens = best["seq"][start:]
     while output_tokens and output_tokens[-1] in [EOS, PAD]:
         output_tokens.pop()
     return tokenizer.decode(output_tokens)
 
-
-# ================= SCORE / PENALTY =================
 def score(seq, log_prob, start):
     out_len = max(len(seq) - start, 1)
     return log_prob / (out_len ** 1.0)
@@ -41,7 +38,6 @@ def apply_penalty(logits, seq, penalty):
             logits[tid] /= penalty
     return logits
 
-# ================= BANNED TOKENS =================
 def get_banned_tokens(seq, n):
     banned = set()
     if n > 0 and len(seq) >= n:
@@ -51,16 +47,11 @@ def get_banned_tokens(seq, n):
                 banned.add(seq[i + n - 1])
     return banned
 
-# ================= FORWARD =================
 def forward_init(model, input_ids, max_beam_size, max_new_tokens, device):
     prompt_len = len(input_ids)
     max_total  = prompt_len + max_new_tokens
 
-    kv_buffers = [
-        (torch.zeros(max_beam_size, block.mha.num_heads, max_total, block.mha.d_k, device=device),
-         torch.zeros(max_beam_size, block.mha.num_heads, max_total, block.mha.d_k, device=device))
-        for block in model.decoder_blocks
-    ]
+    kv_buffers = model.init_cache(max_beam_size, max_total, device)
 
     prompt_tensor = torch.tensor([input_ids], dtype=torch.long, device=device)
 
@@ -74,20 +65,14 @@ def forward_init(model, input_ids, max_beam_size, max_new_tokens, device):
 
 def forward_step(model, last_tokens, kv_buffers, cache_len):
     with torch.inference_mode():
-        x = model.token_embedding(last_tokens) * model.embed_scale
-        x = model.dropout_layer(x)
-        for i, block in enumerate(model.decoder_blocks):
-            x = block.forward(x, kv_buffers[i], cache_len)
-        logits = model.final_layer(model.final_norm(x))[:, 0, :]
+        x = model.embed(last_tokens)                       
+
+        for i, block in enumerate(model.blocks):
+            x = block.forward_with_cache(x, kv_buffers[i], cache_len)
+        logits = model.lm_head(model.norm(x))[:, 0, :]     
     return logits
 
-# ================= BEAM CORE =================
-def beam_core(model, input_ids, start,
-                      score_fn, penalty_fn,
-                      max_new_tokens, beam_size,
-                      no_repeat_ngram, penalty,
-                      device, EOS, PAD, max_seq_len,
-                      early_stop=True, patience=10):
+def beam_core(model, input_ids, start, score_fn, penalty_fn, max_new_tokens, beam_size, no_repeat_ngram, penalty, device, EOS, PAD, max_seq_len, early_stop=True, patience=10):
 
     first_logits, kv_buffers, cache_len = forward_init(
         model, input_ids, beam_size, max_new_tokens, device
@@ -202,7 +187,7 @@ def generate(model, user_input, tokenizer,
                    no_repeat_ngram=3, penalty=1.2,
                    early_stop=False, patience=30):
 
-    device = model.final_layer.weight.device
+    device = model.lm_head.weight.device
     ids, start, EOS, PAD = build_input(user_input, tokenizer)
 
     best = beam_core(

@@ -1,9 +1,11 @@
 {
     "d_model": 768,
     "num_heads": 12,
+    "num_kv_heads": 3,
     "num_layers": 12,
     "ff_dim": 3072,
-    "batch_size": 32,
+    "ff_dim_new": 2048,
+    "batch_size": 20,
     "freeze": [0, 1, 2],
     "num_workers": 4
 }

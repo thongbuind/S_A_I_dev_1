@@ -1,6 +1,8 @@
 import torch
 import numpy as np
 import gc
+import json
+from pathlib import Path
 from utils.utils import log_progress
 
 class Dataset(torch.utils.data.Dataset):
@@ -113,22 +115,71 @@ def split_train_val_test(X, Y, loss_masks, lengths, train_ratio, val_ratio, seed
                 X_val, Y_val, None, lengths_val,
                 X_test, Y_test, None, lengths_test)
 
+def _load_single_npz(path, load_mask=False):
+    """Bản gốc: đọc 1 file .npz duy nhất."""
+    f = np.load(path)
+    def reconstruct(name):
+        flat, offsets = f[f"{name}_flat"], f[f"{name}_offsets"]
+        return np.array([flat[offsets[i]:offsets[i+1]] for i in range(len(offsets)-1)], dtype=object)
+    X = reconstruct("X")
+    Y = reconstruct("Y")
+    lengths = f["lengths"]
+    if load_mask:
+        M = reconstruct("M")
+        f.close()
+        return X, Y, M, lengths
+    f.close()
+    return X, Y, lengths
+
+def _load_manifest_shards(manifest_path, load_mask=False):
+    """Đọc manifest.json rồi ghép nhiều shard .npz lại thành 1 dataset logic."""
+    with open(manifest_path, "r", encoding="utf-8") as f:
+        manifest = json.load(f)
+
+    manifest_dir = Path(manifest_path).parent
+    shards = manifest["shards"]
+
+    X_list, Y_list, M_list, L_list = [], [], [], []
+    for shard in shards:
+        shard_path = manifest_dir / shard["file"]
+        if load_mask:
+            X_s, Y_s, M_s, L_s = _load_single_npz(shard_path, load_mask=True)
+            M_list.append(M_s)
+        else:
+            X_s, Y_s, L_s = _load_single_npz(shard_path, load_mask=False)
+        X_list.append(X_s)
+        Y_list.append(Y_s)
+        L_list.append(L_s)
+
+    X = np.concatenate(X_list)
+    Y = np.concatenate(Y_list)
+    lengths = np.concatenate(L_list)
+
+    if load_mask:
+        M = np.concatenate(M_list)
+        return X, Y, M, lengths
+    return X, Y, lengths
+
+def load_npz(path, load_mask=False):
+    """
+    - path là file .json -> manifest nhiều shard, tự đọc & ghép tất cả.
+    - path là file .npz -> đọc 1 file như bản gốc.
+    """
+    path = Path(path)
+    if path.suffix == ".json":
+        return _load_manifest_shards(path, load_mask=load_mask)
+    return _load_single_npz(path, load_mask=load_mask)
+
 def load_data(data_type, main_data, sub_data=None, seed=54):
     if data_type == "pretrain":
-        data = np.load(main_data, allow_pickle=True)
-        X, Y, lengths = data["X"], data["Y"], data["lengths"]
-        data.close()
+        X, Y, lengths = load_npz(main_data)
         return X, Y, lengths
 
     elif data_type == "continued_pretrain":
-        cont_data = np.load(main_data, allow_pickle=True)
-        X_main, Y_main, L_main = cont_data["X"], cont_data["Y"], cont_data["lengths"]
-        cont_data.close()
+        X_main, Y_main, L_main = load_npz(main_data)
 
         if sub_data is not None:
-            pre_data = np.load(sub_data, allow_pickle=True)
-            X_sub, Y_sub, L_sub = pre_data["X"], pre_data["Y"], pre_data["lengths"]
-            pre_data.close()
+            X_sub, Y_sub, L_sub = load_npz(sub_data)
 
             n_continued = len(X_main)
             n_pretrain_needed = 3 * n_continued
@@ -162,24 +213,14 @@ def load_data(data_type, main_data, sub_data=None, seed=54):
         return X, Y, lengths
 
     elif data_type == "sft1":
-        data = np.load(main_data, allow_pickle=True)
-        X = data["X"]
-        Y = data["Y"]
-        loss_mask = data["loss_mask"]
-        loss_mask = np.array([np.array(lm, dtype=np.float32) for lm in loss_mask], dtype=object)
-        lengths = data["lengths"]
-        data.close()
+        X, Y, loss_mask, lengths = load_npz(main_data, load_mask=True)
         return X, Y, loss_mask, lengths
     
     elif data_type == "sft2":
-        sft2_data = np.load(main_data, allow_pickle=True)
-        X_main, Y_main, M_main, L_main = sft2_data["X"], sft2_data["Y"], sft2_data["loss_mask"], sft2_data["lengths"]
-        sft2_data.close()
+        X_main, Y_main, M_main, L_main = load_npz(main_data, load_mask=True)
 
         if sub_data is not None:
-            sft1_data = np.load(sub_data, allow_pickle=True)
-            X_sub, Y_sub, M_sub, L_sub = sft1_data["X"], sft1_data["Y"], sft1_data["loss_mask"], sft1_data["lengths"]
-            sft1_data.close()
+            X_sub, Y_sub, M_sub, L_sub = load_npz(sub_data, load_mask=True)
 
             n_sub = len(X_main) * 3
             total_sub = len(X_sub)
@@ -207,12 +248,10 @@ def load_data(data_type, main_data, sub_data=None, seed=54):
             X = X_combined[combined_indices]
             Y = Y_combined[combined_indices]
             loss_mask = M_combined[combined_indices]
-            loss_mask = np.array([np.array(lm, dtype=np.float32) for lm in loss_mask], dtype=object)
             lengths = L_combined[combined_indices]
 
         else:
-            X, Y, lengths = X_main, Y_main, L_main
-            loss_mask = np.array([np.array(lm, dtype=np.float32) for lm in M_main], dtype=object)
+            X, Y, loss_mask, lengths = X_main, Y_main, M_main, L_main
 
         return X, Y, loss_mask, lengths
 

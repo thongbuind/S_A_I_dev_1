@@ -12,13 +12,13 @@ __pycache__/
 *.tmp
 
 # data
-data/processed/pretrain_data_ids.npz
-data/processed/pretrain_data_shorted_ids.npz
-data/processed/continued_pretrain_data_ids.npz
-data/processed/SFT1_data_ids.npz
-data/processed/SFT2_data_ids.npz
-data/raw/
+/data/processed/pretrain_data_ids.npz
+/data/processed/pretrain_data_shorted_ids.npz
+/data/processed/continued_pretrain_data_ids.npz
+/data/processed/SFT1_data_ids.npz
+/data/processed/SFT2_data_ids.npz
+/data/raw/
 
-model/
+/model/
 
-web/
+/web/

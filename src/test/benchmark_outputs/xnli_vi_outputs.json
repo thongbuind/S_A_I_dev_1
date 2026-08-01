@@ -1,0 +1,1402 @@
+[
+  {
+    "prompt": "Tiền đề: Mihdhar đã nhận được thị thực mới 2 ngày vào Mỹ sau cuộc họp giữa CIA-FBI tại New York.\nGiả thuyết: Mihdhar đã có thị thực Hoa Kỳ để nhập cảnh vào quốc gia này.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Mihdhar đã nhận được thị thực mới 2 ngày vào Mỹ sau cuộc họp giữa CIA-FBI tại New York.",
+    "hypothesis": "Mihdhar đã có thị thực Hoa Kỳ để nhập cảnh vào quốc gia này.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.6185,
+      "B": 11.3174,
+      "C": 11.506
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Gần 100.000 người mỗi ngày đến đây để chiêm ngưỡng kiến trúc nổi bật và khám phá những điểm hấp dẫn mới nhất trong thành phố không ngừng thay đổi này.\nGiả thuyết: Chỉ 50 nghìn người viếng thăm thành phố thường ngày.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Gần 100.000 người mỗi ngày đến đây để chiêm ngưỡng kiến trúc nổi bật và khám phá những điểm hấp dẫn mới nhất trong thành phố không ngừng thay đổi này.",
+    "hypothesis": "Chỉ 50 nghìn người viếng thăm thành phố thường ngày.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.4136,
+      "B": 12.7945,
+      "C": 13.2395
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đầu tiên, ED có khả năng cung cấp một thời điểm lý tưởng cho những bệnh nhân có vấn đề với việc sử dụng rượu.\nGiả thuyết: ED gây lạm dụng rượu bia trở lại cho một bệnh nhân đang hồi phục.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đầu tiên, ED có khả năng cung cấp một thời điểm lý tưởng cho những bệnh nhân có vấn đề với việc sử dụng rượu.",
+    "hypothesis": "ED gây lạm dụng rượu bia trở lại cho một bệnh nhân đang hồi phục.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.6347,
+      "B": 11.0366,
+      "C": 11.2063
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: và chúng tôi để mấy cái lon vào một chỗ và ly ở chỗ khác và giấy ở chỗ khác nữa một khi nó đầy thì việc đem chất nó lên xe hơi và mang chúng đi đúng là đau khổ\nGiả thuyết: Cái đầu tiên bị đầy sẽ là giấy, sau đó đến hộp thiếc, và ly thuỷ tinh.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "và chúng tôi để mấy cái lon vào một chỗ và ly ở chỗ khác và giấy ở chỗ khác nữa một khi nó đầy thì việc đem chất nó lên xe hơi và mang chúng đi đúng là đau khổ",
+    "hypothesis": "Cái đầu tiên bị đầy sẽ là giấy, sau đó đến hộp thiếc, và ly thuỷ tinh.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.4525,
+      "B": 12.0008,
+      "C": 11.6692
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bậc thầy của niềm tin sai lầm cho thấy rằng trẻ em coi niềm tin là sự diễn dịch, không chỉ là sự tái hiện, của thực tế.\nGiả thuyết: Trẻ em nghĩ về niềm tin như sự diễn giải về những gì có thật.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bậc thầy của niềm tin sai lầm cho thấy rằng trẻ em coi niềm tin là sự diễn dịch, không chỉ là sự tái hiện, của thực tế.",
+    "hypothesis": "Trẻ em nghĩ về niềm tin như sự diễn giải về những gì có thật.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.6636,
+      "B": 11.3725,
+      "C": 10.4522
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Và thực tế là cô ấy thật nhẹ nhàng!\nGiả thuyết: Cô ấy ăn rất nhiều đồ ăn, nhưng vẫn giữ được trọng lượng của mình.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Và thực tế là cô ấy thật nhẹ nhàng!",
+    "hypothesis": "Cô ấy ăn rất nhiều đồ ăn, nhưng vẫn giữ được trọng lượng của mình.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.6947,
+      "B": 11.9574,
+      "C": 12.5882
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đối với chuyến đi của họ đến Bosnia, xem báo cáo tình báo, thẩm vấn của thành viên Saudi al Qaeda, ngày 3 tháng 10 năm 2001.\nGiả thuyết: Không có bằng chứng về một thành viên al Quaeda tới Bosnia.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đối với chuyến đi của họ đến Bosnia, xem báo cáo tình báo, thẩm vấn của thành viên Saudi al Qaeda, ngày 3 tháng 10 năm 2001.",
+    "hypothesis": "Không có bằng chứng về một thành viên al Quaeda tới Bosnia.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.1345,
+      "B": 11.4527,
+      "C": 12.0107
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Ngoài việc nghiên cứu cẩn thận các hồ sơ chính thức khác nhau, chính phủ Séc cũng xem xét các bức ảnh giám sát được chụp bên ngoài đại sứ quán Iraq.\nGiả thuyết: Chính phủ Séc có 1000000 bức ảnh giám sát từ đại sứ quán Iraq.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Ngoài việc nghiên cứu cẩn thận các hồ sơ chính thức khác nhau, chính phủ Séc cũng xem xét các bức ảnh giám sát được chụp bên ngoài đại sứ quán Iraq.",
+    "hypothesis": "Chính phủ Séc có 1000000 bức ảnh giám sát từ đại sứ quán Iraq.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.5191,
+      "B": 13.2193,
+      "C": 12.9683
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Một số cư dân của nó là hậu duệ của những người lao động dũng cảm đã giúp xây dựng Đường sắt Canada Thái Bình Dương.\nGiả thuyết: Các đại gia sư vĩ đại của những người lao động sống ở đó.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Một số cư dân của nó là hậu duệ của những người lao động dũng cảm đã giúp xây dựng Đường sắt Canada Thái Bình Dương.",
+    "hypothesis": "Các đại gia sư vĩ đại của những người lao động sống ở đó.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.2285,
+      "B": 12.6875,
+      "C": 12.7391
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tòa án không phải là rạp xiếc chính trị duy nhất ở Washington sáng nay.\nGiả thuyết: Tòa án không phải là nơi chính trị duy nhất ở washington.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tòa án không phải là rạp xiếc chính trị duy nhất ở Washington sáng nay.",
+    "hypothesis": "Tòa án không phải là nơi chính trị duy nhất ở washington.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.2161,
+      "B": 12.1949,
+      "C": 12.3949
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tôi yêu cầu bạn vui lòng cung cấp hôm nay cho IRT và giúp họ tiếp tục công việc tuyệt vời mà họ đã sản xuất được 26 năm.\nGiả thuyết: Xin tặng $ 100.00 cho IRT hôm nay.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tôi yêu cầu bạn vui lòng cung cấp hôm nay cho IRT và giúp họ tiếp tục công việc tuyệt vời mà họ đã sản xuất được 26 năm.",
+    "hypothesis": "Xin tặng $ 100.00 cho IRT hôm nay.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.2385,
+      "B": 11.1533,
+      "C": 11.5554
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Treasure Beach là khu nghỉ mát duy nhất để nói chuyện, chỉ với một số ít các khách sạn trải dài trên ba vịnh cát.\nGiả thuyết: Treasure Beach là một trong nhiều khu nghỉ dưỡng trong khu vực.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Treasure Beach là khu nghỉ mát duy nhất để nói chuyện, chỉ với một số ít các khách sạn trải dài trên ba vịnh cát.",
+    "hypothesis": "Treasure Beach là một trong nhiều khu nghỉ dưỡng trong khu vực.",
+    "gold": "contradiction",
+    "pred": "contradiction",
+    "correct": true,
+    "logits": {
+      "A": 11.7818,
+      "B": 11.3492,
+      "C": 12.4813
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bên cạnh đó, nhà thờ La Mã Gothic La Martorana, được tu bổ lại một phần với hàng hiên và mái hiên kiểu Baroque, có một cái lều cắm trại đẹp mắt với bốn câu chuyện cửa sổ lộng lẫy thanh mảnh.\nGiả thuyết: Nhà thờ trông giống như phong cách Baroque.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bên cạnh đó, nhà thờ La Mã Gothic La Martorana, được tu bổ lại một phần với hàng hiên và mái hiên kiểu Baroque, có một cái lều cắm trại đẹp mắt với bốn câu chuyện cửa sổ lộng lẫy thanh mảnh.",
+    "hypothesis": "Nhà thờ trông giống như phong cách Baroque.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.0724,
+      "B": 12.7165,
+      "C": 13.15
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bằng cách tận dụng tất cả chúng, chúng ta không cần phải phụ thuộc vào bất kỳ điểm nào trong hệ thống để thực hiện toàn bộ công việc.\nGiả thuyết: Chúng ta phải dựa vào một phần của hệ thống.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bằng cách tận dụng tất cả chúng, chúng ta không cần phải phụ thuộc vào bất kỳ điểm nào trong hệ thống để thực hiện toàn bộ công việc.",
+    "hypothesis": "Chúng ta phải dựa vào một phần của hệ thống.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.3571,
+      "B": 12.4853,
+      "C": 12.3004
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Anh ấy kể lại rằng nếu như vị cố vấn nói với anh ta về một tế bào ở Mỹ, họ đã có thể chuyển đến đó để săn sóc nó.\nGiả thuyết: Anh ấy không tin rằng bất cứ thứ gì cũng có thể hợp pháp về tế bào ở Mĩ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Anh ấy kể lại rằng nếu như vị cố vấn nói với anh ta về một tế bào ở Mỹ, họ đã có thể chuyển đến đó để săn sóc nó.",
+    "hypothesis": "Anh ấy không tin rằng bất cứ thứ gì cũng có thể hợp pháp về tế bào ở Mĩ.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.1692,
+      "B": 12.2096,
+      "C": 12.1875
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Cala Mondrage thực tế chưa được phát triển (theo tiêu chuẩn của bờ biển Mallorca), và có thể theo cách đó theo lệnh của chính quyền khu vực, điều này đã trở nên đáng báo động bởi bóng ma của tòa nhà không được kiểm soát dọc theo bờ biển.\nGiả thuyết: Cala Mondrage đã phát triển.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Cala Mondrage thực tế chưa được phát triển (theo tiêu chuẩn của bờ biển Mallorca), và có thể theo cách đó theo lệnh của chính quyền khu vực, điều này đã trở nên đáng báo động bởi bóng ma của tòa nhà không được kiểm soát dọc theo bờ biển.",
+    "hypothesis": "Cala Mondrage đã phát triển.",
+    "gold": "contradiction",
+    "pred": "contradiction",
+    "correct": true,
+    "logits": {
+      "A": 12.1427,
+      "B": 10.8768,
+      "C": 13.6882
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đây chỉ là, bạn biết đấy, Nhìn bạn đang gặp rắc rối.\nGiả thuyết: Bạn có nguy cơ bị trục xuất.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đây chỉ là, bạn biết đấy, Nhìn bạn đang gặp rắc rối.",
+    "hypothesis": "Bạn có nguy cơ bị trục xuất.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.2215,
+      "B": 12.6152,
+      "C": 12.5642
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Sự kết hợp giữa tên tiền với các trọng số khác là ouguiya (Mauritania) có nghĩa là 'ounce.\nGiả thuyết: Các loại tiền tệ khác cũng sử dụng tên của trọng số làm đơn vị đo lường.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Sự kết hợp giữa tên tiền với các trọng số khác là ouguiya (Mauritania) có nghĩa là 'ounce.",
+    "hypothesis": "Các loại tiền tệ khác cũng sử dụng tên của trọng số làm đơn vị đo lường.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.7102,
+      "B": 10.3631,
+      "C": 10.9245
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Cô ấy rất trắng, và cô ấy để mắt đến hai bàn tay gập lại của mình.\nGiả thuyết: Cô ấy buồn bã và cô ấy luôn nhắm mắt lại.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Cô ấy rất trắng, và cô ấy để mắt đến hai bàn tay gập lại của mình.",
+    "hypothesis": "Cô ấy buồn bã và cô ấy luôn nhắm mắt lại.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.5502,
+      "B": 11.8104,
+      "C": 11.7483
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: CIA sau đó đã cung cấp các đánh giá chính thức hơn cho Nhà Trắng để nhắc lại kết luận đó.\nGiả thuyết: CIA thông báo với Nhà Trắng rằng họ đã đi đến kết luận rằng không có nguy hiểm.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "CIA sau đó đã cung cấp các đánh giá chính thức hơn cho Nhà Trắng để nhắc lại kết luận đó.",
+    "hypothesis": "CIA thông báo với Nhà Trắng rằng họ đã đi đến kết luận rằng không có nguy hiểm.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.9969,
+      "B": 11.7955,
+      "C": 11.7928
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Và hiện nay chúng ta cũng phải có căn cứ để coi trọng bình đẳng nhân loại để làm lý tưởng cơ bản về công bằng xã hội và chính trị.\nGiả thuyết: Công bằng xã hội và chính trị nên thúc đẩy sự bình đẳng của con người.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Và hiện nay chúng ta cũng phải có căn cứ để coi trọng bình đẳng nhân loại để làm lý tưởng cơ bản về công bằng xã hội và chính trị.",
+    "hypothesis": "Công bằng xã hội và chính trị nên thúc đẩy sự bình đẳng của con người.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.1755,
+      "B": 11.8511,
+      "C": 11.621
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Vào ngày 9 tháng 9, những tin tức đầy kịch tính đến từ Afghanistan.\nGiả thuyết: Chúng tôi được thông báo về cuộc tấn công sắp xảy ra vào ngày 9 Tháng 9.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Vào ngày 9 tháng 9, những tin tức đầy kịch tính đến từ Afghanistan.",
+    "hypothesis": "Chúng tôi được thông báo về cuộc tấn công sắp xảy ra vào ngày 9 Tháng 9.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.0343,
+      "B": 10.5281,
+      "C": 10.2676
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Nếu như Esperanto đang cố gắng trở thành một ngôn ngữ có thực thì trước tiên nó phải giống như một ngôn ngữ, và trước đó, nó sẽ chịu chung một điểm yếu như các ngôn ngữ tự nhiên khác đang hứng chịu -- đa nghĩa và đa ngôn từ.\nGiả thuyết: Polysemy là một vấn đề tự nhiên mà ngôn ngữ thường gặp.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Nếu như Esperanto đang cố gắng trở thành một ngôn ngữ có thực thì trước tiên nó phải giống như một ngôn ngữ, và trước đó, nó sẽ chịu chung một điểm yếu như các ngôn ngữ tự nhiên khác đang hứng chịu -- đa nghĩa và đa ngôn từ.",
+    "hypothesis": "Polysemy là một vấn đề tự nhiên mà ngôn ngữ thường gặp.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.0887,
+      "B": 13.1167,
+      "C": 12.8344
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Chúng tôi cũng chú trọng vào những vở kịch liên quan trực tiếp đến chủ đề lịch sử, văn học và nghiên cứu xã hội.\nGiả thuyết: Trong các chủ đề khác nhau, chúng tôi tập trung vào các vở kịch lịch sử.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Chúng tôi cũng chú trọng vào những vở kịch liên quan trực tiếp đến chủ đề lịch sử, văn học và nghiên cứu xã hội.",
+    "hypothesis": "Trong các chủ đề khác nhau, chúng tôi tập trung vào các vở kịch lịch sử.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.1298,
+      "B": 11.7151,
+      "C": 11.781
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bạn bè hoạt động ở hai cấp độ - Bạn bè trên toàn Thành phố và Bạn bè Chi nhánh - và bạn có thể hoạt động ở một hoặc cả hai cấp độ.\nGiả thuyết: Chúng tôi không tách biệt mức độ bạn bè, mọi người đều giống nhau.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bạn bè hoạt động ở hai cấp độ - Bạn bè trên toàn Thành phố và Bạn bè Chi nhánh - và bạn có thể hoạt động ở một hoặc cả hai cấp độ.",
+    "hypothesis": "Chúng tôi không tách biệt mức độ bạn bè, mọi người đều giống nhau.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.8385,
+      "B": 12.2639,
+      "C": 12.11
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Trả lời cho lời kêu gọi đăng ký của Richard Lederer trong một cuộc thi supersentence duyên dáng và mạch lạc nhất [ The Glamour of Grammar,  XVI,4], tôi đưa ra\nGiả thuyết: Richard Lederer ghét đọc văn bản có lối viết duyên dáng hoặc mạch lạc.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Trả lời cho lời kêu gọi đăng ký của Richard Lederer trong một cuộc thi supersentence duyên dáng và mạch lạc nhất [ The Glamour of Grammar,  XVI,4], tôi đưa ra",
+    "hypothesis": "Richard Lederer ghét đọc văn bản có lối viết duyên dáng hoặc mạch lạc.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.3085,
+      "B": 11.2596,
+      "C": 12.2112
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đừng để tâm đến câu hỏi liệu chỉ số trung bình công nghiệp của Dow Jones có phải là thước đo thích hợp về tình hình kinh doanh của người giàu có hay không.\nGiả thuyết: Chỉ số Dow Jones cho thấy những gì đang xảy ra trong nền kinh tế.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đừng để tâm đến câu hỏi liệu chỉ số trung bình công nghiệp của Dow Jones có phải là thước đo thích hợp về tình hình kinh doanh của người giàu có hay không.",
+    "hypothesis": "Chỉ số Dow Jones cho thấy những gì đang xảy ra trong nền kinh tế.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.5302,
+      "B": 12.8148,
+      "C": 12.6639
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Không phải thế. Nhưng họ đã bị phân vân để hiểu lầm lẫn nhau.\nGiả thuyết: Họ được định để hiểu lầm lẫn nhau.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Không phải thế. Nhưng họ đã bị phân vân để hiểu lầm lẫn nhau.",
+    "hypothesis": "Họ được định để hiểu lầm lẫn nhau.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.5599,
+      "B": 12.7819,
+      "C": 13.0021
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Kodaly kerend (Kodaly lưỡi liềm, được đặt theo tên nhà soạn nhạc Hungary khác) là một quần thể lộng lẫy, với bề mặt uốn lượn được trang trí bằng các hình vẽ cổ điển và họa tiết khảm.\nGiả thuyết: Kodaly kerend được trang trí bởi những gures cổ điển và hoạ tiết khảm\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Kodaly kerend (Kodaly lưỡi liềm, được đặt theo tên nhà soạn nhạc Hungary khác) là một quần thể lộng lẫy, với bề mặt uốn lượn được trang trí bằng các hình vẽ cổ điển và họa tiết khảm.",
+    "hypothesis": "Kodaly kerend được trang trí bởi những gures cổ điển và hoạ tiết khảm",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.8299,
+      "B": 11.2257,
+      "C": 11.6939
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Một vài tầng đang cháy có lẽ nằm ngoài khả năng dập tắt của đội cứu hỏa mà chúng ta có thể xử lý.\nGiả thuyết: Chúng tôi chỉ có sẵn 2 bình chữa cháy.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Một vài tầng đang cháy có lẽ nằm ngoài khả năng dập tắt của đội cứu hỏa mà chúng ta có thể xử lý.",
+    "hypothesis": "Chúng tôi chỉ có sẵn 2 bình chữa cháy.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.7183,
+      "B": 12.1135,
+      "C": 12.1572
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Nhưng khi cô lớn lên, ừm, cô không bao giờ thừa nhận rằng cô đã sai nhưng cô đã thay đổi hành vi của mình.\nGiả thuyết: Cô ấy không hề thay đổi hành vi của mình.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Nhưng khi cô lớn lên, ừm, cô không bao giờ thừa nhận rằng cô đã sai nhưng cô đã thay đổi hành vi của mình.",
+    "hypothesis": "Cô ấy không hề thay đổi hành vi của mình.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.6135,
+      "B": 12.4903,
+      "C": 11.7235
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: vâng tôi có thể nghe thấy anh ta\nGiả thuyết: Tôi nghĩ tôi nghe thấy anh ấy.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "vâng tôi có thể nghe thấy anh ta",
+    "hypothesis": "Tôi nghĩ tôi nghe thấy anh ấy.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.514,
+      "B": 11.3297,
+      "C": 11.4904
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Điều mà bộ phim thờ ơ không nhắc đến là Kaufman đã thường xuyên nói về việc ông ta muốn tự mình chết như thế nào.\nGiả thuyết: The movie had an in depth interview with Kaufman about his death.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Điều mà bộ phim thờ ơ không nhắc đến là Kaufman đã thường xuyên nói về việc ông ta muốn tự mình chết như thế nào.",
+    "hypothesis": "The movie had an in depth interview with Kaufman about his death.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.4118,
+      "B": 11.1808,
+      "C": 10.9157
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: bạn biết tất cả các con của tôi nổi trội nhưng là chúng thực sự tốt và tôi đoán cậu bé đã học từ những anh trai lớn hơn\nGiả thuyết: Tôi rất tự hào về những gì mà con tôi biết.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "bạn biết tất cả các con của tôi nổi trội nhưng là chúng thực sự tốt và tôi đoán cậu bé đã học từ những anh trai lớn hơn",
+    "hypothesis": "Tôi rất tự hào về những gì mà con tôi biết.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.5537,
+      "B": 11.7012,
+      "C": 11.8045
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Biểu diễn trước hơn 6.500 sinh viên từ K-12, cho các hội nghị chuyên nghiệp của tiểu bang, cho sự kiện truyền thông Pan-Am và cho Hoa Kỳ\nGiả thuyết: Sẽ có hàng nghìn sinh viên từ K-12.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Biểu diễn trước hơn 6.500 sinh viên từ K-12, cho các hội nghị chuyên nghiệp của tiểu bang, cho sự kiện truyền thông Pan-Am và cho Hoa Kỳ",
+    "hypothesis": "Sẽ có hàng nghìn sinh viên từ K-12.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.5483,
+      "B": 11.7347,
+      "C": 12.0159
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Và tôi hỏi anh ta, bạn biết đấy, tôi có thể làm điều đó, um, Bạn có cần tôi ở lại và làm điều đó tối nay hoặc tôi có thể làm nó vào giờ ăn trưa vào ngày mai, nếu được.\nGiả thuyết: Tôi đã hỏi việc đó khẩn cấp mức nào.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Và tôi hỏi anh ta, bạn biết đấy, tôi có thể làm điều đó, um, Bạn có cần tôi ở lại và làm điều đó tối nay hoặc tôi có thể làm nó vào giờ ăn trưa vào ngày mai, nếu được.",
+    "hypothesis": "Tôi đã hỏi việc đó khẩn cấp mức nào.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.4616,
+      "B": 11.5854,
+      "C": 11.6434
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Những cái bẫy sương mù cũ, phải không?\nGiả thuyết: Dường như một điều gì đó là ý tưởng cải cách và thay đổi, phải không?\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Những cái bẫy sương mù cũ, phải không?",
+    "hypothesis": "Dường như một điều gì đó là ý tưởng cải cách và thay đổi, phải không?",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.9536,
+      "B": 12.182,
+      "C": 12.3251
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Davidson không nên áp dụng cách phát âm chữ scone để vần với chữ bone - với bất cứ giá nào không phải vì Victoria, nơi anh ta sống, là tiếng Anh chuẩn mực.\nGiả thuyết: Sẽ tốt hơn nếu Davidson vần các từ và xương.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Davidson không nên áp dụng cách phát âm chữ scone để vần với chữ bone - với bất cứ giá nào không phải vì Victoria, nơi anh ta sống, là tiếng Anh chuẩn mực.",
+    "hypothesis": "Sẽ tốt hơn nếu Davidson vần các từ và xương.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.7367,
+      "B": 11.8953,
+      "C": 11.8933
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tất cả trừ 2 trong số 15 tên cướp trên không được cho nhập cảnh dưới dạng khách du lịch, được gia hạn sáu tháng du lịch ở Hoa Kỳ (trừ trường hợp của Mihdhar, người đã được cho bốn tháng).\nGiả thuyết: Những kẻ không tặc đã đến một số điểm du lịch nổi tiếng sau khi được nhận.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tất cả trừ 2 trong số 15 tên cướp trên không được cho nhập cảnh dưới dạng khách du lịch, được gia hạn sáu tháng du lịch ở Hoa Kỳ (trừ trường hợp của Mihdhar, người đã được cho bốn tháng).",
+    "hypothesis": "Những kẻ không tặc đã đến một số điểm du lịch nổi tiếng sau khi được nhận.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.0556,
+      "B": 11.53,
+      "C": 11.4421
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Để tạo ra giá trị, Đối tác tập trung vào khách hàng trong kết quả kinh doanh\nGiả thuyết: Thật là lý tưởng để tập trung vào lợi nhuận mà không phải khách hàng.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Để tạo ra giá trị, Đối tác tập trung vào khách hàng trong kết quả kinh doanh",
+    "hypothesis": "Thật là lý tưởng để tập trung vào lợi nhuận mà không phải khách hàng.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.5298,
+      "B": 11.7558,
+      "C": 11.8911
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Ngoài ra, cư dân Indiana có thể nhận được các khoản trợ cấp thuế thông qua tín dụng thuế bang Indiana được đăng ký trực tiếp ở dòng cuối của tờ khai thuế bang.\nGiả thuyết: Người dân bang Indiana được hưởng quyền lợi từ thuế của tiểu bang Indiana.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Ngoài ra, cư dân Indiana có thể nhận được các khoản trợ cấp thuế thông qua tín dụng thuế bang Indiana được đăng ký trực tiếp ở dòng cuối của tờ khai thuế bang.",
+    "hypothesis": "Người dân bang Indiana được hưởng quyền lợi từ thuế của tiểu bang Indiana.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.3698,
+      "B": 12.3315,
+      "C": 12.0149
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tôi sẽ rất vui mừng khi đến được Port Royal. Thuyền trưởng Blood đẩy ra một mẩu giấy da dưới con mắt đang trố ra của Calverley.\nGiả thuyết: Captain Blood xé giấy da thành từng mảnh.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tôi sẽ rất vui mừng khi đến được Port Royal. Thuyền trưởng Blood đẩy ra một mẩu giấy da dưới con mắt đang trố ra của Calverley.",
+    "hypothesis": "Captain Blood xé giấy da thành từng mảnh.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.7757,
+      "B": 11.9995,
+      "C": 12.6581
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Sự rút lui của Lamar Alexander chẳng có chút giá trị gì, mặc dù nó không làm tăng mức độ phi lô-gíc\nGiả thuyết: Thật lãng phí thời gian suy nghĩ về cách Lamar Alexander từ chức.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Sự rút lui của Lamar Alexander chẳng có chút giá trị gì, mặc dù nó không làm tăng mức độ phi lô-gíc",
+    "hypothesis": "Thật lãng phí thời gian suy nghĩ về cách Lamar Alexander từ chức.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.1458,
+      "B": 11.3929,
+      "C": 11.3802
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đối với chuyến du lịch của Atta đến Cộng hòa Séc, xem ibid.\nGiả thuyết: Atta chưa bao giờ đến Cộng hòa Séc.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đối với chuyến du lịch của Atta đến Cộng hòa Séc, xem ibid.",
+    "hypothesis": "Atta chưa bao giờ đến Cộng hòa Séc.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.1363,
+      "B": 9.3311,
+      "C": 10.6119
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Những người nông dân xa lạ thường xuyên di chuyển trong Hoa Kỳ.\nGiả thuyết: Người nhập cư không bao giờ đi một khi họ đến Mỹ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Những người nông dân xa lạ thường xuyên di chuyển trong Hoa Kỳ.",
+    "hypothesis": "Người nhập cư không bao giờ đi một khi họ đến Mỹ.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.899,
+      "B": 11.5804,
+      "C": 12.3342
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Thông báo phản đối luật sư và tòa án hoặc cơ quan hành chính sẽ phải được gửi đi.\nGiả thuyết: Các luật sư đối lập và tòa án sẽ mong đợi thông báo.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Thông báo phản đối luật sư và tòa án hoặc cơ quan hành chính sẽ phải được gửi đi.",
+    "hypothesis": "Các luật sư đối lập và tòa án sẽ mong đợi thông báo.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.1779,
+      "B": 11.9016,
+      "C": 11.4166
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Vâng, tất nhiên, không cần phải nói, chúng tôi đã từng, chúng tôi không thể phạm sai lầm.\nGiả thuyết: Chúng tôi không được phép đánh vần sai bất kỳ điều gì.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Vâng, tất nhiên, không cần phải nói, chúng tôi đã từng, chúng tôi không thể phạm sai lầm.",
+    "hypothesis": "Chúng tôi không được phép đánh vần sai bất kỳ điều gì.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.9018,
+      "B": 11.9442,
+      "C": 11.7763
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Em gái tôi cứ nói với tôi, cô ấy nói, Đôi khi chị giống như bà vậy, chị đối xử sai lầm với mọi người vì những lý do sai lầm.\nGiả thuyết: Em gái tôi nói tôi là người phân biệt chủng tộc.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Em gái tôi cứ nói với tôi, cô ấy nói, Đôi khi chị giống như bà vậy, chị đối xử sai lầm với mọi người vì những lý do sai lầm.",
+    "hypothesis": "Em gái tôi nói tôi là người phân biệt chủng tộc.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.5677,
+      "B": 11.4008,
+      "C": 11.4038
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Newsweek cho thấy ngành công nghiệp đấu vật chuyên nghiệp sẽ đi bao xa để giữ cho người hâm mộ quan tâm.\nGiả thuyết: Tạp chí Time đã tiếp xúc với bạo lực của vật lộn chuyên nghiệp đằng sau hậu trường.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Newsweek cho thấy ngành công nghiệp đấu vật chuyên nghiệp sẽ đi bao xa để giữ cho người hâm mộ quan tâm.",
+    "hypothesis": "Tạp chí Time đã tiếp xúc với bạo lực của vật lộn chuyên nghiệp đằng sau hậu trường.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.7617,
+      "B": 10.0637,
+      "C": 10.0092
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Theo nhóm bảo mật thông tin trung tâm của tiện ích, quy trình này làm tăng nhận thức bảo mật giữa các nhà quản lý doanh nghiệp, phát triển hỗ trợ cho các điều khiển cần thiết và giúp tích hợp các mối quan tâm bảo mật thông tin vào hoạt động kinh doanh của tổ chức.\nGiả thuyết: Quá trình này được cho là tăng cường bảo mật theo nhiều phương thức.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Theo nhóm bảo mật thông tin trung tâm của tiện ích, quy trình này làm tăng nhận thức bảo mật giữa các nhà quản lý doanh nghiệp, phát triển hỗ trợ cho các điều khiển cần thiết và giúp tích hợp các mối quan tâm bảo mật thông tin vào hoạt động kinh doanh của tổ chức.",
+    "hypothesis": "Quá trình này được cho là tăng cường bảo mật theo nhiều phương thức.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 15.0351,
+      "B": 13.2295,
+      "C": 12.5151
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Cửa hàng thẩm mỹ Split Ends là một ví dụ điển hình về sự sang trọng kết hợp với uyển ngữ khi nói về chuyện khai trương không quá sôi động hay khác thường.\nGiả thuyết: ''Đuôi chẻ'' là một tiệm kem.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Cửa hàng thẩm mỹ Split Ends là một ví dụ điển hình về sự sang trọng kết hợp với uyển ngữ khi nói về chuyện khai trương không quá sôi động hay khác thường.",
+    "hypothesis": "''Đuôi chẻ'' là một tiệm kem.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.9091,
+      "B": 11.4781,
+      "C": 12.5921
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Với phần mềm, cơ quan là một cơ quan độc lập, đáng tin cậy xác minh rằng phần mềm đến từ nơi nó tuyên bố.\nGiả thuyết: Cơ quan hoạt động như một cơ quan độc lập.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Với phần mềm, cơ quan là một cơ quan độc lập, đáng tin cậy xác minh rằng phần mềm đến từ nơi nó tuyên bố.",
+    "hypothesis": "Cơ quan hoạt động như một cơ quan độc lập.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.7072,
+      "B": 13.4806,
+      "C": 12.4596
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Các văn phòng du lịch đã cố gắng đổi tên khu vực L'Estrie, nhưng ngay cả những Quebecois chiến binh nhất cũng thích phong tục trực tiếp, nếu gần đúng, bản dịch của Cantons de l'Est.\nGiả thuyết: Những người làm du lịch nghĩ rằng khu vực này cần một cái tên hay hơn bởi vì cái cũ nghe có vẻ hỗn độn.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Các văn phòng du lịch đã cố gắng đổi tên khu vực L'Estrie, nhưng ngay cả những Quebecois chiến binh nhất cũng thích phong tục trực tiếp, nếu gần đúng, bản dịch của Cantons de l'Est.",
+    "hypothesis": "Những người làm du lịch nghĩ rằng khu vực này cần một cái tên hay hơn bởi vì cái cũ nghe có vẻ hỗn độn.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.6305,
+      "B": 11.7705,
+      "C": 12.0828
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Cuối thế kỷ thứ mười tám thực sự là một thời gian đơn giản kỳ diệu.\nGiả thuyết: Ai đó nhớ lại cuối thế kỷ thứ mười tám.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Cuối thế kỷ thứ mười tám thực sự là một thời gian đơn giản kỳ diệu.",
+    "hypothesis": "Ai đó nhớ lại cuối thế kỷ thứ mười tám.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.4647,
+      "B": 12.1967,
+      "C": 12.6654
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tôi muốn nói rằng các tác nhân tự trị mà cộng đồng có, theo từng cá nhân và tập thể, được thể hiện là biết cách thích nghi với việc kiếm sống trong các trò chơi tự nhiên tạo nên thế giới của họ.\nGiả thuyết: Các đại lý kiếm được 80.000 đô la.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tôi muốn nói rằng các tác nhân tự trị mà cộng đồng có, theo từng cá nhân và tập thể, được thể hiện là biết cách thích nghi với việc kiếm sống trong các trò chơi tự nhiên tạo nên thế giới của họ.",
+    "hypothesis": "Các đại lý kiếm được 80.000 đô la.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.3221,
+      "B": 11.9483,
+      "C": 12.0998
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Họ cũng cho thấy việc giảm sự tự tin và động lực, thể hiện sự hoài nghi về khả năng của mình và rút khỏi những vấn đề khó khăn.\nGiả thuyết: Nguyên nhân của việc thiếu động lực và luôn nghi ngờ xuất phát từ chính những thất bại của họ trong quá khứ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Họ cũng cho thấy việc giảm sự tự tin và động lực, thể hiện sự hoài nghi về khả năng của mình và rút khỏi những vấn đề khó khăn.",
+    "hypothesis": "Nguyên nhân của việc thiếu động lực và luôn nghi ngờ xuất phát từ chính những thất bại của họ trong quá khứ.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.5675,
+      "B": 12.6184,
+      "C": 12.4413
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Năm ngoái, chỉ có 20% cựu sinh viên của chúng tôi đóng góp cho trường, tăng từ 14% vào năm 1990.\nGiả thuyết: 100% cựu sinh viên của chúng tôi đóng góp cho trường mỗi năm.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Năm ngoái, chỉ có 20% cựu sinh viên của chúng tôi đóng góp cho trường, tăng từ 14% vào năm 1990.",
+    "hypothesis": "100% cựu sinh viên của chúng tôi đóng góp cho trường mỗi năm.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.6628,
+      "B": 12.4086,
+      "C": 11.6103
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Prudence, chuyên gia tư vấn của chúng tôi, đã nghỉ hưu, và công việc của cô ấy đã được cô cháu gái của cô ấy tiếp quản, cũng được đặt tên là Prudence.\nGiả thuyết: Prudence khuyên chúng tôi đưa cột chữ cho cô cháu gái của mình.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Prudence, chuyên gia tư vấn của chúng tôi, đã nghỉ hưu, và công việc của cô ấy đã được cô cháu gái của cô ấy tiếp quản, cũng được đặt tên là Prudence.",
+    "hypothesis": "Prudence khuyên chúng tôi đưa cột chữ cho cô cháu gái của mình.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.8983,
+      "B": 10.1908,
+      "C": 12.1395
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Anh ấy đến, mở cửa ra và tôi nhớ rằng đã nhìn ra phía sau và nhìn thấy vẻ mặt của anh ấy, và tôi có thể biết được anh ấy đang thất vọng.\nGiả thuyết: Chỉ khi nhìn vào khuôn mặt của anh ấy khi anh ấy bước qua cánh cửa tôi mới biết anh ấy đã bị bỏ rơi.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Anh ấy đến, mở cửa ra và tôi nhớ rằng đã nhìn ra phía sau và nhìn thấy vẻ mặt của anh ấy, và tôi có thể biết được anh ấy đang thất vọng.",
+    "hypothesis": "Chỉ khi nhìn vào khuôn mặt của anh ấy khi anh ấy bước qua cánh cửa tôi mới biết anh ấy đã bị bỏ rơi.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.7472,
+      "B": 12.1929,
+      "C": 11.7905
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đối với chuyến du lịch của Atta đến Cộng hòa Séc, xem ibid.\nGiả thuyết: Atta đã đi du lịch đến Cộng hoà Séc.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đối với chuyến du lịch của Atta đến Cộng hòa Séc, xem ibid.",
+    "hypothesis": "Atta đã đi du lịch đến Cộng hoà Séc.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.5634,
+      "B": 10.2188,
+      "C": 11.0848
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Liệu sự kết hợp giữa các sự kiện và suy đoán này là cơ sở cho các cuộc biểu tình phản đối là một vấn đề về ý kiến cá nhân.\nGiả thuyết: Những sự kiện đóng góp nhiều hơn đối với những sự kháng nghị.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Liệu sự kết hợp giữa các sự kiện và suy đoán này là cơ sở cho các cuộc biểu tình phản đối là một vấn đề về ý kiến cá nhân.",
+    "hypothesis": "Những sự kiện đóng góp nhiều hơn đối với những sự kháng nghị.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.5442,
+      "B": 11.8402,
+      "C": 12.0908
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đây là kết quả mới nhất: 5,615 nhóm đối tượng tham gia hội cựu sinh viên không đóng góp, 81 1.4 phần trăm, người đóng góp nhiều nhất là $2,840 và người đóng góp ít nhất là $5.\nGiả thuyết: Không ai tặng hơn $500, điều này thật đáng thất vọng.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đây là kết quả mới nhất: 5,615 nhóm đối tượng tham gia hội cựu sinh viên không đóng góp, 81 1.4 phần trăm, người đóng góp nhiều nhất là $2,840 và người đóng góp ít nhất là $5.",
+    "hypothesis": "Không ai tặng hơn $500, điều này thật đáng thất vọng.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 15.3974,
+      "B": 13.1078,
+      "C": 11.5372
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: schlock 'kém chất lượng, hàng hóa được sản xuất rẻ tiền.\nGiả thuyết: Hàng hóa được làm tốt và nguyên bản.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "schlock 'kém chất lượng, hàng hóa được sản xuất rẻ tiền.",
+    "hypothesis": "Hàng hóa được làm tốt và nguyên bản.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.1903,
+      "B": 10.7137,
+      "C": 10.8979
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Một đám mây cụ thể, giống như sinh quyển của chúng ta, có lẽ trở thành bị mắc kẹt trong một bộ rất đặc biệt của các loại phân tử phức tạp đã hình thành khi đám mây phát triển.\nGiả thuyết: Một số loại phân tử hình thành khi một đám mây phát triển.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Một đám mây cụ thể, giống như sinh quyển của chúng ta, có lẽ trở thành bị mắc kẹt trong một bộ rất đặc biệt của các loại phân tử phức tạp đã hình thành khi đám mây phát triển.",
+    "hypothesis": "Một số loại phân tử hình thành khi một đám mây phát triển.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.8453,
+      "B": 11.785,
+      "C": 11.5278
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Rõ ràng là cuộc thảo luận của chúng ta phải nghỉ ngơi cho đến khi cuốn sách đầy tham vọng này được xuất bản.\nGiả thuyết: Chúng tôi chắc chắn không thể tiếp tục cuộc thảo luận này cho đến sau khi cuốn sách được xuất bản.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Rõ ràng là cuộc thảo luận của chúng ta phải nghỉ ngơi cho đến khi cuốn sách đầy tham vọng này được xuất bản.",
+    "hypothesis": "Chúng tôi chắc chắn không thể tiếp tục cuộc thảo luận này cho đến sau khi cuốn sách được xuất bản.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.8362,
+      "B": 11.6763,
+      "C": 11.3463
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bernstein giải thích trong phần giới thiệu\nGiả thuyết: Bernstein chỉ giải thích điều đó trong phần kết luận.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bernstein giải thích trong phần giới thiệu",
+    "hypothesis": "Bernstein chỉ giải thích điều đó trong phần kết luận.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 11.7644,
+      "B": 10.1994,
+      "C": 11.0926
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bạn, cùng với những thành viên biết quan tâm khác, sẽ giúp đỡ nỗ lực gìn giữ và phát huy di sản đáng tự hào của bang chúng ta.\nGiả thuyết: Thành phố đang hoạt động rất tốt mà không cần sự trợ giúp của bất kỳ ai.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bạn, cùng với những thành viên biết quan tâm khác, sẽ giúp đỡ nỗ lực gìn giữ và phát huy di sản đáng tự hào của bang chúng ta.",
+    "hypothesis": "Thành phố đang hoạt động rất tốt mà không cần sự trợ giúp của bất kỳ ai.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.2872,
+      "B": 12.231,
+      "C": 12.3214
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Colenia de Sant Jordi được điểm nét bằng các khách sạn và biệt thự, nhưng nó có vẻ là một nỗ lực khá nửa vời tại một khu nghỉ mát.\nGiả thuyết: Đường phố là một bãi nghỉ ngơi khổng lồ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Colenia de Sant Jordi được điểm nét bằng các khách sạn và biệt thự, nhưng nó có vẻ là một nỗ lực khá nửa vời tại một khu nghỉ mát.",
+    "hypothesis": "Đường phố là một bãi nghỉ ngơi khổng lồ.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.2973,
+      "B": 12.6819,
+      "C": 13.1998
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Wanda cũng ý thức như bất kỳ người mẹ nào về những khả năng mới mà bạn tạo ra, điều mà cô ấy gọi là một điều tuyệt vời để biết.\nGiả thuyết: Wanda không có con.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Wanda cũng ý thức như bất kỳ người mẹ nào về những khả năng mới mà bạn tạo ra, điều mà cô ấy gọi là một điều tuyệt vời để biết.",
+    "hypothesis": "Wanda không có con.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 11.6818,
+      "B": 9.9336,
+      "C": 10.7351
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Không vì cháu gái anh ta, không vì con gái anh ta, không vì mẹ anh ta, liệu anh ta có quên đi mối nợ máu mà anh ta nghĩ do anh ta gây ra không.\nGiả thuyết: Anh ta sẽ từ bỏ máu vì anh ta nếu mẹ anh ta hỏi anh ta.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Không vì cháu gái anh ta, không vì con gái anh ta, không vì mẹ anh ta, liệu anh ta có quên đi mối nợ máu mà anh ta nghĩ do anh ta gây ra không.",
+    "hypothesis": "Anh ta sẽ từ bỏ máu vì anh ta nếu mẹ anh ta hỏi anh ta.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.4828,
+      "B": 12.3293,
+      "C": 12.0592
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tổng thống Kennedy nói với người phi công, các Quý ông các ngài đã chụp những bức ảnh tuyệt đẹp.\nGiả thuyết: Kennedy đã nói chuyện với các phi công Không quân.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tổng thống Kennedy nói với người phi công, các Quý ông các ngài đã chụp những bức ảnh tuyệt đẹp.",
+    "hypothesis": "Kennedy đã nói chuyện với các phi công Không quân.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.0935,
+      "B": 11.0464,
+      "C": 11.945
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Ngoài Moussaoui, hai gián điệp al Qaeda được KSM xác định là ứng viên cho đợt tấn công thứ hai chính là Abderraouf Jdey, a.k.a.\nGiả thuyết: Một đợt tấn công thứ hai do KSM lên kế hoạch.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Ngoài Moussaoui, hai gián điệp al Qaeda được KSM xác định là ứng viên cho đợt tấn công thứ hai chính là Abderraouf Jdey, a.k.a.",
+    "hypothesis": "Một đợt tấn công thứ hai do KSM lên kế hoạch.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.0826,
+      "B": 11.374,
+      "C": 10.6798
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: 20 Ngược lại, tiêu tan chi tiêu nhiều hơn thu nhập hiện tại-làm giảm trữ lượng của cải vì số tiền tiết kiệm trong quá khứ phải được rút ra, tài sản hiện có được bán, hoặc vay tăng lên.\nGiả thuyết: Dissaving có nghĩa là bạn tiết kiệm rất nhiều tiền.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "20 Ngược lại, tiêu tan chi tiêu nhiều hơn thu nhập hiện tại-làm giảm trữ lượng của cải vì số tiền tiết kiệm trong quá khứ phải được rút ra, tài sản hiện có được bán, hoặc vay tăng lên.",
+    "hypothesis": "Dissaving có nghĩa là bạn tiết kiệm rất nhiều tiền.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.6817,
+      "B": 11.7828,
+      "C": 10.6956
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Số liệu thống kê trong Bảng A1 cho thấy, trung bình, các tuyến đường với các quý có lợi nhuận cao hơn nằm trong các Mã ZIP với các hộ gia đình có thu nhập cao hơn và người trưởng thành có học thức hơn.\nGiả thuyết: Các số liệu thống kê không nêu lên bất cứ điều gì.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Số liệu thống kê trong Bảng A1 cho thấy, trung bình, các tuyến đường với các quý có lợi nhuận cao hơn nằm trong các Mã ZIP với các hộ gia đình có thu nhập cao hơn và người trưởng thành có học thức hơn.",
+    "hypothesis": "Các số liệu thống kê không nêu lên bất cứ điều gì.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 12.6594,
+      "B": 12.1859,
+      "C": 11.8513
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Trong trường hợp động vật không được chủ sở hữu phục hồi, Hội Nhân đạo của bạn sử dụng nhiều dịch vụ khác nhau để hỗ trợ những động vật đó và mang đến cho chúng cơ hội có một cuộc sống hạnh phúc.\nGiả thuyết: Hội Nhân đạo giúp động vật sống một cuộc sống hạnh phúc.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Trong trường hợp động vật không được chủ sở hữu phục hồi, Hội Nhân đạo của bạn sử dụng nhiều dịch vụ khác nhau để hỗ trợ những động vật đó và mang đến cho chúng cơ hội có một cuộc sống hạnh phúc.",
+    "hypothesis": "Hội Nhân đạo giúp động vật sống một cuộc sống hạnh phúc.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.6787,
+      "B": 12.5529,
+      "C": 13.0686
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Đi lang thang trên boong tàu và nói chuyện với các diễn viên đóng vai các thủy thủ và khách hành hương.\nGiả thuyết: Các thủy thủ và khách hành hương đều là thật.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Đi lang thang trên boong tàu và nói chuyện với các diễn viên đóng vai các thủy thủ và khách hành hương.",
+    "hypothesis": "Các thủy thủ và khách hành hương đều là thật.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.4155,
+      "B": 11.8238,
+      "C": 11.9943
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Các khiếu nại bao gồm vấn đề về hành lý, ứng xử thô lỗ của tiếp viên hành không, máy bay huỷ chuyến không báo trước, và các vấn đề về thanh toán.\nGiả thuyết: 10 người đã bị mất hành lý.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Các khiếu nại bao gồm vấn đề về hành lý, ứng xử thô lỗ của tiếp viên hành không, máy bay huỷ chuyến không báo trước, và các vấn đề về thanh toán.",
+    "hypothesis": "10 người đã bị mất hành lý.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.4324,
+      "B": 12.1941,
+      "C": 12.1468
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Skeat sẽ không bỏ qua ghi chú này trong trường hợp này và lặp lại hành vi phạm tội vào một thời điểm nào đó trong tương lai.\nGiả thuyết: Skeat sẽ không chú ý đến ghi chú.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Skeat sẽ không bỏ qua ghi chú này trong trường hợp này và lặp lại hành vi phạm tội vào một thời điểm nào đó trong tương lai.",
+    "hypothesis": "Skeat sẽ không chú ý đến ghi chú.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 11.7915,
+      "B": 9.9252,
+      "C": 10.0899
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Vâng, dù rằng tôi vẫn hoài nghi các cư dân Madrid và Atlanta thích sự hiện đại nhưng vẫn tiếc nuối những nét truyền thống đã mất.\nGiả thuyết: Cư dân của Madrid và Atlanta thực tập truyền thống của họ tại nhà một cách bí mật.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Vâng, dù rằng tôi vẫn hoài nghi các cư dân Madrid và Atlanta thích sự hiện đại nhưng vẫn tiếc nuối những nét truyền thống đã mất.",
+    "hypothesis": "Cư dân của Madrid và Atlanta thực tập truyền thống của họ tại nhà một cách bí mật.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.212,
+      "B": 11.7427,
+      "C": 11.7847
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Thật không may, quan điểm của chúng tôi về tầm quan trọng của hoạt động từ thiện không được tất cả người Mỹ chia sẻ.\nGiả thuyết: Không phải tất cả người Mỹ nghĩ rằng bạn nên quyên góp tiền.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Thật không may, quan điểm của chúng tôi về tầm quan trọng của hoạt động từ thiện không được tất cả người Mỹ chia sẻ.",
+    "hypothesis": "Không phải tất cả người Mỹ nghĩ rằng bạn nên quyên góp tiền.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.8434,
+      "B": 12.1096,
+      "C": 12.0505
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Bên cạnh một ký túc xá sinh viên được gọi là Quad, một Jacobean Revival đa dạng đẹp như tranh vẽ, lên kế hoạch xung quanh một loạt sân vườn.\nGiả thuyết: Quad là ký túc xá sinh viên.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Bên cạnh một ký túc xá sinh viên được gọi là Quad, một Jacobean Revival đa dạng đẹp như tranh vẽ, lên kế hoạch xung quanh một loạt sân vườn.",
+    "hypothesis": "Quad là ký túc xá sinh viên.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.9234,
+      "B": 10.4405,
+      "C": 12.1062
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Hồ sơ của Time về Kennth Starr mô tả anh ấy như một người bảo thủ, quá hăng hái, và ngu ngốc.\nGiả thuyết: Kenneth Starr tự hào về việc miêu tả của tờ Time về anh ta như một mọt sách bảo thủ quá mức.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Hồ sơ của Time về Kennth Starr mô tả anh ấy như một người bảo thủ, quá hăng hái, và ngu ngốc.",
+    "hypothesis": "Kenneth Starr tự hào về việc miêu tả của tờ Time về anh ta như một mọt sách bảo thủ quá mức.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.2966,
+      "B": 10.76,
+      "C": 11.5264
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Phụ nữ hiện đại thích ốm, nhưng họ cũng muốn thể chất khoẻ khoắn, không chỉ là tình cảm hay tinh thần, mà là trong tĩnh mạch lãng mạn.\nGiả thuyết: Tất cả phụ nữ ngày nay muốn có rất nhiều thịt trên xương của họ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Phụ nữ hiện đại thích ốm, nhưng họ cũng muốn thể chất khoẻ khoắn, không chỉ là tình cảm hay tinh thần, mà là trong tĩnh mạch lãng mạn.",
+    "hypothesis": "Tất cả phụ nữ ngày nay muốn có rất nhiều thịt trên xương của họ.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.1663,
+      "B": 11.3851,
+      "C": 10.783
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Nhà Trắng sẽ trở lại đúng không?\nGiả thuyết: Nhà Trắng đã đưa ra quyết định.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Nhà Trắng sẽ trở lại đúng không?",
+    "hypothesis": "Nhà Trắng đã đưa ra quyết định.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.1002,
+      "B": 11.4203,
+      "C": 11.9884
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Sự thật rằng nó là 1một tòa nhà bất kể nó hữu ích hay đẹp thế nào, đó không phải là thông cảm với cách mà mọi người chịu rủi ro tìm kiếm, không chỉ đơn thuần lỗi thời, nhưng hết sức ngớ ngẩn.\nGiả thuyết: Một tòa nhà không thể đẹp mà không hữu ích.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Sự thật rằng nó là 1một tòa nhà bất kể nó hữu ích hay đẹp thế nào, đó không phải là thông cảm với cách mà mọi người chịu rủi ro tìm kiếm, không chỉ đơn thuần lỗi thời, nhưng hết sức ngớ ngẩn.",
+    "hypothesis": "Một tòa nhà không thể đẹp mà không hữu ích.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.4571,
+      "B": 12.0013,
+      "C": 11.2049
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Việc khám phá nó đòi hỏi phải có sự hợp tác nhanh và bền bỉ từ chính phủ Đức, chỉ riêng việc này thôi cũng đã khá khó khăn.\nGiả thuyết: Chính phủ Đức có thể đã gặp khó khăn khi thực hiện một cuộc điều tra nhanh chóng và kỹ lưỡng.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Việc khám phá nó đòi hỏi phải có sự hợp tác nhanh và bền bỉ từ chính phủ Đức, chỉ riêng việc này thôi cũng đã khá khó khăn.",
+    "hypothesis": "Chính phủ Đức có thể đã gặp khó khăn khi thực hiện một cuộc điều tra nhanh chóng và kỹ lưỡng.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.0186,
+      "B": 12.5805,
+      "C": 12.6609
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tương tự như vậy, các số liệu thống kê trong Bảng A2 và A3 cho thấy các tuyến đường có khối lượng vận chuyển cao nằm trong các Mã ZIP với mức thu nhập hộ gia đình và trình độ học vấn cao hơn.\nGiả thuyết: Các khu vực có số lượng lớn có thu nhập trên 100.000 đô la.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tương tự như vậy, các số liệu thống kê trong Bảng A2 và A3 cho thấy các tuyến đường có khối lượng vận chuyển cao nằm trong các Mã ZIP với mức thu nhập hộ gia đình và trình độ học vấn cao hơn.",
+    "hypothesis": "Các khu vực có số lượng lớn có thu nhập trên 100.000 đô la.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.7569,
+      "B": 12.7889,
+      "C": 12.38
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Người đứng đầu NCTC nên có thứ hạng của một phó giám đốc của cục tình báo quốc gia, ví dụ: Executive Level II, nhưng nen có một chức danh khác.\nGiả thuyết: Người đứng đầu của NCTC nên được xếp dưới cấp một phó giám đốc tình báo quốc gia.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Người đứng đầu NCTC nên có thứ hạng của một phó giám đốc của cục tình báo quốc gia, ví dụ: Executive Level II, nhưng nen có một chức danh khác.",
+    "hypothesis": "Người đứng đầu của NCTC nên được xếp dưới cấp một phó giám đốc tình báo quốc gia.",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.9322,
+      "B": 11.1328,
+      "C": 11.5594
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: được rồi, vậy để tôi đảm bảo như thế vậy bạn nghĩ rằng ừ có thể đợi năm ngày để có súng ngắn hoặc thứ đó được hợp pháp hoá\nGiả thuyết: Còn việc giữ năm ngày với những người muốn mua vũ khí thì sao?\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "được rồi, vậy để tôi đảm bảo như thế vậy bạn nghĩ rằng ừ có thể đợi năm ngày để có súng ngắn hoặc thứ đó được hợp pháp hoá",
+    "hypothesis": "Còn việc giữ năm ngày với những người muốn mua vũ khí thì sao?",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.1565,
+      "B": 10.8703,
+      "C": 10.9924
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Du khách cũng có thể xem một bộ phim đa phương tiện lịch sử ảo 28 phút về Barcino-Barcelona.\nGiả thuyết: Barcino-Barcelona là trọng tâm của một bộ phim đa phương tiện lịch sử ảo.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Du khách cũng có thể xem một bộ phim đa phương tiện lịch sử ảo 28 phút về Barcino-Barcelona.",
+    "hypothesis": "Barcino-Barcelona là trọng tâm của một bộ phim đa phương tiện lịch sử ảo.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.4848,
+      "B": 12.8314,
+      "C": 13.3678
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: uh chúng ta có được ngày Thứ Năm Ngày Thứ Sáu Tuần Lễ Tốt Nghiệp Ngày Thứ Bảy Tháng Bảy Ngày Lễ Lao Động Thứ Tư uh Lễ Tạ Ơn và một ngày sau đó và sau đó là Giáng Sinh và một ngày ở hai bên của nó\nGiả thuyết: Chúng tôi không có kỳ nghỉ nào cả!\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "uh chúng ta có được ngày Thứ Năm Ngày Thứ Sáu Tuần Lễ Tốt Nghiệp Ngày Thứ Bảy Tháng Bảy Ngày Lễ Lao Động Thứ Tư uh Lễ Tạ Ơn và một ngày sau đó và sau đó là Giáng Sinh và một ngày ở hai bên của nó",
+    "hypothesis": "Chúng tôi không có kỳ nghỉ nào cả!",
+    "gold": "contradiction",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.0498,
+      "B": 10.5286,
+      "C": 10.5652
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tôi không thể tìm thấy định nghĩa nào như vậy trong từ điển.\nGiả thuyết: Từ điển mà tôi sử dụng là từ điển điển hình.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tôi không thể tìm thấy định nghĩa nào như vậy trong từ điển.",
+    "hypothesis": "Từ điển mà tôi sử dụng là từ điển điển hình.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 14.3115,
+      "B": 11.8619,
+      "C": 11.9939
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Daniel Yamins là một nhà toán học trẻ xuất sắc.\nGiả thuyết: Ông Yamins rất giỏi toán.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Daniel Yamins là một nhà toán học trẻ xuất sắc.",
+    "hypothesis": "Ông Yamins rất giỏi toán.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.81,
+      "B": 9.7193,
+      "C": 12.0446
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: DOT đã phải mua tài sản và các thứ khác.\nGiả thuyết: Tài sản đó tốn của DOT  hơn ba triệu đô la cho để mua.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "DOT đã phải mua tài sản và các thứ khác.",
+    "hypothesis": "Tài sản đó tốn của DOT  hơn ba triệu đô la cho để mua.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 11.3911,
+      "B": 10.3413,
+      "C": 10.7234
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Gần với ý định ban đầu và vẫn đang là chứng ngôn sinh động nhất cho thời kỳ Klondike, thành phố mới phát triển Dawson City năm 1951 miễn cưỡng trở thành trung tâm truyền thông và vận tải của thủ phủ lãnh thổ Whitehorse.\nGiả thuyết: Whitehorse là khu vực thủ đô\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Gần với ý định ban đầu và vẫn đang là chứng ngôn sinh động nhất cho thời kỳ Klondike, thành phố mới phát triển Dawson City năm 1951 miễn cưỡng trở thành trung tâm truyền thông và vận tải của thủ phủ lãnh thổ Whitehorse.",
+    "hypothesis": "Whitehorse là khu vực thủ đô",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 12.8705,
+      "B": 11.3664,
+      "C": 12.2575
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: bạn biết ai sẽ hiểu không?\nGiả thuyết: Tôi nghĩ bạn biết ai sẽ hiểu.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "bạn biết ai sẽ hiểu không?",
+    "hypothesis": "Tôi nghĩ bạn biết ai sẽ hiểu.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.8279,
+      "B": 11.7215,
+      "C": 12.1841
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Vịnh lớn nhất trên bờ biển phía tây bắc trở thành một bến cảng tốt, nhưng điều này có thể làm ô nhiễm cả nguồn nước và bải biển.\nGiả thuyết: Nước bị bẩn vì ô nhiễm.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Vịnh lớn nhất trên bờ biển phía tây bắc trở thành một bến cảng tốt, nhưng điều này có thể làm ô nhiễm cả nguồn nước và bải biển.",
+    "hypothesis": "Nước bị bẩn vì ô nhiễm.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.9192,
+      "B": 13.2044,
+      "C": 12.217
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Trong các cuộc tranh luận về quyền của những người bán thịt ở New Orleans trước Tòa án tối cao, khái niệm về quyền công dân và các đặc quyền của nó đã trở thành thứ đại diện cho những mong ước còn lại về thể hiện quyền của quốc gia.\nGiả thuyết: Tòa án tối cao phán quyết chống lại những người bán thịt.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Trong các cuộc tranh luận về quyền của những người bán thịt ở New Orleans trước Tòa án tối cao, khái niệm về quyền công dân và các đặc quyền của nó đã trở thành thứ đại diện cho những mong ước còn lại về thể hiện quyền của quốc gia.",
+    "hypothesis": "Tòa án tối cao phán quyết chống lại những người bán thịt.",
+    "gold": "neutral",
+    "pred": "entailment",
+    "correct": false,
+    "logits": {
+      "A": 13.4931,
+      "B": 11.5069,
+      "C": 11.1515
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Tôi đã nói rồi, đó là cơ hội duy nhất của chúng ta, và chúng ta phải nắm lấy nó. Cách tốt hơn theo ý của Thuyền trưởng Blood là cách mà anh đề xuất với Wolverstone.\nGiả thuyết: Cơ hội là lúc này và bây giờ.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Tôi đã nói rồi, đó là cơ hội duy nhất của chúng ta, và chúng ta phải nắm lấy nó. Cách tốt hơn theo ý của Thuyền trưởng Blood là cách mà anh đề xuất với Wolverstone.",
+    "hypothesis": "Cơ hội là lúc này và bây giờ.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 14.106,
+      "B": 12.3964,
+      "C": 11.2889
+    },
+    "fallback_output": null
+  },
+  {
+    "prompt": "Tiền đề: Về trực giác, khó có khả năng một hành tinh như vậy thuộc các phức thể không tồn tại sự sống lại có thể tự hình thành kể từ vụ nổ lớn big bang.\nGiả thuyết: Có vẻ như các sinh vật không ở đây một cách ngẫu nhiên.\nMối quan hệ giữa hai câu là:\nA. entailment (tiền đề kéo theo giả thuyết)\nB. neutral (không rõ quan hệ)\nC. contradiction (mâu thuẫn nhau)\nChọn A, B, hoặc C:",
+    "premise": "Về trực giác, khó có khả năng một hành tinh như vậy thuộc các phức thể không tồn tại sự sống lại có thể tự hình thành kể từ vụ nổ lớn big bang.",
+    "hypothesis": "Có vẻ như các sinh vật không ở đây một cách ngẫu nhiên.",
+    "gold": "entailment",
+    "pred": "entailment",
+    "correct": true,
+    "logits": {
+      "A": 13.9636,
+      "B": 11.96,
+      "C": 12.3536
+    },
+    "fallback_output": null
+  }
+]

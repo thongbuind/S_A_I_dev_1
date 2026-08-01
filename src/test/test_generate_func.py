@@ -11,13 +11,13 @@ src_dir = current_file.parent.parent
 project_root = src_dir.parent
 sys.path.append(str(project_root))
 from tokenizers import Tokenizer
-from src.model import TransformerModel
+from model.TransformerModel import TransformerModel
 
 config_dir = project_root / "config"
 base_config_file = config_dir / "base.json"
-model_config_file = config_dir / f"35M.json"
+model_config_file = config_dir / f"100M.json"
 
-sft1_file = project_root / "model" / "sft1_35M.pt"
+sft1_file = project_root / "model" / "sft1_100M.pt"
 data_dir = project_root / "data"
 
 with open(base_config_file, 'r') as f:

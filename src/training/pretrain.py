@@ -9,17 +9,20 @@ import sys
 import argparse
 import math
 from utils.utils import get_step_lr_lambda, log_progress, load_checkpoint, save_checkpoint
-from utils.Dataset import Dataset, split_train_val_test, load_data
-from model import TransformerModel
+from data.Dataset import Dataset, split_train_val_test, load_data
+from model.TransformerModel import TransformerModel
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--model", type=str, required=True, help="Model size: 35M or 100M")
+parser.add_argument("--model", type=str, required=True, help="Model size: 100M or 500M")
 parser.add_argument(
     "--phase", type=str, required=True,
     choices=["pretrain", "pretrain_resume", "continued_pretrain", "continued_pretrain_resume", "full"],
     help="Training phase: pretrain | pretrain_resume | continued_pretrain | continued_pretrain_resume | full"
 )
 args = parser.parse_args()
+
+# Kích thước model, dùng để đặt tên file lưu (ví dụ: 100M, 500M)
+model_size = args.model
 
 current_file = Path(__file__).resolve()
 project_root = current_file.parent.parent
@@ -32,9 +35,13 @@ base_config_file = config_dir / "base.json"
 model_config_file = config_dir / f"{args.model}.json"
 model_dir.mkdir(parents=True, exist_ok=True)
 data_processed_dir = project_root / "data" / "processed"
-pretrain_tokenized_file = data_processed_dir / "pretrain_data_ids.npz"
+pretrain_tokenized_file = data_processed_dir / "pretrain_manifest.json"
 continued_pretrain_tokenized_file = data_processed_dir / "continued_pretrain_data_ids.npz"
 
+pretrained_save_path = model_dir / f"pretrained_{model_size}.pt"
+pretrained_ckpt_path = model_dir / f"pretrained_{model_size}.ckpt.pt"
+continued_pretrained_save_path = model_dir / f"continued_pretrained_{model_size}.pt"
+continued_pretrained_ckpt_path = model_dir / f"continued_pretrained_{model_size}.ckpt.pt"
 
 def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, num_workers, extra_file=None, model_save_path=None, resume_checkpoint_path=None):
     print("╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -96,7 +103,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
 
             with autocast(device_type='cuda', enabled=(device.type == 'cuda')):
                 outputs = model(X_batch, attention_mask=attention_mask)
-                
+
                 loss_per_token = criterion(outputs.view(-1, outputs.size(-1)), Y_batch.view(-1))
                 num_valid_tokens = sample_weight.sum()
                 loss = (loss_per_token * sample_weight.view(-1)).sum() / (num_valid_tokens + 1e-8)
@@ -164,7 +171,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
                 torch.save(model.state_dict(), model_save_path)
                 print(f"Epoch {epoch+1}: val_loss improved to {val_loss:.5f}, saving model to {model_save_path}")
             else:
-                torch.save(model.state_dict(), model_dir / "pretrained.pt")
+                torch.save(model.state_dict(), pretrained_save_path)
                 print(f"Epoch {epoch+1}: val_loss improved to {val_loss:.5f}, saving model to default path")
 
         if checkpoint_path is not None:
@@ -216,6 +223,7 @@ vocab_size = config['vocab_size']
 max_seq_len = config['max_seq_len']
 d_model = config['d_model']
 num_heads = config['num_heads']
+num_kv_heads = config['num_kv_heads']
 num_layers = config['num_layers']
 ff_dim = config['ff_dim']
 dropout = config['dropout']
@@ -238,7 +246,7 @@ elif torch.backends.mps.is_available():
 else:
     device = torch.device("cpu")
 
-model = TransformerModel(vocab_size, d_model, num_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
+model = TransformerModel(vocab_size, d_model, num_heads, num_kv_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
 optimizer = optim.AdamW(model.parameters(), lr=pretrain_learning_rate, weight_decay=pretrain_weight_decay)
 
 print("╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -255,7 +263,7 @@ if phase == "pretrain":
         learning_rate=pretrain_learning_rate,
         weight_decay=pretrain_weight_decay,
         num_workers=num_workers,
-        model_save_path=model_dir / "pretrained.pt",
+        model_save_path=pretrained_save_path,
         resume_checkpoint_path=None,
     )
     log_progress(f"Pretrain Test Loss: {pretrain_test_loss:.4f}")
@@ -269,14 +277,14 @@ elif phase == "pretrain_resume":
         learning_rate=pretrain_learning_rate,
         weight_decay=pretrain_weight_decay,
         num_workers=num_workers,
-        model_save_path=model_dir / "pretrained.pt",
-        resume_checkpoint_path=model_dir / "pretrained.ckpt.pt",
+        model_save_path=pretrained_save_path,
+        resume_checkpoint_path=pretrained_ckpt_path,
     )
     log_progress(f"Pretrain Test Loss: {pretrain_test_loss:.4f}")
 
 elif phase == "continued_pretrain":
     log_progress("Load best model từ pretrain để tiếp tục training...")
-    model.load_state_dict(torch.load(model_dir / "pretrained.pt", map_location=device))
+    model.load_state_dict(torch.load(pretrained_save_path, map_location=device))
     model.to(device)
     optimizer = optim.AdamW(model.parameters(), lr=continued_pretrain_learning_rate, weight_decay=continued_pretrain_weight_decay)
     log_progress(f"Reset optimizer với learning rate: {continued_pretrain_learning_rate}")
@@ -289,7 +297,7 @@ elif phase == "continued_pretrain":
         weight_decay=continued_pretrain_weight_decay,
         num_workers=num_workers,
         extra_file=pretrain_tokenized_file,
-        model_save_path=model_dir / "continued_pretrained.pt",
+        model_save_path=continued_pretrained_save_path,
         resume_checkpoint_path=None,
     )
     log_progress(f"Continued Pretrain Test Loss: {continued_pretrain_test_loss:.4f}")
@@ -306,8 +314,8 @@ elif phase == "continued_pretrain_resume":
         weight_decay=continued_pretrain_weight_decay,
         num_workers=num_workers,
         extra_file=pretrain_tokenized_file,
-        model_save_path=model_dir / "continued_pretrained.pt",
-        resume_checkpoint_path=model_dir / "pretrained_continued.ckpt.pt",
+        model_save_path=continued_pretrained_save_path,
+        resume_checkpoint_path=continued_pretrained_ckpt_path,
     )
     log_progress(f"Continued Pretrain Test Loss: {continued_pretrain_test_loss:.4f}")
 
@@ -319,12 +327,12 @@ elif phase == "full":
         learning_rate=pretrain_learning_rate,
         weight_decay=pretrain_weight_decay,
         num_workers=num_workers,
-        model_save_path=model_dir / "pretrained.pt",
+        model_save_path=pretrained_save_path,
         resume_checkpoint_path=None,
     )
 
     log_progress("Đang load best model từ pretrain để tiếp tục training...")
-    model.load_state_dict(torch.load(model_dir / "pretrained.pt", map_location=device))
+    model.load_state_dict(torch.load(pretrained_save_path, map_location=device))
     model.to(device)
     optimizer = optim.AdamW(model.parameters(), lr=continued_pretrain_learning_rate, weight_decay=continued_pretrain_weight_decay)
     log_progress(f"Reset optimizer với learning rate: {continued_pretrain_learning_rate}")
@@ -337,10 +345,11 @@ elif phase == "full":
         weight_decay=continued_pretrain_weight_decay,
         num_workers=num_workers,
         extra_file=pretrain_tokenized_file,
-        model_save_path=model_dir / "continued_pretrained.pt",
+        model_save_path=continued_pretrained_save_path,
         resume_checkpoint_path=None,
     )
 
     log_progress(f"Hoàn thành training!")
     log_progress(f"Pretrain Test Loss: {pretrain_test_loss:.4f}")
     log_progress(f"Continued Pretrain Test Loss: {continued_pretrain_test_loss:.4f}")
+    
