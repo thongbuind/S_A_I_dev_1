@@ -6,6 +6,7 @@ import sentencepiece as spm
 current_file = Path(__file__).resolve()
 project_root = current_file.parent.parent.parent
 config_file = project_root / "config" / "base.json"
+tokenizer_dir = project_root / "src" / "tokenizer"
 data_dir = project_root / "data"
 raw_dir = data_dir / "raw"
 processed_dir = data_dir / "processed"
@@ -15,7 +16,7 @@ with open(config_file, 'r') as f:
     config = json.load(f)
 max_seq_len = config['max_seq_len']
 
-tokenizer_file = data_dir / "tokenizer.model"
+tokenizer_file = tokenizer_dir / "tokenizer.model"
 sp = spm.SentencePieceProcessor()
 sp.load(str(tokenizer_file))
 

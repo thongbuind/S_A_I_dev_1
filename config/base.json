@@ -1,10 +1,9 @@
 {
     "vocab_size": 10000,
-    "max_seq_len": 1024,
     "dropout": 0.05,
     "pretrain_epochs": 1,
     "continued_pretrain_epochs": 5,
-    "sft1_epochs": 10,
+    "sft1_epochs": 5,
     "sft2_epochs": 1,
     "train_ratio": 0.95,
     "val_ratio": 0.04,

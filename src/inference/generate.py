@@ -2,19 +2,24 @@ import torch
 from pathlib import Path
 
 def build_input(user_input, tokenizer):
-    vocab = tokenizer.get_vocab()
-    BOS = vocab["[BOS]"]
-    EOS = vocab["[EOS]"]
-    PAD = vocab["[PAD]"]
-    USER = vocab["<|user|>"]
-    SAI = vocab["<|s.a.i|>"]
-    prompt_ids = tokenizer.encode(" Input: " + user_input).ids
-    input_ids  = [BOS, USER] + prompt_ids + [SAI]
-    return input_ids, len(input_ids), EOS, PAD
+    BOS      = tokenizer.piece_to_id("[BOS]")
+    EOS      = tokenizer.piece_to_id("[EOS]")
+    IM_START = tokenizer.piece_to_id("<|im_start|>")
+    IM_END   = tokenizer.piece_to_id("<|im_end|>")
 
-def decode_output(best, start, EOS, PAD, tokenizer):
+    user_ids = (
+        [IM_START]
+        + tokenizer.encode("user\n" + user_input.strip().lower(), out_type=int)
+        + [IM_END]
+    )
+    assistant_prefix = [IM_START] + tokenizer.encode("model\n", out_type=int)
+    input_ids = [BOS] + user_ids + assistant_prefix
+
+    return input_ids, len(input_ids), EOS, IM_END
+
+def decode_output(best, start, EOS, IM_END, tokenizer):
     output_tokens = best["seq"][start:]
-    while output_tokens and output_tokens[-1] in [EOS, PAD]:
+    while output_tokens and output_tokens[-1] in (EOS, IM_END):
         output_tokens.pop()
     return tokenizer.decode(output_tokens)
 
@@ -60,14 +65,14 @@ def forward_init(model, input_ids, max_beam_size, max_new_tokens, device):
 
 def forward_step(model, last_tokens, kv_buffers, cache_len):
     with torch.inference_mode():
-        x = model.embed(last_tokens)                       
+        x = model.embed(last_tokens)
 
         for i, block in enumerate(model.blocks):
             x = block.forward_with_cache(x, kv_buffers[i], cache_len)
-        logits = model.lm_head(model.norm(x))[:, 0, :]     
+        logits = model.lm_head(model.norm(x))[:, 0, :]
     return logits
 
-def beam_core(model, input_ids, start, score_fn, penalty_fn, max_new_tokens, beam_size, no_repeat_ngram, penalty, device, EOS, PAD, max_seq_len, early_stop=True, patience=10):
+def beam_core(model, input_ids, start, score_fn, penalty_fn, max_new_tokens, beam_size, no_repeat_ngram, penalty, device, EOS, IM_END, max_seq_len, early_stop=True, patience=10):
 
     first_logits, kv_buffers, cache_len = forward_init(
         model, input_ids, beam_size, max_new_tokens, device
@@ -79,7 +84,7 @@ def beam_core(model, input_ids, start, score_fn, penalty_fn, max_new_tokens, bea
 
     seqs = [input_ids + [int(t)] for t in topk_tok.tolist()]
     log_probs = topk_lp.tolist()
-    dones = [int(t) in [EOS, PAD] for t in topk_tok.tolist()]
+    dones = [int(t) in (EOS, IM_END) for t in topk_tok.tolist()]
     unique_sets = [set(input_ids) | {int(t)} for t in topk_tok.tolist()]
     completed = []
     K = beam_size * 3
@@ -121,7 +126,7 @@ def beam_core(model, input_ids, start, score_fn, penalty_fn, max_new_tokens, bea
                 if t in banned:
                     continue
                 new_seq = seqs[beam_i] + [t]
-                done = t in [EOS, PAD] or len(new_seq) >= max_seq_len
+                done = t in (EOS, IM_END) or len(new_seq) >= max_seq_len
                 candidates.append({
                     "beam_src": beam_i,
                     "seq": new_seq,
@@ -183,14 +188,14 @@ def generate(model, user_input, tokenizer,
                    early_stop=False, patience=30):
 
     device = model.lm_head.weight.device
-    ids, start, EOS, PAD = build_input(user_input, tokenizer)
+    ids, start, EOS, IM_END = build_input(user_input, tokenizer)
 
     best = beam_core(
         model, ids, start,
         score, apply_penalty,
         max_new_tokens, beam_size, no_repeat_ngram, penalty,
-        device, EOS, PAD, model.max_seq_len,
+        device, EOS, IM_END, model.max_seq_len,
         early_stop=early_stop, patience=patience
     )
 
-    return decode_output(best, start, EOS, PAD, tokenizer)
+    return decode_output(best, start, EOS, IM_END, tokenizer)

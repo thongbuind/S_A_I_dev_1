@@ -12,9 +12,7 @@ __pycache__/
 *.tmp
 
 # data
-/data/ẩn/
-/data/processed/
-/data/raw/
+/data/
 
 /model/
 
