@@ -27,7 +27,7 @@ def log_progress(text):
     formatted_text = f"║ {text:<{fixed_width}} ║"
     print(formatted_text)
 
-def save_checkpoint(path: Path, epoch: int, global_step: int, model, optimizer, scheduler, scaler, best_val_loss: float):
+def save_checkpoint(path: Path, epoch: int, global_step: int, model, optimizer, scheduler, best_val_loss: float):
     """Save full training state so training can be resumed exactly."""
     torch.save({
         "epoch": epoch,
@@ -35,18 +35,16 @@ def save_checkpoint(path: Path, epoch: int, global_step: int, model, optimizer, 
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
         "scheduler_state_dict": scheduler.state_dict(),
-        "scaler_state_dict": scaler.state_dict(),
         "best_val_loss": best_val_loss,
     }, path)
 
 
-def load_checkpoint(path: Path, model, optimizer, scheduler, scaler, device):
+def load_checkpoint(path: Path, model, optimizer, scheduler, device):
     """Load full training state. Returns (start_epoch, global_step, best_val_loss)."""
     ckpt = torch.load(path, map_location=device)
     model.load_state_dict(ckpt["model_state_dict"])
     optimizer.load_state_dict(ckpt["optimizer_state_dict"])
     scheduler.load_state_dict(ckpt["scheduler_state_dict"])
-    scaler.load_state_dict(ckpt["scaler_state_dict"])
     start_epoch = ckpt["epoch"] + 1
     global_step = ckpt["global_step"]
     best_val_loss = ckpt["best_val_loss"]
@@ -162,13 +160,12 @@ class TflopsBenchmarker:
             avg_time_per_step = elapsed / measured_steps
             total_steps_all_epochs = self.epochs * self.total_batches_per_epoch
 
-            # Cách 1 – thực tế
             est_time_actual = avg_time_per_step * total_steps_all_epochs
-            print(f"[Cách 1 - Thực tế] Ước tính thời gian train (ngoại suy tốc độ đo được): {format_time(est_time_actual)}")
+            print(f"[Cach 1 - Thuc te] Uoc tinh thoi gian train (ngoai suy toc do do duoc): {format_time(est_time_actual)}")
 
             # Cách 2 – lý thuyết
             est_time_theory = self.total_flops_needed / (tflops_per_sec * 1e12)
-            print(f"[Cách 2 - Lý thuyết] Ước tính thời gian train (Tổng FLOPs / TFLOPS đo được): {format_time(est_time_theory)}")
+            print(f"[Cach 2 - Ly thuyet] Uoc tinh thoi gian train (Tong FLOPs / TFLOPS do duoc): {format_time(est_time_theory)}")
         else:
             print("[CẢNH BÁO] Thời gian đo quá nhỏ để tính TFLOPS đáng tin cậy.")
 
@@ -176,11 +173,6 @@ class TflopsBenchmarker:
         self.reported = True
 
 class KernelLogger:
-    """
-    Log top CUDA/CPU kernels tại 1 step duy nhất (dùng để debug performance).
-    Chỉ chạy 1 lần khi được bật.
-    """
-
     def __init__(self, enabled: bool = False, log_step: int = 500):
         self.enabled = enabled
         self.log_step = log_step
@@ -200,8 +192,10 @@ class KernelLogger:
                 torch.profiler.ProfilerActivity.CPU,
                 torch.profiler.ProfilerActivity.CUDA,
             ],
-            record_shapes=False,
-            with_stack=False,
+            record_shapes=True,
+            profile_memory=True,
+            with_stack=True,
+            with_flops=True,
         )
         self._prof_ctx.__enter__()
 
@@ -210,6 +204,7 @@ class KernelLogger:
             torch.cuda.synchronize()
 
         self._prof_ctx.__exit__(None, None, None)
+
         key_avgs = self._prof_ctx.key_averages()
 
         def _self_cuda_us(e):
@@ -217,22 +212,68 @@ class KernelLogger:
                 return e.self_cuda_time_total
             return getattr(e, "self_device_time_total", 0)
 
-        total_self_cuda_us = sum(_self_cuda_us(e) for e in key_avgs)
+        def _cuda_total_us(e):
+            if hasattr(e, "cuda_time_total"):
+                return e.cuda_time_total
+            return getattr(e, "device_time_total", 0)
+
+        total_self_cuda = sum(_self_cuda_us(e) for e in key_avgs)
+        total_self_cpu = sum(e.self_cpu_time_total for e in key_avgs)
 
         rows = []
         for e in key_avgs:
             self_cuda = _self_cuda_us(e)
-            pct = (self_cuda / total_self_cuda_us * 100) if total_self_cuda_us > 0 else 0.0
-            if pct >= 1.0:
-                rows.append((e.key, self_cuda, pct, e.count))
-        rows.sort(key=lambda r: r[2], reverse=True)
+            cuda_total = _cuda_total_us(e)
+
+            cuda_pct = (
+                self_cuda / total_self_cuda * 100
+                if total_self_cuda > 0 else 0.0
+            )
+
+            cpu_pct = (
+                e.self_cpu_time_total / total_self_cpu * 100
+                if total_self_cpu > 0 else 0.0
+            )
+
+            if cuda_pct >= 1.0:
+                rows.append((
+                    e.key,
+                    self_cuda,
+                    cuda_total,
+                    cuda_pct,
+                    cpu_pct,
+                    e.count,
+                ))
+
+        rows.sort(key=lambda r: r[3], reverse=True)
 
         print()
         print("╠════════════════════════════════════════════════════════════════════════════════════╣")
-        print(f"[LOG KERNEL] Top kernel tại step {batch_idx} (epoch {epoch+1}) — chạy 1 lần duy nhất, trước vùng đo TFLOPS:")
-        print(f"{'Name':<60} {'Self CUDA':>14} {'Self CUDA %':>12} {'# of Calls':>11}")
-        for name, self_cuda, pct, count in rows:
-            print(f"{name[:60]:<60} {self_cuda / 1000:>11.3f}ms {pct:>11.2f}% {count:>11}")
+        print(f"[LOG KERNEL] Top kernel tại step {batch_idx} (epoch {epoch+1})")
+        print(
+            f"{'Name':<55}"
+            f"{'Self CUDA':>12}"
+            f"{'CUDA Total':>12}"
+            f"{'CUDA %':>9}"
+            f"{'CPU %':>9}"
+            f"{'Calls':>9}"
+        )
+
+        for name, self_cuda, cuda_total, cuda_pct, cpu_pct, count in rows:
+            print(
+                f"{name[:55]:<55}"
+                f"{self_cuda/1000:>9.2f}ms"
+                f"{cuda_total/1000:>9.2f}ms"
+                f"{cuda_pct:>8.2f}%"
+                f"{cpu_pct:>8.2f}%"
+                f"{count:>9}"
+            )
+
+        trace_file = f"torch_profile_epoch{epoch+1}_step{batch_idx}.json"
+        self._prof_ctx.export_chrome_trace(trace_file)
+
+        print("────────────────────────────────────────────────────────────────────────────────────")
+        print(f"Chrome Trace: {trace_file}")
         print("╠════════════════════════════════════════════════════════════════════════════════════╣")
 
         self.reported = True

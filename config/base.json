@@ -1,5 +1,6 @@
 {
     "vocab_size": 10000,
+    "max_seq_len": 2048,
     "dropout": 0.05,
     "pretrain_epochs": 1,
     "continued_pretrain_epochs": 5,

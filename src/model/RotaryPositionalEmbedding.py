@@ -13,17 +13,21 @@ class RotaryPositionalEmbedding(nn.Module):
 
     def _build_cache(self, seq_len: int):
         pos = torch.arange(seq_len, dtype=torch.float32)
-        freqs = torch.outer(pos, self.inv_freq) # (seq_len, head_dim/2)
-        emb = torch.cat([freqs, freqs], dim=-1) # (seq_len, head_dim)
+        freqs = torch.outer(pos, self.inv_freq)  # (seq_len, head_dim/2)
+        emb = torch.cat([freqs, freqs], dim=-1)  # (seq_len, head_dim)
         self.register_buffer("cos_cached", emb.cos(), persistent=False)
         self.register_buffer("sin_cached", emb.sin(), persistent=False)
+
+    def get_cos_sin(self, positions: torch.Tensor):
+        cos = self.cos_cached[positions][None, :, None, :]
+        sin = self.sin_cached[positions][None, :, None, :]
+        return cos, sin
 
     @staticmethod
     def _rotate_half(x: torch.Tensor) -> torch.Tensor:
         x1, x2 = x.chunk(2, dim=-1)
         return torch.cat((-x2, x1), dim=-1)
 
-    def apply_rope(self, x: torch.Tensor, positions: torch.Tensor) -> torch.Tensor:
-        cos = self.cos_cached[positions][None, None, :, :]
-        sin = self.sin_cached[positions][None, None, :, :]
-        return x * cos + self._rotate_half(x) * sin
+    @staticmethod
+    def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+        return x * cos + RotaryPositionalEmbedding._rotate_half(x) * sin

@@ -2,10 +2,9 @@
     "d_model": 1024,
     "num_heads": 16,
     "num_kv_heads": 8,
-    "num_layers": 24,
+    "num_layers": 32,
     "ff_dim": 4096,
-    "max_seq_len": 2048,
-    "batch_size": 10,
+    "batch_size": 20,
     "freeze": [0, 1],
     "num_workers": 1
 }

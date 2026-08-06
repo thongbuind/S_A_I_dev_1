@@ -30,7 +30,7 @@ class Dataset(torch.utils.data.Dataset):
         log_progress(f"Đang tạo dataset từ {len(X)} samples...")
         indices = np.arange(len(X))
         dataset = cls(X, Y, lengths, indices, loss_masks)
-        bucket_size = 20
+        bucket_size = 50
         PAD_ID = 0
 
         def collate_fn(batch):
@@ -47,6 +47,7 @@ class Dataset(torch.utils.data.Dataset):
             bsz = len(X_batch)
             X_padded = torch.zeros((bsz, bucket), dtype=torch.long)
             Y_padded = torch.zeros((bsz, bucket), dtype=torch.long)
+            has_padding = any(len(x) < bucket for x in X_batch)
 
             if loss_masks is not None:
                 loss_mask_padded = torch.zeros((bsz, bucket), dtype=torch.float)
@@ -70,7 +71,7 @@ class Dataset(torch.utils.data.Dataset):
             else:
                 sample_weight = loss_mask_padded
 
-            return X_padded, Y_padded, sample_weight, attention_mask
+            return X_padded, Y_padded, sample_weight, attention_mask, has_padding
 
         dataloader = torch.utils.data.DataLoader(
             dataset,
