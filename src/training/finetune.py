@@ -1,23 +1,37 @@
 from pathlib import Path
 import torch
-import torch.nn as nn
 import torch.optim as optim
+from torch.amp import GradScaler, autocast
+import torch._dynamo
 import json
 import gc
 import argparse
-from src.utils.utils import get_step_lr_lambda, freeze_layers, unfreeze_all_layers, log_progress, load_checkpoint, save_checkpoint
+import logging
+import math
+from src.utils.utils import (get_step_lr_lambda, freeze_layers, unfreeze_all_layers, log_progress, load_checkpoint, save_checkpoint, estimate_training_flops, print_training_flops_summary, TflopsBenchmarker, KernelLogger)
+from src.utils.chunked_loss import chunked_lm_loss, chunked_sft_loss
 from src.data.Dataset import Dataset, split_train_val_test, load_data
 from src.training.PenaltyEngine import PenaltyEngine, WrongTokenMarginPenalty, WrongTokenEntropyPenalty, FocalOverconfidencePenalty
 from src.model.TransformerModel import TransformerModel
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--model", type=str, required=True, help="Model size: 100M or 500M")
+parser.add_argument("--model", type=str, required=True, help="Model size: 35M, 100M or 500M")
 parser.add_argument(
     "--phase", type=str, required=True,
     choices=["sft1", "sft2", "sft1_resume", "sft2_resume", "full"],
     help="Training phase: sft1 | sft2 | sft1_resume | sft2_resume | full"
 )
+parser.add_argument(
+    "--profile-kernels", action="store_true",
+    help="Profile kernel tại step 500 và lưu compact JSON"
+)
+parser.add_argument(
+    "--limited-max-autotune", action="store_true",
+    help="Bật max-autotune giới hạn cho forward_features (chỉ ATEN/TRITON)"
+)
 args = parser.parse_args()
+torch._dynamo.config.cache_size_limit = 24
+logging.getLogger("torch._inductor.select_algorithm").setLevel(logging.ERROR)
 model_size = args.model
 
 current_file = Path(__file__).resolve()
@@ -38,6 +52,9 @@ sft1_save_path = model_dir / f"sft1_{model_size}.pt"
 sft1_ckpt_path = model_dir / f"sft1_{model_size}.ckpt.pt"
 sft2_save_path = model_dir / f"sft2_{model_size}.pt"
 sft2_ckpt_path = model_dir / f"sft2_{model_size}.ckpt.pt"
+
+# Peak logits mỗi chunk ~ LM_LOSS_CHUNK_SIZE * vocab_size * 4 bytes.
+LM_LOSS_CHUNK_SIZE = 4096
 
 def _build_val_test_loaders(phase_name, main_data, sub_data, train_ratio, val_ratio, batch_size, num_workers):
     X, Y, loss_mask, lengths = load_data(phase_name, main_data, sub_data)
@@ -86,7 +103,7 @@ def _build_train_loader_epoch(phase_name, main_data, sub_data, train_ratio, val_
 
     return train_ds
 
-def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_save_path, train_ratio, val_ratio, batch_size, num_workers, phase_name, penalty_engine, resample_per_epoch=False, resume_checkpoint_path: Path = None):
+def finetune(model_raw, optimizer, device, main_data, sub_data, num_epochs, model_save_path, train_ratio, val_ratio, batch_size, num_workers, phase_name, penalty_engine, resample_per_epoch=False, resume_checkpoint_path: Path = None, profile_kernels=False):
     print(f"╠════════════════════════════════════════════════════════════════════════════════════╣")
     print(f"║                               BẮT ĐẦU LOAD {phase_name.upper():<4} DATA                               ║")
     print(f"╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -113,7 +130,7 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
-        total_steps = len(train_ds) * num_epochs
+        total_steps = math.ceil(len(train_ds) / accumulation_steps) * num_epochs
 
     else:
         val_ds, test_ds, train_size, val_size, test_size = _build_val_test_loaders(
@@ -123,28 +140,46 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
 
         train_ds = _build_train_loader_epoch(phase_name, main_data, sub_data, train_ratio, val_ratio, batch_size, num_workers, epoch=0)
         steps_per_epoch = len(train_ds)
-        total_steps = steps_per_epoch * num_epochs
+        total_steps = math.ceil(steps_per_epoch / accumulation_steps) * num_epochs
 
     warmup_steps = int(total_steps * 0.15)
     lr_lambda = get_step_lr_lambda(warmup_steps, total_steps)
     scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
     log_progress(f"Step-based LR: warmup={warmup_steps} steps, total={total_steps} steps")
 
-    criterion = nn.CrossEntropyLoss(reduction="none")
     best_val_loss = float("inf")
     global_step = 0
     start_epoch = 0
     use_penalty = penalty_engine is not None and len(penalty_engine.rules) > 0
-    scaler = torch.amp.GradScaler('cuda', enabled=torch.cuda.is_available())
-
     checkpoint_path = model_save_path.with_suffix(".ckpt.pt")
     if resume_checkpoint_path is not None:
         if resume_checkpoint_path.exists():
             start_epoch, global_step, best_val_loss = load_checkpoint(
-                resume_checkpoint_path, model, optimizer, scheduler, scaler, device
+                resume_checkpoint_path, model_raw, optimizer, scheduler, device
             )
         else:
             log_progress(f"[WARNING] Checkpoint not found at {resume_checkpoint_path}. Starting from scratch.")
+
+    flops_info = estimate_training_flops(
+        model=model_raw,
+        num_layers=num_layers,
+        max_seq_len=max_seq_len,
+        d_model=d_model,
+        epochs=num_epochs,
+        batches_per_epoch=len(train_ds),
+        batch_size=batch_size,
+    )
+    print_training_flops_summary(flops_info, num_epochs)
+    bench = TflopsBenchmarker(
+        flops_per_token=flops_info["flops_per_token"],
+        total_flops_needed=flops_info["total_flops"],
+        total_batches_per_epoch=flops_info["total_batches_per_epoch"],
+        epochs=num_epochs,
+        device=device,
+        warmup_steps=100,
+        target_steps=500,
+    )
+    kernel_logger = KernelLogger(enabled=profile_kernels, log_step=500)
 
     for epoch in range(start_epoch, num_epochs):
 
@@ -154,50 +189,75 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
                 phase_name, main_data, sub_data, train_ratio, val_ratio, batch_size, num_workers, epoch
             )
 
-        model.train()
-        train_loss = 0.0
+        model_raw.train()
+        train_loss = torch.zeros((), device=device)
         batch_count = 0
         total_batches = len(train_ds)
+        penalty = torch.zeros((), device=device)
 
         optimizer.zero_grad(set_to_none=True)
-        for batch_idx, (X_batch, Y_batch, sample_weight, attention_mask) in enumerate(train_ds):
+        for batch_idx, (X_batch, Y_batch, sample_weight, attention_mask, has_padding) in enumerate(train_ds):
             X_batch = X_batch.to(device, non_blocking=True)
             Y_batch = Y_batch.to(device, non_blocking=True)
             sample_weight = sample_weight.to(device, non_blocking=True)
             attention_mask = attention_mask.to(device, non_blocking=True)
 
-            with torch.autocast(device_type="cuda", dtype=torch.float16, enabled=torch.cuda.is_available()):
-                outputs = model(X_batch, attention_mask=attention_mask)
-                loss_per_token = criterion(outputs.view(-1, outputs.size(-1)), Y_batch.view(-1))
+            _is_bench_step = bench.is_bench_step(epoch, start_epoch, batch_idx)
+            if _is_bench_step:
+                bench.on_step_begin(batch_idx, X_batch.shape[0] * X_batch.shape[1])
 
-                num_valid_tokens = sample_weight.sum()
-                ce_loss = (loss_per_token * sample_weight.view(-1)).sum() / (num_valid_tokens + 1e-8)
+            _is_kernel_log = kernel_logger.should_log(epoch, start_epoch, batch_idx)
+            if _is_kernel_log:
+                kernel_logger.start()
 
-                if use_penalty:
-                    penalty = penalty_engine(logits=outputs, inputs=X_batch, targets=Y_batch, loss_mask=sample_weight)
-                    loss = ce_loss + penalty
-                else:
-                    loss = ce_loss
+            with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
+                hidden = model_features(
+                    X_batch,
+                    attention_mask=attention_mask,
+                    has_padding=has_padding,
+                )
+                hidden_flat = hidden.reshape(-1, hidden.size(-1))
+                inputs_flat = X_batch.reshape(-1)
+                targets_flat = Y_batch.reshape(-1)
+                weight_flat = sample_weight.reshape(-1)
+                num_valid_tokens = weight_flat.sum()
+
+                ce_sum, penalty_sum = chunked_sft_loss(
+                    hidden_flat,
+                    model_raw.lm_head.weight,
+                    inputs_flat,
+                    targets_flat,
+                    weight_flat,
+                    penalty_engine=penalty_engine if use_penalty else None,
+                    chunk_size=LM_LOSS_CHUNK_SIZE,
+                )
+                ce_loss = ce_sum / (num_valid_tokens + 1e-8)
+                penalty = penalty_sum / (num_valid_tokens + 1e-8)
+                loss = ce_loss + penalty
 
             scaled_loss = loss / accumulation_steps
             scaler.scale(scaled_loss).backward()
+            penalty_for_log = penalty.detach()
+
+            if _is_kernel_log:
+                kernel_logger.stop_and_report(batch_idx, epoch, device)
 
             if (batch_idx + 1) % accumulation_steps == 0 or (batch_idx + 1) == total_batches:
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+                torch.nn.utils.clip_grad_norm_(model_raw.parameters(), max_norm=1.0)
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad(set_to_none=True)
                 scheduler.step()
                 global_step += 1
 
-            train_loss += loss.item()
+            train_loss += loss.detach()
             batch_count += 1
             current_lr = optimizer.param_groups[0]["lr"]
 
             if (batch_idx + 1) % 10 == 0 or (batch_idx + 1) == total_batches:
-                avg_loss = train_loss / batch_count
-                penalty_str = f" | penalty: {penalty.item():.4f}" if use_penalty else ""
+                avg_loss = (train_loss / batch_count).item()
+                penalty_str = f" | penalty: {penalty_for_log.item():.4f}" if use_penalty else ""
                 print(
                     f"\r{phase_name} | Epoch {epoch+1}/{num_epochs} "
                     f"- Step {global_step}/{total_steps} "
@@ -206,63 +266,93 @@ def finetune(model, optimizer, device, main_data, sub_data, num_epochs, model_sa
                     end=""
                 )
 
-        print()
-        train_loss /= len(train_ds)
+            if _is_bench_step:
+                bench.on_step_end(batch_idx)
 
-        model.eval()
-        val_loss = 0.0
+            del X_batch, Y_batch, hidden, hidden_flat, inputs_flat, targets_flat
+            del weight_flat, num_valid_tokens, loss, scaled_loss, ce_loss, penalty
+            del penalty_for_log, ce_sum, penalty_sum, sample_weight, attention_mask
+
+        print()
+        train_loss = (train_loss / len(train_ds)).item()
+
+        model_raw.eval()
+        val_loss = torch.zeros((), device=device)
         with torch.no_grad():
-            for X_batch, Y_batch, sample_weight, attention_mask in val_ds:
+            for X_batch, Y_batch, sample_weight, attention_mask, has_padding in val_ds:
                 X_batch = X_batch.to(device, non_blocking=True)
                 Y_batch = Y_batch.to(device, non_blocking=True)
                 sample_weight = sample_weight.to(device, non_blocking=True)
                 attention_mask = attention_mask.to(device, non_blocking=True)
 
-                with torch.autocast(device_type="cuda", dtype=torch.float16, enabled=torch.cuda.is_available()):
-                    outputs = model(X_batch, attention_mask=attention_mask)
-                    loss_per_token = criterion(outputs.view(-1, outputs.size(-1)), Y_batch.view(-1))
-                num_valid_tokens = sample_weight.sum()
-                loss = (loss_per_token * sample_weight.view(-1)).sum() / (num_valid_tokens + 1e-8)
-                val_loss += loss.item()
+                with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
+                    hidden = model_features(
+                        X_batch,
+                        attention_mask=attention_mask,
+                        has_padding=has_padding,
+                    )
+                    hidden_flat = hidden.reshape(-1, hidden.size(-1))
+                    targets_flat = Y_batch.reshape(-1)
+                    weight_flat = sample_weight.reshape(-1)
+                    num_valid_tokens = weight_flat.sum()
+                    loss_sum = chunked_lm_loss(
+                        hidden_flat,
+                        model_raw.lm_head.weight,
+                        targets_flat,
+                        weight_flat,
+                        chunk_size=LM_LOSS_CHUNK_SIZE,
+                    )
+                    loss = loss_sum / (num_valid_tokens + 1e-8)
+                val_loss += loss.detach()
 
-        val_loss /= len(val_ds)
+        val_loss = (val_loss / len(val_ds)).item()
         log_progress(f"{phase_name} Epoch {epoch+1}/{num_epochs} | Train Loss: {train_loss:.4f} | Val Loss (CE only): {val_loss:.4f}")
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            torch.save(model.state_dict(), model_save_path)
+            torch.save(model_raw.state_dict(), model_save_path)
             log_progress(f"Epoch {epoch+1}: Saving model and checkpoint")
 
         save_checkpoint(
             checkpoint_path, epoch, global_step,
-            model, optimizer, scheduler, scaler, best_val_loss
+            model_raw, optimizer, scheduler, best_val_loss
         )
-
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
 
     print(f"╠════════════════════════════════════════════════════════════════════════════════════╣")
     print(f"║                            ĐÁNH GIÁ {phase_name.upper():<4} TRÊN TEST SET                             ║")
     print(f"╠════════════════════════════════════════════════════════════════════════════════════╣")
 
-    model.load_state_dict(torch.load(model_save_path))
-    model.eval()
-    test_loss = 0.0
+    model_raw.load_state_dict(torch.load(model_save_path, map_location=device))
+    model_raw.eval()
+    test_loss = torch.zeros((), device=device)
     with torch.no_grad():
-        for X_batch, Y_batch, sample_weight, attention_mask in test_ds:
+        for X_batch, Y_batch, sample_weight, attention_mask, has_padding in test_ds:
             X_batch = X_batch.to(device, non_blocking=True)
             Y_batch = Y_batch.to(device, non_blocking=True)
             sample_weight = sample_weight.to(device, non_blocking=True)
             attention_mask = attention_mask.to(device, non_blocking=True)
 
-            with torch.autocast(device_type="cuda", dtype=torch.float16, enabled=torch.cuda.is_available()):
-                outputs = model(X_batch, attention_mask=attention_mask)
-                loss_per_token = criterion(outputs.view(-1, outputs.size(-1)), Y_batch.view(-1))
-            num_valid_tokens = sample_weight.sum()
-            loss = (loss_per_token * sample_weight.view(-1)).sum() / (num_valid_tokens + 1e-8)
-            test_loss += loss.item()
+            with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
+                hidden = model_features(
+                    X_batch,
+                    attention_mask=attention_mask,
+                    has_padding=has_padding,
+                )
+                hidden_flat = hidden.reshape(-1, hidden.size(-1))
+                targets_flat = Y_batch.reshape(-1)
+                weight_flat = sample_weight.reshape(-1)
+                num_valid_tokens = weight_flat.sum()
+                loss_sum = chunked_lm_loss(
+                    hidden_flat,
+                    model_raw.lm_head.weight,
+                    targets_flat,
+                    weight_flat,
+                    chunk_size=LM_LOSS_CHUNK_SIZE,
+                )
+                loss = loss_sum / (num_valid_tokens + 1e-8)
+            test_loss += loss.detach()
 
-    test_loss /= len(test_ds)
+    test_loss = (test_loss / len(test_ds)).item()
     log_progress(f"{phase_name} Test Loss (CE only): {test_loss:.4f}")
     print(f"╠════════════════════════════════════════════════════════════════════════════════════╣")
 
@@ -299,10 +389,41 @@ penalty_engine = (PenaltyEngine()
     .add_rule(FocalOverconfidencePenalty(weight=config["penalty_focal_weight"], gamma=config["penalty_focal_gamma"]))
 )
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-log_progress(f"Sử dụng device: {device}")
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    torch.backends.cudnn.benchmark = True
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
-model = TransformerModel(vocab_size, d_model, num_heads, num_kv_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
+amp_enabled = device.type == "cuda"
+amp_dtype = torch.bfloat16 if amp_enabled and torch.cuda.is_bf16_supported() else torch.float16
+scaler = GradScaler("cuda", enabled=amp_enabled and amp_dtype == torch.float16)
+log_progress(f"Sử dụng device: {device}")
+if amp_enabled:
+    precision_name = "BF16" if amp_dtype == torch.bfloat16 else "FP16 + GradScaler"
+    log_progress(f"CUDA mixed precision: {precision_name}")
+
+model_raw = TransformerModel(vocab_size, d_model, num_heads, num_kv_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
+# Giữ alias `model` để không thay khung dispatch phase hiện tại.
+model = model_raw
+if args.limited_max_autotune:
+    compile_options = {
+        "max_autotune": True,
+        "max_autotune_gemm_backends": "ATEN,TRITON",
+        "max_autotune_gemm_search_space": "DEFAULT",
+        "epilogue_fusion": True,
+        "triton.cudagraphs": False,
+    }
+    model_features = torch.compile(
+        model_raw.forward_features,
+        dynamic=True,
+        options=compile_options,
+    )
+    log_progress("torch.compile: limited max-autotune (ATEN,TRITON; DEFAULT; dynamic=True; CUDA Graph off)")
+else:
+    model_features = torch.compile(model_raw.forward_features, dynamic=True)
 
 phase = args.phase
 if phase == "sft1":
@@ -312,7 +433,8 @@ if phase == "sft1":
 
     optimizer_sft1 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay
+        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -325,6 +447,7 @@ if phase == "sft1":
         penalty_engine=penalty_engine,
         resample_per_epoch=False,
         resume_checkpoint_path=None,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT1 Test Loss: {test_loss:.4f}")
 
@@ -334,7 +457,8 @@ elif phase == "sft1_resume":
 
     optimizer_sft1 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay
+        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -347,6 +471,7 @@ elif phase == "sft1_resume":
         penalty_engine=penalty_engine,
         resample_per_epoch=False,
         resume_checkpoint_path=sft1_ckpt_path,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT1 Test Loss: {test_loss:.4f}")
 
@@ -358,7 +483,8 @@ elif phase == "sft2":
 
     optimizer_sft2 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay
+        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -371,6 +497,7 @@ elif phase == "sft2":
         penalty_engine=penalty_engine,
         resample_per_epoch=True,
         resume_checkpoint_path=None,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT2 Test Loss: {test_loss:.4f}")
 
@@ -381,7 +508,8 @@ elif phase == "sft2_resume":
 
     optimizer_sft2 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay
+        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -394,6 +522,7 @@ elif phase == "sft2_resume":
         penalty_engine=penalty_engine,
         resample_per_epoch=True,
         resume_checkpoint_path=sft2_ckpt_path,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT2 Test Loss: {test_loss:.4f}")
 
@@ -405,7 +534,8 @@ elif phase == "full":
 
     optimizer_sft1 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay
+        lr=sft1_learning_rate, weight_decay=sft1_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -418,6 +548,7 @@ elif phase == "full":
         penalty_engine=penalty_engine,
         resample_per_epoch=False,
         resume_checkpoint_path=None,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT1 Test Loss: {test_loss:.4f}")
 
@@ -429,7 +560,8 @@ elif phase == "full":
 
     optimizer_sft2 = optim.AdamW(
         filter(lambda p: p.requires_grad, model.parameters()),
-        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay
+        lr=sft2_learning_rate, weight_decay=sft2_learning_weight_decay,
+        fused=amp_enabled,
     )
 
     test_loss = finetune(
@@ -442,6 +574,7 @@ elif phase == "full":
         penalty_engine=penalty_engine,
         resample_per_epoch=True,
         resume_checkpoint_path=None,
+        profile_kernels=args.profile_kernels,
     )
     log_progress(f"SFT2 Test Loss: {test_loss:.4f}")
 

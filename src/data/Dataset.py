@@ -30,7 +30,7 @@ class Dataset(torch.utils.data.Dataset):
         log_progress(f"Đang tạo dataset từ {len(X)} samples...")
         indices = np.arange(len(X))
         dataset = cls(X, Y, lengths, indices, loss_masks)
-        bucket_size = 50
+        bucket_size = 128
         PAD_ID = 0
 
         def collate_fn(batch):

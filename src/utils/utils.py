@@ -1,5 +1,6 @@
 import torch
 import time
+import json
 from pathlib import Path
 
 def get_step_lr_lambda(warmup_steps, total_steps):
@@ -145,6 +146,8 @@ class TflopsBenchmarker:
         measured_steps = self.target_steps - self.warmup_steps
         flops = self.flops_per_token * self.tokens
         tflops_per_sec = (flops / elapsed) / 1e12 if elapsed > 0 else 0.0
+        avg_time_per_step = elapsed / measured_steps if measured_steps > 0 else 0.0
+        token_slots_per_sec = self.tokens / elapsed if elapsed > 0 else 0.0
 
         print()
         print("╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -153,11 +156,15 @@ class TflopsBenchmarker:
             f"(step {self.warmup_steps + 1} → {self.target_steps}), "
             f"mat {elapsed:.2f}s (da bo qua {self.warmup_steps} step warm-up dau)"
         )
+        print(f"[DO TOC DO] Trung binh moi step: {avg_time_per_step * 1000:,.2f} ms/step")
+        print(f"[DO TOC DO] Thong luong tensor thuc te: {token_slots_per_sec:,.0f} token-slot/s")
 
         if tflops_per_sec > 0:
-            print(f"[DO TFLOPS] TFLOPS do duoc thuc te cua phan cung: {tflops_per_sec:,.2f} TFLOPS")
+            print(
+                f"[DO TFLOPS] TFLOPS uoc tinh theo cong thuc model: "
+                f"{tflops_per_sec:,.2f} TFLOPS"
+            )
 
-            avg_time_per_step = elapsed / measured_steps
             total_steps_all_epochs = self.epochs * self.total_batches_per_epoch
 
             est_time_actual = avg_time_per_step * total_steps_all_epochs
@@ -205,7 +212,7 @@ class KernelLogger:
 
         self._prof_ctx.__exit__(None, None, None)
 
-        key_avgs = self._prof_ctx.key_averages()
+        key_avgs = self._prof_ctx.key_averages(group_by_input_shape=True)
 
         def _self_cuda_us(e):
             if hasattr(e, "self_cuda_time_total"):
@@ -235,17 +242,28 @@ class KernelLogger:
                 if total_self_cpu > 0 else 0.0
             )
 
-            if cuda_pct >= 1.0:
-                rows.append((
-                    e.key,
-                    self_cuda,
-                    cuda_total,
-                    cuda_pct,
-                    cpu_pct,
-                    e.count,
-                ))
+            if cuda_pct >= 0.1 or cpu_pct >= 1.0:
+                rows.append({
+                    "name": e.key,
+                    "input_shapes": e.input_shapes,
+                    "self_cuda_ms": self_cuda / 1000,
+                    "cuda_total_ms": cuda_total / 1000,
+                    "cuda_pct": cuda_pct,
+                    "self_cpu_ms": e.self_cpu_time_total / 1000,
+                    "cpu_total_ms": e.cpu_time_total / 1000,
+                    "cpu_pct": cpu_pct,
+                    "calls": e.count,
+                    "flops": getattr(e, "flops", 0),
+                    "self_cpu_memory_bytes": getattr(e, "self_cpu_memory_usage", 0),
+                    "self_device_memory_bytes": getattr(e, "self_device_memory_usage", 0),
+                    "source_stack": list(getattr(e, "stack", []))[:5],
+                })
 
-        rows.sort(key=lambda r: r[3], reverse=True)
+        rows.sort(
+            key=lambda r: (r["self_cuda_ms"], r["self_cpu_ms"]),
+            reverse=True,
+        )
+        rows = rows[:100]
 
         print()
         print("╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -259,21 +277,52 @@ class KernelLogger:
             f"{'Calls':>9}"
         )
 
-        for name, self_cuda, cuda_total, cuda_pct, cpu_pct, count in rows:
+        for row in rows:
             print(
-                f"{name[:55]:<55}"
-                f"{self_cuda/1000:>9.2f}ms"
-                f"{cuda_total/1000:>9.2f}ms"
-                f"{cuda_pct:>8.2f}%"
-                f"{cpu_pct:>8.2f}%"
-                f"{count:>9}"
+                f"{row['name'][:55]:<55}"
+                f"{row['self_cuda_ms']:>9.2f}ms"
+                f"{row['cuda_total_ms']:>9.2f}ms"
+                f"{row['cuda_pct']:>8.2f}%"
+                f"{row['cpu_pct']:>8.2f}%"
+                f"{row['calls']:>9}"
             )
 
-        trace_file = f"torch_profile_epoch{epoch+1}_step{batch_idx}.json"
-        self._prof_ctx.export_chrome_trace(trace_file)
+        device_info = {"type": device.type}
+        if device.type == "cuda":
+            device_info.update({
+                "name": torch.cuda.get_device_name(device),
+                "capability": list(torch.cuda.get_device_capability(device)),
+            })
+
+        report = {
+            "format": "compact-kernel-profile-v1",
+            "torch_version": torch.__version__,
+            "device": device_info,
+            "epoch": epoch + 1,
+            "batch_idx": batch_idx,
+            "display_step": batch_idx + 1,
+            "totals": {
+                "self_cuda_ms": total_self_cuda / 1000,
+                "self_cpu_ms": total_self_cpu / 1000,
+            },
+            "filters": {
+                "min_cuda_pct": 0.1,
+                "min_cpu_pct": 1.0,
+                "max_rows": 100,
+            },
+            "operators": rows,
+        }
+
+        trace_file = Path(
+            f"torch_profile_epoch{epoch+1}_step{batch_idx}_summary.json"
+        )
+        trace_file.write_text(
+            json.dumps(report, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
 
         print("────────────────────────────────────────────────────────────────────────────────────")
-        print(f"Chrome Trace: {trace_file}")
+        print(f"Compact profiler JSON: {trace_file}")
         print("╠════════════════════════════════════════════════════════════════════════════════════╣")
 
         self.reported = True

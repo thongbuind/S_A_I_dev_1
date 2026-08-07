@@ -2,7 +2,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.amp import autocast
+from torch.amp import GradScaler, autocast
 import torch._dynamo
 import logging
 import json
@@ -25,8 +25,12 @@ parser.add_argument(
     "--profile-kernels", action="store_true",
     help="Chỉ chạy 1 lần duy nhất, log tên kernel CPU/CUDA tại 1 step rồi thôi (dùng để debug performance)"
 )
+parser.add_argument(
+    "--limited-max-autotune", action="store_true",
+    help="Bật max-autotune giới hạn cho forward_features (chỉ ATEN/TRITON, không exhaustive/CUDA Graph)"
+)
 args = parser.parse_args()
-torch._dynamo.config.cache_size_limit = 64
+torch._dynamo.config.cache_size_limit = 24
 logging.getLogger("torch._inductor.select_algorithm").setLevel(logging.ERROR)
 model_size = args.model
 
@@ -48,10 +52,7 @@ pretrained_ckpt_path = model_dir / f"pretrained_{model_size}.ckpt.pt"
 continued_pretrained_save_path = model_dir / f"continued_pretrained_{model_size}.pt"
 continued_pretrained_ckpt_path = model_dir / f"continued_pretrained_{model_size}.ckpt.pt"
 
-# Peak VRAM cho logits mỗi chunk ~ LM_LOSS_CHUNK_SIZE * vocab_size * 4 bytes (fp32).
-# Tune số này lên nếu còn dư VRAM (giảm số lần loop), giảm xuống nếu OOM.
 LM_LOSS_CHUNK_SIZE = 4096
-
 
 def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, num_workers, extra_file=None, model_save_path=None, resume_checkpoint_path=None, profile_kernels=False):
     print("╠════════════════════════════════════════════════════════════════════════════════════╣")
@@ -73,11 +74,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
     del X_train, Y_train, lengths_train, X_val, Y_val, lengths_val, X_test, Y_test, lengths_test
     gc.collect()
 
-    global optimizer
-    # model_raw.parameters() -- KHÔNG dùng model.parameters() của wrapper compile để
-    # tránh mọi rủi ro liên quan tới cách OptimizedModule proxy tham số ở các version
-    # PyTorch khác nhau. model_raw và model (compiled) chia sẻ chung tensor tham số
-    # nên optimizer.step() vẫn cập nhật đúng trọng số dùng trong forward compiled.
+    global optimizer, scaler
     optimizer = optim.AdamW(model_raw.parameters(), lr=learning_rate, weight_decay=weight_decay, fused=True)
 
     total_steps = math.ceil(len(train_ds) / accumulation_steps) * epochs
@@ -127,9 +124,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
             if _is_kernel_log:
                 kernel_logger.start()
 
-            with autocast(device_type='cuda', dtype=torch.bfloat16, enabled=(device.type == 'cuda')):
-                # gọi qua `model_features` (bản đã torch.compile) để hưởng lợi fuse kernel,
-                # DỪNG TRƯỚC lm_head -> chưa vật lý hóa logits full ở đây
+            with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
                 hidden = model_features(X_batch, attention_mask=attention_mask, has_padding=has_padding)
                 hidden_flat = hidden.reshape(-1, hidden.size(-1))
                 targets_flat = Y_batch.reshape(-1)
@@ -142,14 +137,16 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
                 loss = loss_sum / (num_valid_tokens + 1e-8)
 
             scaled_loss = loss / accumulation_steps
-            scaled_loss.backward()
+            scaler.scale(scaled_loss).backward()
 
             if _is_kernel_log:
                 kernel_logger.stop_and_report(batch_idx, epoch, device)
 
             if (batch_idx + 1) % accumulation_steps == 0 or (batch_idx + 1) == total_batches:
+                scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_(model_raw.parameters(), max_norm=1.0)
-                optimizer.step()
+                scaler.step(optimizer)
+                scaler.update()
 
                 optimizer.zero_grad()
                 scheduler.step()
@@ -181,7 +178,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
                 sample_weight = sample_weight.to(device, non_blocking=True)
                 attention_mask = attention_mask.to(device, non_blocking=True)
 
-                with autocast(device_type='cuda', dtype=torch.bfloat16, enabled=(device.type == 'cuda')):
+                with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
                     hidden = model_features(X_batch, attention_mask=attention_mask, has_padding=has_padding)
                     hidden_flat = hidden.reshape(-1, hidden.size(-1))
                     targets_flat = Y_batch.reshape(-1)
@@ -230,7 +227,7 @@ def train_loop(data_type, tokenized_file, epochs, learning_rate, weight_decay, n
             sample_weight = sample_weight.to(device, non_blocking=True)
             attention_mask = attention_mask.to(device, non_blocking=True)
 
-            with autocast(device_type='cuda', dtype=torch.bfloat16, enabled=(device.type == 'cuda')):
+            with autocast(device_type=device.type, dtype=amp_dtype, enabled=amp_enabled):
                 hidden = model_features(X_batch, attention_mask=attention_mask, has_padding=has_padding)
                 hidden_flat = hidden.reshape(-1, hidden.size(-1))
                 targets_flat = Y_batch.reshape(-1)
@@ -285,9 +282,32 @@ elif torch.backends.mps.is_available():
 else:
     device = torch.device("cpu")
 
+amp_enabled = device.type == "cuda"
+amp_dtype = torch.bfloat16 if amp_enabled and torch.cuda.is_bf16_supported() else torch.float16
+scaler = GradScaler("cuda", enabled=amp_enabled and amp_dtype == torch.float16)
+
+if amp_enabled:
+    precision_name = "BF16" if amp_dtype == torch.bfloat16 else "FP16 + GradScaler"
+    log_progress(f"CUDA mixed precision: {precision_name}")
+
 model_raw = TransformerModel(vocab_size, d_model, num_heads, num_kv_heads, num_layers, ff_dim, max_seq_len, dropout).to(device)
 model = torch.compile(model_raw, dynamic=True)
-model_features = torch.compile(model_raw.forward_features, dynamic=True)
+if args.limited_max_autotune:
+    compile_options = {
+        "max_autotune": True,
+        "max_autotune_gemm_backends": "ATEN,TRITON",
+        "max_autotune_gemm_search_space": "DEFAULT",
+        "epilogue_fusion": True,
+        "triton.cudagraphs": False,
+    }
+    model_features = torch.compile(
+        model_raw.forward_features,
+        dynamic=True,
+        options=compile_options,
+    )
+    log_progress("torch.compile: limited max-autotune (ATEN,TRITON; DEFAULT; dynamic=True; CUDA Graph off)")
+else:
+    model_features = torch.compile(model_raw.forward_features, dynamic=True)
 optimizer = optim.AdamW(model_raw.parameters(), lr=pretrain_learning_rate, weight_decay=pretrain_weight_decay, fused=True)
 
 print("╠════════════════════════════════════════════════════════════════════════════════════╣")
