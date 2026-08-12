@@ -1,4 +1,4 @@
-# SAI_35M — Mô hình ngôn ngữ **decoder-only Transformer** thuần Việt
+# SAI — Mô hình ngôn ngữ **decoder-only Transformer** thuần Việt
 
 ## Kiến trúc mô hình
 
