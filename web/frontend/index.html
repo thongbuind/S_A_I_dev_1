@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAI - Powered by Nidai</title>
+<script src="theme.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="ui-foundation.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="glass-island">
+  <div class="nav-logo">SAI</div>
+  <div class="nav-divider"></div>
+  <div class="nav-links">
+    <a class="nav-link" href="#feat-2">Giới thiệu</a>
+    <a class="nav-link" href="#feat-3">Kiến trúc</a>
+    <a class="nav-link" href="#feat-4">Demo</a>
+  </div>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle glass-control" id="themeToggle" aria-label="Chuyển theme" title="Chuyển giao diện sáng/tối">
+    <!-- Sun icon (dark → switch to light) -->
+    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </svg>
+    <!-- Moon icon (light → switch to dark) -->
+    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+    </svg>
+  </button>
+  <button class="nav-cta glass-control" onclick="window.location.href='/chat'">Bắt đầu</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <h1 class="hero-title">SAI</h1>
+  <p class="hero-sub">powered by Nidai</p>
+  <p class="hero-tagline">Mô hình ngôn ngữ <strong>thuần Việt</strong>, sáng tạo và tự nhiên<br>đồng hành cùng bạn trong cuộc sống.</p>
+  <div class="hero-actions">
+    <button class="btn-primary glass-control" onclick="window.location.href='/chat'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Bắt đầu ngay
+    </button>
+    <button class="btn-secondary glass-control" onclick="document.getElementById('feat-2').scrollIntoView({behavior:'smooth'})">Khám phá tính năng</button>
+  </div>
+  <div class="scroll-hint" onclick="document.getElementById('feat-2').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span class="scroll-hint-label">Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- SECTION 2: GIỚI THIỆU -->
+<section class="feat-section" id="feat-2" style="padding:100px 24px;">
+  <div style="max-width:860px;width:100%;display:flex;flex-direction:column;gap:64px;text-align:left;">
+    <div class="reveal">
+      <h2 style="font-size:clamp(36px,6vw,68px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:var(--text-1);">
+        Build <em style="font-style:italic;font-weight:300;color:var(--feat-title-em-color);">from scratch</em><br>
+        <em style="font-style:italic;font-weight:300;color:var(--feat-title-em-color);">Open</em> source
+      </h2>
+      <p style="margin-top:20px;font-size:17px;font-weight:300;line-height:1.85;color:var(--feat-desc-color);max-width:580px;">
+        SAI không được fine-tune từ mô hình có sẵn. Toàn bộ kiến trúc, code huấn luyện, và bộ tham số đều được
+        <strong style="color:var(--intro-strong-color);font-weight:500;">xây dựng từ con số 0</strong> bởi
+        <strong style="color:var(--intro-strong-color);font-weight:500;">Nidai</strong>.
+      </p>
+    </div>
+
+    <!-- 3 pillars -->
+    <div class="reveal reveal-delay-1 feat-2-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;border-radius:16px;overflow:hidden;border:1px solid var(--pillar-wrapper-border);">
+      <div class="pillar-card glass-panel" style="padding:32px 28px;background:var(--pillar-bg);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--pillar-top-line);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--pillar-icon-bg);border:1px solid var(--pillar-icon-border);display:flex;align-items:center;justify-content:center;color:var(--pillar-icon-color);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--pillar-title-color);margin-bottom:8px;">Mã nguồn mở 100%</div>
+          <div style="font-size:13px;font-weight:300;line-height:1.7;color:var(--pillar-desc-color);">Từ tokenizer, training loop đến checkpoint - tất cả public trên GitHub. Không có gì ẩn sau cánh gà.</div>
+        </div>
+        <a href="https://github.com/thongbuind/SAI_dev2" target="_blank" rel="noopener noreferrer"
+           style="font-size:12px;color:var(--pillar-link-color);text-decoration:none;font-weight:500;letter-spacing:0.04em;margin-top:auto;display:flex;align-items:center;gap:5px;">
+          Xem repo
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="pillar-card glass-panel" style="padding:32px 28px;background:var(--pillar-bg);display:flex;flex-direction:column;gap:16px;border-left:1px solid var(--pillar-border);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--pillar-top-line);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--pillar-icon-bg);border:1px solid var(--pillar-icon-border);display:flex;align-items:center;justify-content:center;color:var(--pillar-icon-color);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--pillar-title-color);margin-bottom:8px;">Nhỏ gọn, chuyên biệt</div>
+          <div style="font-size:13px;font-weight:300;line-height:1.7;color:var(--pillar-desc-color);">Không chạy đua thông số với Big Tech. SAI được tối ưu cho từng tác vụ cụ thể - chạy được trên phần cứng bình dân.</div>
+        </div>
+      </div>
+      <div class="pillar-card glass-panel" style="padding:32px 28px;background:var(--pillar-bg);display:flex;flex-direction:column;gap:16px;border-left:1px solid var(--pillar-border);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--pillar-top-line);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--pillar-icon-bg);border:1px solid var(--pillar-icon-border);display:flex;align-items:center;justify-content:center;color:var(--pillar-icon-color);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--pillar-title-color);margin-bottom:8px;">Sứ mệnh tự chủ</div>
+          <div style="font-size:13px;font-weight:300;line-height:1.7;color:var(--pillar-desc-color);">Thiết kế LLM giá rẻ, made in Vietnam. Không phụ thuộc OpenAI, Google, hay bất kỳ Big Tech nào.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="reveal reveal-delay-2 feat-2-quote glass-quote glass-content"
+         style="display:flex;gap:32px;align-items:flex-start;padding:36px 40px;border-radius:16px;background:var(--quote-bg);border:1px solid var(--quote-border);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--quote-line);border-radius:3px 0 0 3px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px;">
+        <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(18px,2.2vw,24px);font-style:italic;font-weight:300;line-height:1.7;color:var(--quote-text-color);">
+          "Bước cùng kỷ nguyên vương mình của dân tộc Việt Nam hùng cường"
+        </p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--quote-avatar-bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--quote-avatar-color);letter-spacing:0.04em;flex-shrink:0;">N</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--quote-author-color);">Nidai</div>
+            <div style="font-size:12px;color:var(--quote-role-color);font-weight:300;">Sinh viên · Founder · Builder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download and quick start -->
+    <div class="reveal reveal-delay-3 download-section">
+      <div class="download-terminal">
+        <div class="download-terminal-bar">
+          <span class="terminal-dot" style="background:var(--terminal-dot-red);"></span>
+          <span class="terminal-dot" style="background:var(--terminal-dot-yellow);"></span>
+          <span class="terminal-dot" style="background:var(--terminal-dot-green);"></span>
+          <span class="terminal-badge">QUICK START</span>
+        </div>
+        <div class="download-terminal-body">
+          <div class="terminal-label">Cài đặt thư viện</div>
+          <pre class="download-code"><code><span class="prompt">$</span> <span class="command">pip install torch transformers sentencepiece</span></code></pre>
+          <div class="terminal-label terminal-label-example">Ví dụ chạy thử</div>
+          <pre class="download-code"><code><span class="syntax-keyword">import</span> <span class="syntax-module">torch</span>
+<span class="syntax-keyword">from</span> <span class="syntax-module">transformers</span> <span class="syntax-keyword">import</span> <span class="syntax-class">AutoModelForCausalLM</span>, <span class="syntax-class">AutoTokenizer</span>
+
+
+model_id = <span class="syntax-string">"thongbuind/SAI_35M"</span>
+
+tokenizer = <span class="syntax-class">AutoTokenizer</span>.<span class="syntax-function">from_pretrained</span>(
+    model_id,
+    trust_remote_code=<span class="syntax-boolean">True</span>,
+)
+model = <span class="syntax-class">AutoModelForCausalLM</span>.<span class="syntax-function">from_pretrained</span>(
+    model_id,
+    trust_remote_code=<span class="syntax-boolean">True</span>,
+)
+device = <span class="syntax-string">"cuda"</span> <span class="syntax-keyword">if</span> torch.cuda.<span class="syntax-function">is_available</span>() <span class="syntax-keyword">else</span> (
+    <span class="syntax-string">"mps"</span> <span class="syntax-keyword">if</span> torch.backends.mps.<span class="syntax-function">is_available</span>() <span class="syntax-keyword">else</span> <span class="syntax-string">"cpu"</span>
+)
+model = model.<span class="syntax-function">to</span>(device).<span class="syntax-function">eval</span>()
+
+answer = model.<span class="syntax-function">generate</span>(
+    <span class="syntax-string">"hướng dẫn tôi cách nấu cháo gà"</span>,
+    tokenizer,
+    max_new_tokens=<span class="syntax-number">200</span>,
+    beam_size=<span class="syntax-number">5</span>,
+    penalty=<span class="syntax-number">1.2</span>,
+    no_repeat_ngram=<span class="syntax-number">3</span>,
+    early_stop=<span class="syntax-boolean">False</span>,
+    patience=<span class="syntax-number">30</span>,
+)
+<span class="syntax-function">print</span>(answer)</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: KIẾN TRÚC -->
+<section class="feat-section" id="feat-3">
+  <div class="feat-inner center" style="max-width:960px;gap:36px;">
+    <div>
+      <h2 class="feat-title reveal reveal-delay-1" style="font-size:clamp(28px,4vw,46px);">Kiến trúc <em>mô hình</em></h2>
+      <p class="feat-desc reveal reveal-delay-2" style="max-width:560px;margin:0 auto;text-align:center;">Ba phiên bản được thiết kế cho các môi trường khác nhau - từ thiết bị nhỏ gọn đến hệ thống cần độ chính xác cao hơn.</p>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="reveal reveal-delay-3 architecture-table-scroll glass-panel" style="width:100%;border-radius:16px;overflow-x:auto;border:1px solid var(--table-wrapper-border);box-shadow:var(--table-wrapper-shadow);">
+      <div class="architecture-table" style="min-width:760px;">
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;background:var(--table-header-bg);border-bottom:1px solid var(--table-header-border);">
+        <div style="padding:14px 20px;font-size:12px;font-weight:500;color:var(--table-header-label-color);letter-spacing:0.08em;text-transform:uppercase;">Tham số</div>
+        <div style="padding:14px 20px;font-size:13.5px;font-weight:600;color:var(--table-col2-color);text-align:center;border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--table-tiny-dot);"></span>SAI tiny
+        </div>
+        <div style="padding:14px 20px;font-size:13.5px;font-weight:600;color:var(--table-col3-color);text-align:center;border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--table-mini-dot);box-shadow:var(--table-mini-dot-shadow);"></span>SAI mini
+        </div>
+        <div style="padding:14px 20px;font-size:13.5px;font-weight:600;color:var(--table-col3-color);text-align:center;border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--table-small-dot);box-shadow:var(--table-small-dot-shadow);"></span>SAI small
+          <span style="font-size:10px;padding:2px 8px;border-radius:100px;background:var(--table-strongest-bg);border:1px solid var(--table-strongest-border);color:var(--purple);margin-left:4px;">mạnh nhất</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-bottom:1px solid var(--table-row-border);">
+        <div style="padding:16px 20px;display:flex;align-items:center;background:var(--table-row-bg);"><code style="font-size:11px;background:var(--table-code-bg);padding:2px 7px;border-radius:5px;color:var(--table-code-color);">d_model</code></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col2-color);font-family:'Playfair Display',serif;">512</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">768</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">1.024</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-bottom:1px solid var(--table-row-border);">
+        <div style="padding:16px 20px;display:flex;align-items:center;background:var(--table-row-bg);"><code style="font-size:11px;background:var(--table-code-bg);padding:2px 7px;border-radius:5px;color:var(--table-code-color);">num_heads</code></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col2-color);font-family:'Playfair Display',serif;">8</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">12</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">16</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-bottom:1px solid var(--table-row-border);">
+        <div style="padding:16px 20px;display:flex;align-items:center;background:var(--table-row-bg);"><code style="font-size:11px;background:var(--table-code-bg);padding:2px 7px;border-radius:5px;color:var(--table-code-color);">num_kv_heads</code></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col2-color);font-family:'Playfair Display',serif;">8</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">6</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">8</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-bottom:1px solid var(--table-row-border);">
+        <div style="padding:16px 20px;display:flex;align-items:center;background:var(--table-row-bg);"><code style="font-size:11px;background:var(--table-code-bg);padding:2px 7px;border-radius:5px;color:var(--table-code-color);">num_layers</code></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col2-color);font-family:'Playfair Display',serif;">8</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">12</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">32</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-bottom:1px solid var(--table-row-border);">
+        <div style="padding:16px 20px;display:flex;align-items:center;background:var(--table-row-bg);"><code style="font-size:11px;background:var(--table-code-bg);padding:2px 7px;border-radius:5px;color:var(--table-code-color);">ff_dim</code></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col2-color);font-family:'Playfair Display',serif;">2.048</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">3.072</span></div>
+        <div style="padding:16px 20px;text-align:center;border-left:1px solid var(--table-row-border);background:var(--table-row-bg);"><span style="font-size:20px;font-weight:600;color:var(--table-col3-color);font-family:'Playfair Display',serif;">4.096</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;background:var(--table-total-bg);">
+        <div style="padding:18px 20px;font-size:13px;color:var(--table-total-color);display:flex;align-items:center;gap:8px;font-weight:500;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          Tổng tham số
+        </div>
+        <div style="padding:18px 20px;text-align:center;border-left:1px solid var(--table-row-border);"><span style="font-size:22px;font-weight:700;color:var(--table-35m-color);font-family:'Playfair Display',serif;">35M</span></div>
+        <div style="padding:18px 20px;text-align:center;border-left:1px solid var(--table-row-border);"><span style="font-size:22px;font-weight:700;color:var(--table-100m-color);font-family:'Playfair Display',serif;">100M</span></div>
+        <div style="padding:18px 20px;text-align:center;border-left:1px solid var(--table-row-border);"><span style="font-size:22px;font-weight:700;color:var(--table-100m-color);font-family:'Playfair Display',serif;">500M</span></div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="reveal reveal-delay-4" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:-4px;">
+      <span style="font-size:11px;color:var(--tag-label-color);letter-spacing:0.1em;text-transform:uppercase;align-self:center;margin-right:4px;">Ứng dụng</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">Smarthome</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">Edge device</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">IoT</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">Chatbot</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">Trợ lý cá nhân</span>
+      <span style="padding:4px 13px;border-radius:100px;font-size:12px;background:var(--tag-bg);border:1px solid var(--tag-border);color:var(--tag-color);">Q&amp;A chuyên ngành</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: HỘI THOẠI -->
+<section class="feat-section" id="feat-4">
+  <div class="feat-inner">
+    <div class="feat-text">
+      <h2 class="feat-title reveal reveal-delay-1">Hội thoại <em>tự nhiên</em><br>ngắn gọn</h2>
+      <p class="feat-desc reveal reveal-delay-2">SAI hiểu ngữ cảnh, cảm xúc và phong cách của bạn. Không chỉ trả lời - mà thực sự lắng nghe và đồng hành trong từng cuộc trò chuyện.</p>
+    </div>
+    <div class="feat-visual glass-panel glass-content reveal reveal-delay-3" id="chat-visual">
+      <div class="chat-preview">
+        <div class="cp-bubble cp-user glass-bubble glass-content">Giải thích về transformer architecture</div>
+        <div class="cp-ai-wrap">
+          <div class="cp-typing glass-bubble glass-content" id="cp-typing">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cp-ai glass-bubble glass-content" id="cp-ai-bubble"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPER NOTICE -->
+<section id="dev-notice" style="border-top:1px solid var(--sect-border);">
+  <div style="max-width:760px;width:100%;text-align:center;">
+
+    <div class="reveal glass-control" style="display:inline-flex;align-items:center;gap:8px;padding:5px 16px 5px 10px;background:var(--devnotice-label-bg);border:1px solid var(--devnotice-label-border);border-radius:100px;font-size:11px;font-weight:500;color:var(--devnotice-label-color);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:32px;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Thông báo từ nhà phát triển
+    </div>
+
+    <h2 class="reveal reveal-delay-1" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);font-weight:700;line-height:1.2;letter-spacing:-0.01em;color:var(--devnotice-heading-color);margin-bottom:16px;">
+      Một vài điều <em style="font-style:italic;font-weight:300;color:var(--feat-title-em-color);">bạn nên biết</em>
+    </h2>
+    <p class="reveal reveal-delay-2" style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:300;color:var(--devnotice-sub-color);letter-spacing:0.07em;margin-bottom:52px;">
+      Trước khi sử dụng SAI, hãy đọc kỹ những lưu ý dưới đây.
+    </p>
+
+    <!-- Warning cards -->
+    <div class="reveal reveal-delay-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:40px;text-align:left;">
+
+      <div class="devnotice-card glass-panel glass-content" style="padding:24px;border-radius:18px;background:var(--devnotice-card-bg);border:1px solid var(--devnotice-card-border);position:relative;overflow:hidden;box-shadow:var(--devnotice-card-shadow);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--devnotice-card-line),transparent);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--devnotice-icon-bg);border:1px solid var(--devnotice-icon-border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--devnotice-icon-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3 style="font-size:14px;font-weight:600;color:var(--devnotice-card-title);margin-bottom:10px;letter-spacing:0.01em;">Học thuật · Quy mô nhỏ</h3>
+        <p style="font-size:13px;font-weight:300;line-height:1.75;color:var(--devnotice-card-desc);">SAI là dự án mang tính <strong style="color:var(--devnotice-card-strong);font-weight:500;">học thuật</strong>, với <strong style="color:var(--devnotice-card-strong);font-weight:500;">100 triệu tham số</strong> — nhỏ hơn GPT-4 <strong style="color:var(--devnotice-card-strong);font-weight:500;">176.000 lần</strong>. SAI không được xây dựng để cạnh tranh hiệu năng với các mô hình của bigtech, và không thể xử lý các tác vụ đòi hỏi tư duy logic sâu.</p>
+      </div>
+
+      <div class="devnotice-card glass-panel glass-content" style="padding:24px;border-radius:18px;background:var(--devnotice-card-bg);border:1px solid var(--devnotice-card-border);position:relative;overflow:hidden;box-shadow:var(--devnotice-card-shadow);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--devnotice-card-line),transparent);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--devnotice-icon-bg);border:1px solid var(--devnotice-icon-border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--devnotice-icon-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3 style="font-size:14px;font-weight:600;color:var(--devnotice-card-title);margin-bottom:10px;letter-spacing:0.01em;">Dữ liệu hạn chế</h3>
+        <p style="font-size:13px;font-weight:300;line-height:1.75;color:var(--devnotice-card-desc);">Toàn bộ dự án — từ kiến trúc đến dữ liệu huấn luyện — được <strong style="color:var(--devnotice-card-strong);font-weight:500;">một người xây dựng và thu thập từ đầu</strong>. Nguồn thông tin vì vậy chắc chắn chưa đủ rộng và toàn diện.</p>
+      </div>
+
+      <div class="devnotice-card devnotice-card--warning glass-panel glass-content" style="padding:24px;border-radius:18px;background:var(--devnotice-card3-bg);border:1px solid var(--devnotice-card3-border);position:relative;overflow:hidden;box-shadow:var(--devnotice-card3-shadow);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--devnotice-card3-line),transparent);"></div>
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--devnotice-card3-icon-bg);border:1px solid var(--devnotice-card3-icon-border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--devnotice-card3-icon-border)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3 style="font-size:14px;font-weight:600;color:var(--devnotice-card3-title);margin-bottom:10px;letter-spacing:0.01em;">Hallucination nặng ⚠️</h3>
+        <p style="font-size:13px;font-weight:300;line-height:1.75;color:var(--devnotice-card3-desc);">Hiện tượng ảo giác xảy ra <strong style="color:var(--devnotice-card3-strong);font-weight:600;">rất thường xuyên</strong>. <strong style="color:var(--devnotice-card3-strong);font-weight:600;">Tuyệt đối không tin tưởng</strong> thông tin do SAI đưa ra mà không tự kiểm chứng lại từ nguồn đáng tin cậy khác.</p>
+      </div>
+
+    </div>
+
+    <div class="reveal reveal-delay-3" style="width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--devnotice-divider),transparent);margin:0 auto 40px;"></div>
+
+    <p class="reveal reveal-delay-3" style="font-size:16px;font-weight:300;line-height:1.9;color:var(--devnotice-thanks-color);margin-bottom:36px;max-width:580px;margin-left:auto;margin-right:auto;">
+      Cảm ơn bạn đã dành thời gian trải nghiệm SAI. Mọi phản hồi và góp ý đều được trân trọng — đừng ngại liên hệ qua Facebook bên dưới.
+    </p>
+
+    <div class="reveal reveal-delay-4">
+      <a href="https://facebook.com/sai.nidai" target="_blank" rel="noopener" class="glass-control"
+        id="fb-link"
+        style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:100px;font-family:var(--font);font-size:14px;font-weight:600;color:var(--devnotice-fb-color);background:var(--devnotice-fb-bg);border:1px solid var(--devnotice-fb-border);text-decoration:none;transition:transform 0.2s,box-shadow 0.3s;box-shadow:var(--devnotice-fb-shadow);letter-spacing:0.03em;"
+        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--devnotice-fb-shadow-hover)';"
+        onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='var(--devnotice-fb-shadow)';">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Facebook
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SAI</div>
+  <div class="footer-copy">© 2025 Nidai. Mọi quyền được bảo lưu.</div>
+</footer>
+
+<script src="landing.js"></script>
+</body>
+</html>

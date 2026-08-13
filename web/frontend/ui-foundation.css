@@ -1,0 +1,75 @@
+/* Shared material recipes. Theme palettes supply RGB channels only. */
+:root {
+  --glass-blur-action: 8px;
+  --glass-blur-content: 6px;
+  --glass-blur-control: 12px;
+  --glass-blur-banner: 10px;
+  --glass-blur-bubble: 12px;
+  --glass-blur-quote: 16px;
+  --glass-blur-panel: 20px;
+  --glass-blur-elevated: 24px;
+  --glass-blur-island: 28px;
+  --glass-saturation-panel: 1.4;
+  --glass-saturation-elevated: 1.5;
+  --glass-saturation-island: 1.6;
+}
+
+.glass-action {
+  backdrop-filter: blur(var(--glass-blur-action)) saturate(var(--glass-saturation-panel));
+  -webkit-backdrop-filter: blur(var(--glass-blur-action)) saturate(var(--glass-saturation-panel));
+}
+
+.glass-control {
+  backdrop-filter: blur(var(--glass-blur-control));
+  -webkit-backdrop-filter: blur(var(--glass-blur-control));
+}
+
+.glass-banner {
+  backdrop-filter: blur(var(--glass-blur-banner));
+  -webkit-backdrop-filter: blur(var(--glass-blur-banner));
+}
+
+.glass-bubble {
+  backdrop-filter: blur(var(--glass-blur-bubble));
+  -webkit-backdrop-filter: blur(var(--glass-blur-bubble));
+}
+
+.glass-quote {
+  backdrop-filter: blur(var(--glass-blur-quote));
+  -webkit-backdrop-filter: blur(var(--glass-blur-quote));
+}
+
+.glass-panel {
+  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+}
+
+.glass-elevated {
+  backdrop-filter: blur(var(--glass-blur-elevated)) saturate(var(--glass-saturation-elevated));
+  -webkit-backdrop-filter: blur(var(--glass-blur-elevated)) saturate(var(--glass-saturation-elevated));
+}
+
+.glass-island {
+  backdrop-filter: blur(var(--glass-blur-island)) saturate(var(--glass-saturation-island));
+  -webkit-backdrop-filter: blur(var(--glass-blur-island)) saturate(var(--glass-saturation-island));
+}
+
+/* Content glass keeps small point-cloud particles legible through the surface. */
+.glass-content {
+  backdrop-filter: blur(var(--glass-blur-content)) saturate(var(--glass-saturation-panel));
+  -webkit-backdrop-filter: blur(var(--glass-blur-content)) saturate(var(--glass-saturation-panel));
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-action,
+  .glass-control,
+  .glass-banner,
+  .glass-bubble,
+  .glass-quote,
+  .glass-panel,
+  .glass-elevated,
+  .glass-island,
+  .glass-content {
+    isolation: isolate;
+  }
+}

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SAI — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080b10;
+  --surface:#0d1117;
+  --surface2:#111720;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.1);
+  --text:#e2e8f0;
+  --muted:rgba(226,232,240,0.35);
+  --mid:rgba(226,232,240,0.6);
+  /* web = cyan */
+  --web:#22d3ee;
+  --web-dim:rgba(34,211,238,0.12);
+  --web-border:rgba(34,211,238,0.2);
+  /* ai = amber */
+  --ai:#f59e0b;
+  --ai-dim:rgba(245,158,11,0.12);
+  --ai-border:rgba(245,158,11,0.2);
+  /* status */
+  --ok:#10b981;
+  --warn:#f59e0b;
+  --danger:#ef4444;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+  --display:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── SCAN LINES overlay ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+}
+
+/* ── AUTH ── */
+#auth-overlay{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);
+}
+.auth-box{
+  width:340px;padding:48px 40px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  position:relative;
+}
+.auth-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--web),var(--ai));
+}
+.auth-logo{
+  font-family:var(--display);font-size:42px;font-weight:800;letter-spacing:-0.02em;
+  color:var(--text);margin-bottom:4px;
+}
+.auth-sub{
+  font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.12em;
+  text-transform:uppercase;margin-bottom:32px;
+}
+.auth-box input{
+  width:100%;padding:10px 14px;
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--text);font-family:var(--mono);font-size:13px;outline:none;
+  margin-bottom:10px;transition:border-color .2s;
+}
+.auth-box input:focus{border-color:rgba(34,211,238,0.4);}
+.auth-box input::placeholder{color:var(--muted);}
+.auth-btn{
+  width:100%;padding:11px;
+  background:transparent;border:1px solid var(--web-border);
+  color:var(--web);font-family:var(--mono);font-size:12px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.auth-btn:hover{background:var(--web-dim);}
+.auth-err{color:var(--danger);font-family:var(--mono);font-size:11px;margin-top:10px;min-height:16px;}
+
+/* ── APP ── */
+#app{display:none;position:relative;z-index:1}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:200px;z-index:100;
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:0;
+}
+.sb-logo{
+  padding:24px 20px 20px;
+  font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-0.02em;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.sb-logo span{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.sb-section{
+  padding:20px 12px 8px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.sb-section.web-section{color:var(--web);opacity:.7}
+.sb-section.ai-section{color:var(--ai);opacity:.7}
+.sb-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;margin:1px 4px;
+  font-family:var(--mono);font-size:12px;color:var(--mid);
+  cursor:pointer;border-radius:4px;transition:background .15s,color .15s;
+  border:1px solid transparent;
+  user-select:none;
+}
+.sb-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+.sb-item.active.web{background:var(--web-dim);color:var(--web);border-color:var(--web-border);}
+.sb-item.active.ai{background:var(--ai-dim);color:var(--ai);border-color:var(--ai-border);}
+.sb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.web .sb-dot{background:var(--web);}
+.ai .sb-dot{background:var(--ai);}
+.sb-bottom{
+  margin-top:auto;padding:16px;border-top:1px solid var(--border);
+}
+.day-sel{
+  width:100%;padding:7px 10px;
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--mid);font-family:var(--mono);font-size:11px;
+  outline:none;cursor:pointer;
+}
+.refresh-btn{
+  width:100%;margin-top:8px;padding:7px;
+  background:transparent;border:1px solid var(--border2);
+  color:var(--muted);font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.refresh-btn:hover{color:var(--text);border-color:var(--border2);}
+.live-indicator{
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+  font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--ok);
+  animation:pulse 2s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── MAIN ── */
+#main{margin-left:200px;min-height:100vh;}
+.page{display:none;padding:32px 36px;}
+.page.active{display:block;}
+
+/* ── PAGE HEADER ── */
+.ph{margin-bottom:28px;}
+.ph-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.ph-eyebrow.web{color:var(--web);opacity:.8;}
+.ph-eyebrow.ai{color:var(--ai);opacity:.8;}
+.ph-title{font-family:var(--display);font-size:28px;font-weight:700;letter-spacing:-.02em;}
+
+/* ── KPI GRID ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:24px;}
+.kpi{
+  padding:18px 20px;
+  background:var(--surface);border:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.kpi::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+}
+.kpi.web::after{background:var(--web);opacity:.3;}
+.kpi.ai::after{background:var(--ai);opacity:.3;}
+.kpi-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.kpi-val{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1;}
+.kpi-val.web{color:var(--web);}
+.kpi-val.ai{color:var(--ai);}
+.kpi-val.ok{color:var(--ok);}
+.kpi-val.danger{color:var(--danger);}
+.kpi-val.warn{color:var(--warn);}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:8px;font-family:var(--mono);}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:960px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* ── CARD ── */
+.card{
+  padding:20px 24px;margin-bottom:16px;
+  background:var(--surface);border:1px solid var(--border);
+  position:relative;
+}
+.card-title{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title .ct-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.card-title.web .ct-dot{background:var(--web);}
+.card-title.ai .ct-dot{background:var(--ai);}
+canvas{max-height:220px;}
+
+/* ── HEATMAP ── */
+.heatmap-wrap{overflow-x:auto;padding-bottom:4px}
+.heatmap{
+  display:grid;grid-template-columns:46px repeat(24,minmax(22px,1fr));
+  gap:2px;min-width:660px;font-size:10px;
+}
+.hm-label{color:var(--muted);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-family:var(--mono);font-size:10px;}
+.hm-hour{text-align:center;color:var(--muted);font-family:var(--mono);font-size:9px;padding-bottom:3px;}
+.hm-cell{
+  aspect-ratio:1;
+  background:rgba(255,255,255,0.03);
+  position:relative;cursor:default;transition:transform .12s;
+}
+.hm-cell:hover{transform:scale(1.3);z-index:5;}
+.hm-cell[title]:hover::after{
+  content:attr(title);position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  background:var(--surface2);border:1px solid var(--border2);
+  padding:4px 8px;white-space:nowrap;font-size:10px;pointer-events:none;z-index:10;
+  font-family:var(--mono);color:var(--text);
+}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{
+  text-align:left;padding:8px 12px;
+  color:var(--muted);font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:1px solid var(--border2);white-space:nowrap;font-weight:400;
+}
+tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+tbody tr:hover{background:rgba(255,255,255,0.025);}
+td{padding:9px 12px;white-space:nowrap;color:var(--mid);font-family:var(--mono);font-size:11px;}
+td.hi{color:var(--text);}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:2px 8px;font-family:var(--mono);font-size:10px;border-radius:2px;font-weight:500;}
+.b-ok{background:rgba(16,185,129,0.1);color:var(--ok);border:1px solid rgba(16,185,129,0.2);}
+.b-warn{background:rgba(245,158,11,0.1);color:var(--warn);border:1px solid rgba(245,158,11,0.2);}
+.b-err{background:rgba(239,68,68,0.1);color:var(--danger);border:1px solid rgba(239,68,68,0.2);}
+.b-web{background:var(--web-dim);color:var(--web);border:1px solid var(--web-border);}
+.b-ai{background:var(--ai-dim);color:var(--ai);border:1px solid var(--ai-border);}
+
+/* ── PERCENTILE BARS ── */
+.pct-rows{display:flex;flex-direction:column;gap:10px;}
+.pct-row{display:flex;align-items:center;gap:10px;}
+.pct-key{font-family:var(--mono);font-size:10px;color:var(--muted);width:30px;flex-shrink:0;}
+.pct-bar-wrap{flex:1;height:3px;background:rgba(255,255,255,0.06);}
+.pct-bar{height:100%;transition:width .7s cubic-bezier(.34,1.4,.64,1);}
+.pct-bar.web{background:var(--web);}
+.pct-bar.ai{background:var(--ai);}
+.pct-val{font-family:var(--mono);font-size:11px;color:var(--text);width:70px;text-align:right;flex-shrink:0;}
+.pct-meta{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:14px;}
+
+/* ── LOADING ── */
+.loading{color:var(--muted);font-family:var(--mono);font-size:11px;padding:32px;text-align:center;letter-spacing:.1em;}
+.loading::after{content:' ...';animation:ldots 1.2s infinite;}
+@keyframes ldots{0%,100%{opacity:.2}50%{opacity:1}}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ── LAT COLOR ── */
+.lat-ok{color:var(--ok);}
+.lat-warn{color:var(--warn);}
+.lat-slow{color:var(--danger);}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div class="auth-logo">SAI</div>
+    <div class="auth-sub">// admin dashboard</div>
+    <input type="password" id="key-input" placeholder="admin key" autocomplete="off"/>
+    <button class="auth-btn" onclick="doAuth()">XÁC NHẬN</button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sb-logo">SAI <span>/ admin</span></div>
+
+    <div class="sb-section web-section">— Web</div>
+    <div class="sb-item web active" onclick="nav('web-overview',this)">
+      <div class="sb-dot"></div>Overview
+    </div>
+    <div class="sb-item web" onclick="nav('web-latency',this)">
+      <div class="sb-dot"></div>Latency
+    </div>
+    <div class="sb-item web" onclick="nav('web-log',this)">
+      <div class="sb-dot"></div>Request Log
+    </div>
+    <div class="sb-item web" onclick="nav('web-errors',this)">
+      <div class="sb-dot"></div>Errors
+    </div>
+
+    <div class="sb-section ai-section">— AI Model</div>
+    <div class="sb-item ai" onclick="nav('ai-overview',this)">
+      <div class="sb-dot"></div>Overview
+    </div>
+    <div class="sb-item ai" onclick="nav('ai-tokens',this)">
+      <div class="sb-dot"></div>Token Stats
+    </div>
+    <div class="sb-item ai" onclick="nav('ai-requests',this)">
+      <div class="sb-dot"></div>Requests
+    </div>
+    <div class="sb-item ai" onclick="nav('ai-users',this)">
+      <div class="sb-dot"></div>Per User
+    </div>
+
+    <div class="sb-bottom">
+      <div class="live-indicator"><div class="live-dot"></div>live · 30s</div>
+      <select class="day-sel" id="day-picker" onchange="onDaysChange()">
+        <option value="1">Hôm nay</option>
+        <option value="7" selected>7 ngày</option>
+        <option value="14">14 ngày</option>
+        <option value="30">30 ngày</option>
+      </select>
+      <button class="refresh-btn" onclick="loadAll()">↻ refresh</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- ═══ WEB: OVERVIEW ═══ -->
+    <section class="page active" id="page-web-overview">
+      <div class="ph">
+        <div class="ph-eyebrow web">// web server</div>
+        <div class="ph-title">HTTP Overview</div>
+      </div>
+      <div class="kpi-grid" id="web-kpi-grid"><div class="loading">Đang tải</div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title web"><div class="ct-dot"></div>Requests / ngày</div>
+          <canvas id="chart-web-daily"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title web"><div class="ct-dot"></div>Latency trung bình / ngày</div>
+          <canvas id="chart-web-lat-daily"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title web"><div class="ct-dot"></div>Heatmap requests theo giờ</div>
+        <div class="heatmap-wrap"><div class="heatmap" id="web-heatmap"><div class="loading">Đang tải</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title web"><div class="ct-dot"></div>Top endpoints</div>
+        <div class="tbl-wrap">
+          <table id="tbl-web-paths">
+            <thead><tr><th>Path</th><th>Hits</th><th>Errors</th><th>Err%</th><th>Avg Latency</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WEB: LATENCY ═══ -->
+    <section class="page" id="page-web-latency">
+      <div class="ph">
+        <div class="ph-eyebrow web">// web server</div>
+        <div class="ph-title">HTTP Latency</div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title web"><div class="ct-dot"></div>Percentile</div>
+          <div id="web-pct-bars"><div class="loading">Đang tải</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title web"><div class="ct-dot"></div>Histogram (ms)</div>
+          <canvas id="chart-web-hist"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WEB: LOG ═══ -->
+    <section class="page" id="page-web-log">
+      <div class="ph">
+        <div class="ph-eyebrow web">// web server</div>
+        <div class="ph-title">Request Log</div>
+      </div>
+      <div class="card">
+        <div class="card-title web"><div class="ct-dot"></div>100 request gần nhất (HTTP)</div>
+        <div class="tbl-wrap">
+          <table id="tbl-web-log">
+            <thead><tr><th>#</th><th>Thời gian</th><th>Method</th><th>Path</th><th>Status</th><th>Latency</th><th>User</th><th>UA</th></tr></thead>
+            <tbody><tr><td colspan="8"><div class="loading">Đang tải</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WEB: ERRORS ═══ -->
+    <section class="page" id="page-web-errors">
+      <div class="ph">
+        <div class="ph-eyebrow web">// web server</div>
+        <div class="ph-title">Error Log</div>
+      </div>
+      <div class="card">
+        <div class="card-title web"><div class="ct-dot"></div>Lỗi HTTP gần nhất</div>
+        <div class="tbl-wrap">
+          <table id="tbl-web-errors">
+            <thead><tr><th>Thời gian</th><th>Method</th><th>Path</th><th>Status</th><th>User</th></tr></thead>
+            <tbody><tr><td colspan="5"><div class="loading">Đang tải</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ AI: OVERVIEW ═══ -->
+    <section class="page" id="page-ai-overview">
+      <div class="ph">
+        <div class="ph-eyebrow ai">// ai model</div>
+        <div class="ph-title">Model Overview</div>
+      </div>
+      <div class="kpi-grid" id="ai-kpi-grid"><div class="loading">Đang tải</div></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title ai"><div class="ct-dot"></div>Chat calls / ngày theo model</div>
+          <canvas id="chart-ai-daily"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title ai"><div class="ct-dot"></div>Latency trung bình / ngày (ms)</div>
+          <canvas id="chart-ai-lat"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ AI: TOKEN STATS ═══ -->
+    <section class="page" id="page-ai-tokens">
+      <div class="ph">
+        <div class="ph-eyebrow ai">// ai model</div>
+        <div class="ph-title">Token Statistics</div>
+      </div>
+      <div id="ai-token-model-cards"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title ai"><div class="ct-dot"></div>Phân bố tokens out (reply)</div>
+          <canvas id="chart-tok-hist"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title ai"><div class="ct-dot"></div>Phân vị latency AI (ms)</div>
+          <div id="ai-pct-bars"><div class="loading">Đang tải</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ AI: REQUESTS ═══ -->
+    <section class="page" id="page-ai-requests">
+      <div class="ph">
+        <div class="ph-eyebrow ai">// ai model</div>
+        <div class="ph-title">Chat Requests</div>
+      </div>
+      <div class="card">
+        <div class="card-title ai"><div class="ct-dot"></div>100 lượt chat gần nhất</div>
+        <div class="tbl-wrap">
+          <table id="tbl-ai-req">
+            <thead>
+              <tr>
+                <th>#</th><th>Thời gian</th><th>Model</th><th>User</th><th>Session</th>
+                <th>Tok In</th><th>Tok Out</th><th>Tok/s</th><th>Latency</th>
+                <th>Prompt (chars)</th><th>Reply (chars)</th>
+              </tr>
+            </thead>
+            <tbody><tr><td colspan="11"><div class="loading">Đang tải</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ AI: PER USER ═══ -->
+    <section class="page" id="page-ai-users">
+      <div class="ph">
+        <div class="ph-eyebrow ai">// ai model</div>
+        <div class="ph-title">Per User Activity</div>
+      </div>
+      <div class="card">
+        <div class="card-title ai"><div class="ct-dot"></div>Hoạt động theo user (top 30)</div>
+        <div class="tbl-wrap">
+          <table id="tbl-ai-users">
+            <thead>
+              <tr>
+                <th>User</th><th>Calls</th><th>Sessions</th><th>Req/Session</th>
+                <th>Tok In</th><th>Tok Out</th><th>Avg Tok/s</th>
+                <th>Avg Latency</th><th>First Seen</th><th>Last Seen</th>
+              </tr>
+            </thead>
+            <tbody><tr><td colspan="10"><div class="loading">Đang tải</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CHART.JS DEFAULTS
+══════════════════════════════════════════════════════════ */
+Chart.defaults.color='rgba(226,232,240,0.4)';
+Chart.defaults.borderColor='rgba(255,255,255,0.06)';
+Chart.defaults.font.family="'IBM Plex Mono',monospace";
+Chart.defaults.font.size=10;
+
+const WEB='rgba(34,211,238,1)';
+const WEB_BG='rgba(34,211,238,0.12)';
+const AI='rgba(245,158,11,1)';
+const AI_BG='rgba(245,158,11,0.12)';
+const PAL=[
+  'rgba(34,211,238,1)','rgba(245,158,11,1)','rgba(16,185,129,1)',
+  'rgba(168,85,247,1)','rgba(239,68,68,1)','rgba(96,165,250,1)',
+];
+const PAL_BG=PAL.map(c=>c.replace(',1)',',0.15)'));
+
+/* ══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+let ADMIN_KEY='', DAYS=7;
+const _charts={};
+
+/* ══════════════════════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════════════════════ */
+function doAuth(){
+  const k=document.getElementById('key-input').value.trim();
+  if(!k)return;
+  ADMIN_KEY=k;
+  apiFetch('/admin/api/web/overview')
+    .then(()=>{
+      document.getElementById('auth-overlay').style.display='none';
+      document.getElementById('app').style.display='block';
+      loadAll();
+    })
+    .catch(()=>{
+      document.getElementById('auth-err').textContent='✕  Key không hợp lệ.';
+      ADMIN_KEY='';
+    });
+}
+document.getElementById('key-input').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();});
+
+/* ══════════════════════════════════════════════════════════
+   API
+══════════════════════════════════════════════════════════ */
+async function apiFetch(path){
+  const sep=path.includes('?')?'&':'?';
+  const res=await fetch(path+sep+`admin_key=${encodeURIComponent(ADMIN_KEY)}&days=${DAYS}`,
+    {headers:{'X-Admin-Key':ADMIN_KEY}});
+  if(!res.ok)throw new Error(res.status);
+  return res.json();
+}
+
+/* ══════════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════════ */
+const fN=n=>(n==null||n==='')?'—':Number(n).toLocaleString('vi-VN');
+const fNd=(n,d=1)=>(n==null)?'—':Number(n).toFixed(d);
+function fLat(ms,cls='web'){
+  if(ms==null)return'—';
+  const c=ms<300?'lat-ok':ms<1500?'lat-warn':'lat-slow';
+  return`<span class="${c}">${ms.toFixed(0)} ms</span>`;
+}
+function fStatus(s){
+  const c=s<300?'b-ok':s<500?'b-warn':'b-err';
+  return`<span class="badge ${c}">${s}</span>`;
+}
+function shortUA(ua){
+  if(!ua)return'—';
+  for(const[k,v]of[['Chrome','Chrome'],['Firefox','Firefox'],['Safari','Safari'],['curl','curl'],['Python','Python']])
+    if(ua.includes(k))return v;
+  return ua.slice(0,12)+'…';
+}
+function shortId(id,n=10){return id?id.slice(0,n)+'…':'—';}
+function mkChart(id,type,data,opts={}){
+  const el=document.getElementById(id);if(!el)return;
+  if(_charts[id])_charts[id].destroy();
+  _charts[id]=new Chart(el,{type,data,options:{
+    responsive:true,
+    plugins:{legend:{labels:{color:'rgba(226,232,240,0.5)',boxWidth:10,padding:12}},...(opts.plugins||{})},
+    ...opts
+  }});
+}
+function renderPctBars(container, pct, cls='web'){
+  if(!pct||!pct.p99){
+    document.getElementById(container).innerHTML='<div class="loading" style="animation:none">Chưa đủ dữ liệu</div>';
+    return;
+  }
+  const mx=pct.p99||1;
+  document.getElementById(container).innerHTML=`
+    <div class="pct-rows">
+    ${['p50','p75','p90','p95','p99'].map(k=>`
+      <div class="pct-row">
+        <span class="pct-key">${k}</span>
+        <div class="pct-bar-wrap"><div class="pct-bar ${cls}" style="width:${(pct[k]/mx*100).toFixed(1)}%"></div></div>
+        <span class="pct-val">${pct[k]} ms</span>
+      </div>`).join('')}
+    </div>
+    <div class="pct-meta">min ${pct.min} ms · max ${pct.max} ms</div>
+  `;
+}
+
+/* ══════════════════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════════════════ */
+function nav(name, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  el.classList.add('active');
+}
+function onDaysChange(){DAYS=parseInt(document.getElementById('day-picker').value);loadAll();}
+
+/* ══════════════════════════════════════════════════════════
+   LOAD ALL
+══════════════════════════════════════════════════════════ */
+function loadAll(){
+  loadWebOverview();
+  loadWebLatency();
+  loadWebLog();
+  loadWebErrors();
+  loadAiOverview();
+  loadAiTokenStats();
+  loadAiRequests();
+  loadAiUsers();
+}
+
+/* ══════════════════════════════════════════════════════════
+   WEB — OVERVIEW
+══════════════════════════════════════════════════════════ */
+async function loadWebOverview(){
+  const[ov,daily,heatmap,paths]=await Promise.all([
+    apiFetch('/admin/api/web/overview'),
+    apiFetch('/admin/api/web/daily'),
+    apiFetch('/admin/api/web/hourly'),
+    apiFetch('/admin/api/web/top-paths'),
+  ]);
+
+  document.getElementById('web-kpi-grid').innerHTML=`
+    <div class="kpi web"><div class="kpi-label">Total Requests</div>
+      <div class="kpi-val web">${fN(ov.total_requests)}</div>
+      <div class="kpi-sub">${ov.days} ngày qua</div></div>
+    <div class="kpi web"><div class="kpi-label">Error Rate</div>
+      <div class="kpi-val ${ov.error_rate_pct>5?'danger':'ok'}">${ov.error_rate_pct}%</div>
+      <div class="kpi-sub">${fN(ov.error_requests)} lỗi</div></div>
+    <div class="kpi web"><div class="kpi-label">Avg Latency</div>
+      <div class="kpi-val web">${ov.avg_latency_ms} ms</div>
+      <div class="kpi-sub">p95 = ${ov.p95_latency_ms} ms</div></div>
+    <div class="kpi web"><div class="kpi-label">Unique Users</div>
+      <div class="kpi-val ok">${fN(ov.unique_users)}</div>
+      <div class="kpi-sub">với user_id</div></div>
+  `;
+
+  const labels=daily.data.map(d=>d.date_str.slice(5));
+  mkChart('chart-web-daily','bar',{labels,datasets:[
+    {label:'Requests',data:daily.data.map(d=>d.total),backgroundColor:WEB_BG,borderColor:WEB,borderWidth:1},
+    {label:'Errors',data:daily.data.map(d=>d.errors),backgroundColor:'rgba(239,68,68,0.12)',borderColor:'rgba(239,68,68,1)',borderWidth:1},
+  ]},{scales:{y:{beginAtZero:true}}});
+
+  mkChart('chart-web-lat-daily','line',{labels,datasets:[
+    {label:'Avg ms',data:daily.data.map(d=>d.avg_lat?.toFixed(0)??null),borderColor:WEB,backgroundColor:WEB_BG,fill:true,tension:.4,pointRadius:2},
+  ]},{scales:{y:{beginAtZero:true}}});
+
+  // Heatmap
+  const{data:hd}=heatmap;
+  if(!hd.length){document.getElementById('web-heatmap').innerHTML='<div class="loading" style="animation:none">Chưa có dữ liệu</div>';return;}
+  const dates=[...new Set(hd.map(r=>r.date_str))].sort();
+  const byDH={};hd.forEach(r=>{(byDH[r.date_str]??={})[r.hour]=r.total;});
+  const mx=Math.max(...hd.map(r=>r.total));
+  let html='<div class="hm-label"></div>';
+  for(let h=0;h<24;h++)html+=`<div class="hm-hour">${String(h).padStart(2,'0')}</div>`;
+  dates.forEach(date=>{
+    html+=`<div class="hm-label">${date.slice(5)}</div>`;
+    for(let h=0;h<24;h++){
+      const v=byDH[date]?.[h]||0;
+      const i=mx?v/mx:0;
+      const a=.04+i*.7;
+      html+=`<div class="hm-cell" style="background:rgba(34,211,238,${a.toFixed(2)})" title="${date} ${String(h).padStart(2,'0')}:xx — ${v} reqs"></div>`;
+    }
+  });
+  document.getElementById('web-heatmap').innerHTML=html;
+
+  // Paths table
+  document.querySelector('#tbl-web-paths tbody').innerHTML=paths.data.map(r=>{
+    const ep=r.hits?(r.errors/r.hits*100).toFixed(1):'0.0';
+    return`<tr>
+      <td class="hi">${r.path}</td>
+      <td>${fN(r.hits)}</td><td>${fN(r.errors)}</td>
+      <td>${ep}%</td><td>${fLat(r.avg_lat)}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════
+   WEB — LATENCY
+══════════════════════════════════════════════════════════ */
+async function loadWebLatency(){
+  const data=await apiFetch('/admin/api/web/latency');
+  renderPctBars('web-pct-bars',data.percentiles,'web');
+  if(data.histogram?.length)
+    mkChart('chart-web-hist','bar',{
+      labels:data.histogram.map(h=>h.bucket+' ms'),
+      datasets:[{label:'requests',data:data.histogram.map(h=>h.count),backgroundColor:WEB_BG,borderColor:WEB,borderWidth:1}]
+    },{plugins:{legend:{display:false}},scales:{x:{ticks:{maxRotation:45,minRotation:45}},y:{beginAtZero:true}}});
+}
+
+/* ══════════════════════════════════════════════════════════
+   WEB — LOG & ERRORS
+══════════════════════════════════════════════════════════ */
+async function loadWebLog(){
+  const{data}=await apiFetch('/admin/api/requests/recent');
+  document.querySelector('#tbl-web-log tbody').innerHTML=data.map(r=>`<tr>
+    <td>${r.id}</td>
+    <td>${r.ts_human.slice(0,16)}</td>
+    <td><span class="badge b-web">${r.method}</span></td>
+    <td class="hi" title="${r.path}">${r.path.length>28?r.path.slice(0,28)+'…':r.path}</td>
+    <td>${fStatus(r.status_code)}</td>
+    <td>${fLat(r.latency_ms)}</td>
+    <td>${shortId(r.user_id)}</td>
+    <td>${shortUA(r.user_agent)}</td>
+  </tr>`).join('');
+}
+
+async function loadWebErrors(){
+  const{data}=await apiFetch('/admin/api/errors');
+  document.querySelector('#tbl-web-errors tbody').innerHTML=data.length
+    ?data.map(r=>`<tr>
+        <td>${r.ts_human.slice(0,16)}</td>
+        <td>${r.method||'—'}</td>
+        <td class="hi">${r.path||'—'}</td>
+        <td>${fStatus(r.status_code)}</td>
+        <td>${shortId(r.user_id)}</td>
+      </tr>`).join('')
+    :`<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--ok)">✓ Không có lỗi</td></tr>`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   AI — OVERVIEW
+══════════════════════════════════════════════════════════ */
+async function loadAiOverview(){
+  const[ov,daily]=await Promise.all([
+    apiFetch('/admin/api/ai/overview'),
+    apiFetch('/admin/api/ai/daily'),
+  ]);
+
+  const hasTokens=ov.total_tokens_out>0;
+
+  document.getElementById('ai-kpi-grid').innerHTML=`
+    <div class="kpi ai"><div class="kpi-label">Chat Calls</div>
+      <div class="kpi-val ai">${fN(ov.total_calls)}</div>
+      <div class="kpi-sub">${ov.days} ngày qua</div></div>
+    <div class="kpi ai"><div class="kpi-label">Unique Users</div>
+      <div class="kpi-val ok">${fN(ov.unique_users)}</div>
+      <div class="kpi-sub">avg ${fNd(ov.avg_req_per_user)} req/user</div></div>
+    <div class="kpi ai"><div class="kpi-label">Avg Latency</div>
+      <div class="kpi-val ai">${ov.avg_latency_ms} ms</div>
+      <div class="kpi-sub">p95 = ${ov.p95_latency_ms} ms</div></div>
+    ${hasTokens?`
+    <div class="kpi ai"><div class="kpi-label">Avg Tok In</div>
+      <div class="kpi-val ai">${fNd(ov.avg_tokens_in,0)}</div>
+      <div class="kpi-sub">total ${fN(ov.total_tokens_in)}</div></div>
+    <div class="kpi ai"><div class="kpi-label">Avg Tok Out</div>
+      <div class="kpi-val ai">${fNd(ov.avg_tokens_out,0)}</div>
+      <div class="kpi-sub">total ${fN(ov.total_tokens_out)}</div></div>
+    <div class="kpi ai"><div class="kpi-label">Avg Tok/s</div>
+      <div class="kpi-val ok">${fNd(ov.avg_tokens_per_sec,1)}</div>
+      <div class="kpi-sub">tốc độ sinh text</div></div>
+    `:``}
+  `;
+
+  const dates=[...new Set(daily.data.map(r=>r.date_str))].sort();
+  const models=[...new Set(daily.data.map(r=>r.model_name))];
+
+  mkChart('chart-ai-daily','bar',{labels:dates.map(d=>d.slice(5)),datasets:models.map((mn,i)=>({
+    label:mn,
+    data:dates.map(d=>daily.data.find(r=>r.date_str===d&&r.model_name===mn)?.calls??0),
+    backgroundColor:PAL_BG[i%PAL.length],borderColor:PAL[i%PAL.length],borderWidth:1,
+  }))},{scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}});
+
+  mkChart('chart-ai-lat','line',{labels:dates.map(d=>d.slice(5)),datasets:models.map((mn,i)=>({
+    label:mn,
+    data:dates.map(d=>daily.data.find(r=>r.date_str===d&&r.model_name===mn)?.avg_lat?.toFixed(0)??null),
+    borderColor:PAL[i%PAL.length],backgroundColor:PAL_BG[i%PAL.length],
+    fill:false,tension:.4,pointRadius:2,
+  }))},{scales:{y:{beginAtZero:true}}});
+}
+
+/* ══════════════════════════════════════════════════════════
+   AI — TOKEN STATS
+══════════════════════════════════════════════════════════ */
+async function loadAiTokenStats(){
+  const data=await apiFetch('/admin/api/ai/token-stats');
+  const hasTokens=data.by_model.some(m=>m.total_tok_out>0);
+
+  // Model cards
+  document.getElementById('ai-token-model-cards').innerHTML=`
+    <div class="kpi-grid">
+    ${data.by_model.map((m,i)=>`
+      <div class="kpi ai">
+        <div class="kpi-label">${m.model_name}</div>
+        <div class="kpi-val" style="color:${PAL[i%PAL.length]}">${fN(m.calls)} calls</div>
+        <div class="kpi-sub">
+          avg lat ${fNd(m.avg_lat,0)} ms<br>
+          ${hasTokens?`tok in ${fNd(m.avg_tok_in,0)} · out ${fNd(m.avg_tok_out,0)} · ${fNd(m.avg_tps,1)} tok/s`:`prompt ${fNd(m.avg_prompt_chars,0)} chars · reply ${fNd(m.avg_reply_chars,0)} chars`}
+        </div>
+      </div>
+    `).join('')}
+    </div>
+  `;
+
+  // Histogram tokens_out
+  if(data.tokens_out_dist?.length)
+    mkChart('chart-tok-hist','bar',{
+      labels:data.tokens_out_dist.map(h=>h.bucket),
+      datasets:[{label:'requests',data:data.tokens_out_dist.map(h=>h.count),backgroundColor:AI_BG,borderColor:AI,borderWidth:1}]
+    },{plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'tokens out',color:'rgba(226,232,240,0.4)'}},y:{beginAtZero:true}}});
+  else
+    document.getElementById('chart-tok-hist').parentElement.innerHTML+=`<div class="loading" style="animation:none;padding:20px 0">Token thực chưa được đếm — xem main.py</div>`;
+
+  // Percentile latency AI
+  renderPctBars('ai-pct-bars',data.latency_dist?.percentiles,'ai');
+}
+
+/* ══════════════════════════════════════════════════════════
+   AI — REQUESTS
+══════════════════════════════════════════════════════════ */
+async function loadAiRequests(){
+  const{data}=await apiFetch('/admin/api/ai/requests');
+  document.querySelector('#tbl-ai-req tbody').innerHTML=data.map(r=>`<tr>
+    <td>${r.id}</td>
+    <td>${r.ts_human.slice(0,16)}</td>
+    <td><span class="badge b-ai">${r.model_name||'—'}</span></td>
+    <td>${shortId(r.user_id)}</td>
+    <td>${shortId(r.session_id,8)}</td>
+    <td class="${r.tokens_in>0?'hi':''}">${r.tokens_in||'—'}</td>
+    <td class="${r.tokens_out>0?'hi':''}">${r.tokens_out||'—'}</td>
+    <td class="${r.tokens_per_sec>0?'hi':''}">${r.tokens_per_sec>0?r.tokens_per_sec.toFixed(1)+'<small> t/s</small>':'—'}</td>
+    <td>${fLat(r.latency_ms,'ai')}</td>
+    <td>${fN(r.prompt_len)}</td>
+    <td>${fN(r.reply_len)}</td>
+  </tr>`).join('');
+}
+
+/* ══════════════════════════════════════════════════════════
+   AI — PER USER
+══════════════════════════════════════════════════════════ */
+async function loadAiUsers(){
+  const{data}=await apiFetch('/admin/api/ai/per-user');
+  document.querySelector('#tbl-ai-users tbody').innerHTML=data.length
+    ?data.map(r=>`<tr>
+        <td class="hi">${shortId(r.user_id,12)}</td>
+        <td>${fN(r.calls)}</td>
+        <td>${fN(r.sessions)}</td>
+        <td>${fNd(r.req_per_session,1)}</td>
+        <td>${r.total_tok_in||'—'}</td>
+        <td>${r.total_tok_out||'—'}</td>
+        <td>${r.avg_tps>0?r.avg_tps.toFixed(1)+' t/s':'—'}</td>
+        <td>${fLat(r.avg_lat,'ai')}</td>
+        <td>${r.first_seen_h||'—'}</td>
+        <td>${r.last_seen_h||'—'}</td>
+      </tr>`).join('')
+    :`<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--muted)">Chưa có dữ liệu</td></tr>`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   AUTO REFRESH
+══════════════════════════════════════════════════════════ */
+setInterval(loadAll, 30_000);
+</script>
+</body>
+</html>
