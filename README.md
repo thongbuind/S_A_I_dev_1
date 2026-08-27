@@ -55,7 +55,7 @@ Mặc định, mô hình sinh tối đa 200 token bằng beam search với 5 bea
 
 ## Tải mô hình và chạy thử
 
-Checkpoint hiện được phát hành là **SAI_35M** tại [thongbuind/SAI_35M trên Hugging Face](https://huggingface.co/thongbuind/SAI_35M). Mô hình có thể được tải trực tiếp bằng thư viện Transformers.
+Checkpoint hiện được phát hành là **SAI_35M** và **SAI_100M** tại [thongbuind trên Hugging Face](https://huggingface.co/thongbuind). Mô hình có thể được tải trực tiếp bằng thư viện Transformers.
  
 ```bash
 pip install torch transformers accelerate sentencepiece
@@ -68,7 +68,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-model_id = "thongbuind/SAI_35M"
+model_id = "thongbuind/SAI_100M"
 
 tokenizer = AutoTokenizer.from_pretrained(
     model_id,
